@@ -19,7 +19,7 @@ flutter pub add flutter_boot
 
 
 
-## 许可
+## Apache License
 
 Copyright 2023 ymex.cn
 
