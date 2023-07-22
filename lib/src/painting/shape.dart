@@ -10,9 +10,9 @@ class TipRRectShape extends ShapeBorder {
   final BorderSide _side = BorderSide.none;
   final BorderRadiusGeometry _borderRadius = BorderRadius.zero;
 
-  double radius, triangleOffsetX, triangleWidth, triangleHeight;
+  final double radius, triangleOffsetX, triangleWidth, triangleHeight;
 
-  TipRRectShape(
+  const TipRRectShape(
       {this.radius = 10,
         this.triangleOffsetX = 20,
         this.triangleWidth = 20,
