@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.0.4
+- fix Pass static analysis WARNING
+
+
+## 0.0.3
+- 监听多状态
+- 更新README.md
+
+
 ## 0.0.2
 - 更新README.md
 

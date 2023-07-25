@@ -69,7 +69,7 @@ mixin AnHttpViewModelScope<T extends StatefulWidget> on State<T>
   late List<CancelToken> _httpRequestTokens;
 
   @override
-  void onNotifyEvent({String? message, int? what, Object? data}) {}
+  void onNotify(String message, {int? what, Object? data}) {}
 
   @override
   void initState() {

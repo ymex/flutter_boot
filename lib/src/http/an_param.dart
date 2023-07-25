@@ -11,8 +11,6 @@ class Param {
   final Map<String, String> _pathMap = <String, String>{};
   final Map<String, String> _headerMap = <String, String>{};
 
-  Param._(); //私有构造函数
-
   Param.url(this._url);
   Param.stream();
 
