@@ -39,7 +39,7 @@ class ViewModelState<T> extends ChangeNotifier implements ValueListenable<T> {
     super.notifyListeners();
   }
 
-  /// 不建议直接调用。请使用 ViewModel setModelValueState()方法。
+  /// 不建议直接调用。请使用 ViewModel setState()方法。
   @override
   void notifyListeners() {
     if (hostDispose) {
