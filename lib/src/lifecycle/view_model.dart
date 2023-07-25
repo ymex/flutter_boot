@@ -1,20 +1,38 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 
 import '../http/an_http.dart';
 import '../http/an_param.dart';
 import 'view_model_scope.dart';
 
-/// 主动状态通知
-/// 无法手动创建，仅通过LiveViewModel 的 ModelValue() 方法新建。
-class ModelValueNotifier<T> extends ValueNotifier<T> {
-  bool hostDispose = false;
-  bool unSafe = false;
+typedef ViewModelStateCallBack<T> = void Function(T value);
 
-  ModelValueNotifier._(super.value);
+class ViewModelState<T> extends ChangeNotifier implements ValueListenable<T> {
+
+  ViewModelState._(this._value, {bool notify = false}) {
+    if (notify) {
+      notifyListeners();
+    }
+  }
+
+  bool hostDispose = false;
+
+  @override
+  T get value => _value;
+
+  T _value;
+
+  set value(T newValue) {
+    if (_value == newValue) {
+      return;
+    }
+    _value = newValue;
+    // 为增加更新的可控制性，要主动去调用
+    // notifyListeners();
+  }
 
   /// 通知更新
-  void _setState<V>(ModelValueCallBack<V> fn) {
+  void _setState<V>(ViewModelStateCallBack<V> fn) {
     if (hostDispose) {
       return;
     }
@@ -25,14 +43,15 @@ class ModelValueNotifier<T> extends ValueNotifier<T> {
   /// 不建议直接调用。请使用 ViewModel setModelValueState()方法。
   @override
   void notifyListeners() {
-    if(hostDispose){
+    if (hostDispose) {
       return;
     }
     super.notifyListeners();
   }
-}
 
-typedef ModelValueCallBack<T> = void Function(T value);
+  @override
+  String toString() => '$this->value:($value)';
+}
 
 /// Live ViewModel
 class LiveViewModel<S extends ViewModelScope> {
@@ -41,24 +60,22 @@ class LiveViewModel<S extends ViewModelScope> {
 
   LiveViewModel(this._scope);
 
-  /// 创建ModelValueNotifier，这是一个方法，仅看起来像类。
-  ModelValueNotifier<T?> ModelValue<T>({T? value}) {
-    var valueNotifier = ModelValueNotifier._(value);
-    _scope.putModelValueNotifier(valueNotifier);
+  /// 创建 ViewModelState
+  ViewModelState<T> createState<T>(T value, {bool notify = false}) {
+    var valueNotifier = ViewModelState._(value, notify: notify);
+    _scope.putViewModelStateNotifier(valueNotifier);
     return valueNotifier;
   }
 
-  void setState(VoidCallback fn) {
+  void setScopeState(VoidCallback fn) {
     _scope.setState(fn);
   }
 
-  void setModelValueState<T>(ModelValueNotifier valueNotifier, ModelValueCallBack<T> fn) {
-    valueNotifier._setState(fn);
+  void setState<T>(ViewModelState valueNotifier, ViewModelStateCallBack<T> fn) {
+    valueNotifier._setState<T>(fn);
   }
 
-  void onWidgetRendered(){
-
-  }
+  void onWidgetRendered() {}
 
   /// 组件的state 一般都定义为私有的。只能间接使用，事件通知回调。
   void sendNoticeEvent({int? what, String? message, Object? data}) {

@@ -8,7 +8,7 @@ import '../http/an_http.dart';
 import '../http/an_param.dart';
 
 mixin ViewModelScope<T extends StatefulWidget> on State<T> {
-  late List<ModelValueNotifier> _notifiers;
+  late List<ViewModelState> _notifiers;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ mixin ViewModelScope<T extends StatefulWidget> on State<T> {
   /// data 携带的数据
   void onNoticeEvent({String? message, int? what, Object? data}) {}
 
-  FutureOr<void> onRendered(BuildContext context);
+  FutureOr<void> onRendered(BuildContext context){}
 }
 
 extension ViewModelScopeExtension on ViewModelScope {
@@ -56,7 +56,7 @@ extension ViewModelScopeExtension on ViewModelScope {
   }
 
   //管理
-  void putModelValueNotifier(ModelValueNotifier valueNotifier) {
+  void putViewModelStateNotifier(ViewModelState valueNotifier) {
     _notifiers.add(valueNotifier);
   }
 }
@@ -65,7 +65,7 @@ extension ViewModelScopeExtension on ViewModelScope {
 mixin AnHttpViewModelScope<T extends StatefulWidget> on State<T>
     implements ViewModelScope<T> {
   @override
-  late List<ModelValueNotifier> _notifiers;
+  late List<ViewModelState> _notifiers;
   late List<CancelToken> _httpRequestTokens;
 
   @override

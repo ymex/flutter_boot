@@ -1,18 +1,29 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_boot/src/lifecycle/view_model.dart';
 
+typedef ViewModelStateWidgetBuilder = Widget Function(
+    BuildContext context, Widget? child);
 
-typedef ViewModelValueWidgetBuilder<T> = Widget Function(
+typedef ViewModelSingleStateWidgetBuilder<T> = Widget Function(
     BuildContext context, T value, Widget? child);
 
+class ViewModelStateBuilder extends ListenableBuilder {
+  ViewModelStateBuilder(
+      {super.key,
+      required List<ViewModelState> state,
+      required ViewModelStateWidgetBuilder builder,
+      Widget? child})
+      : super(
+            listenable: Listenable.merge(state),
+            builder: builder,
+            child: child);
+}
 
-/// 仅继承ValueListenableBuilder
-/// 关于多数据源是否需要还有待思考 。目前情况，若遇多数据源可以把源合并。
-class ViewModelBuilder<T> extends ValueListenableBuilder<T> {
-  const ViewModelBuilder({
+class ViewModelSingleStateBuilder<T> extends ValueListenableBuilder<T> {
+  const ViewModelSingleStateBuilder({
     super.key,
-    required ModelValueNotifier<T> source,
-    required ViewModelValueWidgetBuilder<T> builder,
+    required ViewModelState<T> state,
+    required ViewModelSingleStateWidgetBuilder<T> builder,
     Widget? child,
-  }) : super(valueListenable: source, builder: builder, child: child);
+  }) : super(valueListenable: state, builder: builder, child: child);
 }
