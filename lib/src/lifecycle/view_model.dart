@@ -74,11 +74,8 @@ class LiveViewModel<S extends ViewModelScope> {
     valueNotifier._setState<T>(fn);
   }
 
-  void onWidgetRendered() {}
-
-  /// 组件的state 一般都定义为私有的。只能间接使用，事件通知回调。
-  void sendNoticeEvent({int? what, String? message, Object? data}) {
-    _scope.onNoticeEvent(what: what, message: message, data: data);
+  void sendNotify(String message, {int? what, Object? data}) {
+    _scope.onNotify(message, what: what, data: data);
   }
 }
 
