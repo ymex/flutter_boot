@@ -1,5 +1,5 @@
 name: flutter_boot
-description: flutter rapid development lib.
+description: Libraries that enable rapid development of Flutter, the current implementation of the ViewModel framework layer, lifecycle aware network request encapsulation, and common convenient methods。
 version: 0.0.4
 homepage: https://github.com/ymex/flutter_boot
 
