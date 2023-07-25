@@ -34,12 +34,11 @@ mixin ViewModelScope<T extends StatefulWidget> on State<T> {
   /// data 携带的数据
   void onNoticeEvent({String? message, int? what, Object? data}) {}
 
-  FutureOr<void> onRendered(BuildContext context){}
+  FutureOr<void> onRendered(BuildContext context) {}
 }
 
 extension ViewModelScopeExtension on ViewModelScope {
   void _viewModelScopeInitState() {
-
     WidgetsBinding.instance.endOfFrame.then(
       (_) {
         if (mounted) onRendered(context);
@@ -85,9 +84,9 @@ mixin AnHttpViewModelScope<T extends StatefulWidget> on State<T>
     _anHttpScopeDispose();
     super.dispose();
   }
+
   @override
-  FutureOr<void> onRendered(BuildContext context) {
-  }
+  FutureOr<void> onRendered(BuildContext context) {}
 }
 
 /////////////////////////////////////////extension//////////////////////////////

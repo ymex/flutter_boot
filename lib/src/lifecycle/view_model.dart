@@ -8,7 +8,6 @@ import 'view_model_scope.dart';
 typedef ViewModelStateCallBack<T> = void Function(T value);
 
 class ViewModelState<T> extends ChangeNotifier implements ValueListenable<T> {
-
   ViewModelState._(this._value, {bool notify = false}) {
     if (notify) {
       notifyListeners();

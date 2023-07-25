@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+
 import 'package:flutter_boot/src/lifecycle/view_model.dart';
 
 typedef ViewModelStateWidgetBuilder = Widget Function(
