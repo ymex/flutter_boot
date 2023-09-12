@@ -19,7 +19,7 @@ typedef ResponseConvert<T> = T Function(Response<Map<String,dynamic>> value);
 typedef JsonObjectConvertor<T> = T Function(Map<String, dynamic> value);
 typedef JsonArrayConvertor<T> = List<T> Function(List<dynamic> value);
 
-/// 封装 Dio
+/// 封装 Dio 用于http网络请求
 class AnHttp {
   /// 连接超时时间 单位：秒
   static const _connectTimeout = Duration(seconds: 60);

@@ -79,24 +79,23 @@ class LiveViewModel<S extends ViewModelScope> {
   }
 }
 
-/// todo 待思考 ，请求状态 加载中... 加载出错...是否需要。
 class HttpViewModel<S extends AnHttpViewModelScope> extends LiveViewModel<S> {
   HttpViewModel(S scope) : super(scope);
 
-  Future<Response<T>> anRawHttp<T>(Param param,
+  Future<Response<T>> anHttpRaw<T>(Param param,
       {HttpMethodType method = HttpMethodType.post}) {
-    return _scope.anRawHttp(param, method: method);
+    return _scope.anHttpRaw(param, method: method);
   }
 
-  Future<T> anValueHttp<T>(Param param,
+  Future<T> anHttp<T>(Param param,
       {required JsonObjectConvertor<T> convertor,
       HttpMethodType method = HttpMethodType.post}) async {
-    return _scope.anValueHttp(param, method: method, convertor: convertor);
+    return _scope.anHttp(param, method: method, convertor: convertor);
   }
 
-  Future<List<T>> anArrayHttp<T>(Param param,
+  Future<List<T>> anHttpArray<T>(Param param,
       {required JsonArrayConvertor<T> convertor,
       HttpMethodType method = HttpMethodType.post}) async {
-    return _scope.anArrayHttp(param, method: method, convertor: convertor);
+    return _scope.anHttpArray(param, method: method, convertor: convertor);
   }
 }

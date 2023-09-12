@@ -111,7 +111,7 @@ extension AnHttpViewModelScopeExtension on AnHttpViewModelScope {
   }
 
   /// dio 原始返回类型 请求
-  Future<Response<T>> anRawHttp<T>(Param param,
+  Future<Response<T>> anHttpRaw<T>(Param param,
       {HttpMethodType method = HttpMethodType.post}) {
     var cancelToken = HttpRequestToken();
     putHttpRequestToken(cancelToken);
@@ -121,7 +121,7 @@ extension AnHttpViewModelScopeExtension on AnHttpViewModelScope {
 
   /// http请求， 用于返回值是Object的请求。
   /// convert 数据类型转换器。
-  Future<T> anValueHttp<T>(Param param,
+  Future<T> anHttp<T>(Param param,
       {required JsonObjectConvertor<T> convertor,
       HttpMethodType method = HttpMethodType.post}) async {
     var cancelToken = HttpRequestToken();
@@ -133,7 +133,7 @@ extension AnHttpViewModelScopeExtension on AnHttpViewModelScope {
 
   /// http请求， 用于返回值是数组的请求。
   /// convert 数据类型转换器。
-  Future<List<T>> anArrayHttp<T>(Param param,
+  Future<List<T>> anHttpArray<T>(Param param,
       {required JsonArrayConvertor<T> convertor,
       HttpMethodType method = HttpMethodType.post}) async {
     var cancelToken = HttpRequestToken();
