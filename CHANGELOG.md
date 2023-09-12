@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.0.5
+- Rename the anHttp's method name  
+
 ## 0.0.4
 - fix Pass static analysis WARNING
 
