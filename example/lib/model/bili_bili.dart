@@ -14,4 +14,9 @@ class BiliBili {
   factory BiliBili.fromJson(Map<String, dynamic> json) => _$BiliBiliFromJson(json);
 
   Map<String, dynamic> toJson() => _$BiliBiliToJson(this);
+
+  @override
+  String toString() {
+    return 'BiliBili{name: $name, label: $label, list: $list}';
+  }
 }
