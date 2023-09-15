@@ -19,6 +19,8 @@ class _BaseHttpPageState extends State<BaseHttpPage> {
 
   var textController = TextEditingController(text: "厚德载物");
   var wordsTip = "";
+  var recordCount = 0;
+
   void _searchWords() async{
     var words = textController.text;
     //词语查询
@@ -50,13 +52,16 @@ class _BaseHttpPageState extends State<BaseHttpPage> {
 
 
     //网络请求
-    AnHttp.anHttp(param, method: HttpMethodType.get).then((value) {
+    AnHttp.anHttp<String>(param, method: HttpMethodType.get).then((value) {
+
       var jsonMap = jsonDecode(value.data!);
       var bili = BaseModel<BiliBili>.fromJson(
           jsonMap, (json) => BiliBili.fromJson(json));
+
       if (bili.data != null) {
-        print('数据量：${bili.data?.list.length}');
-        print('数据量：${bili.data}');
+        setState(() {
+          recordCount = bili.data?.list.length??0;
+        });
       }
     }).catchError((err) {
       print("------err:${err}");
@@ -89,7 +94,8 @@ class _BaseHttpPageState extends State<BaseHttpPage> {
               ),
               Center(
                   child: OutlinedButton(
-                      onPressed: _clickRequest, child: Text("哔哩哔哩每周必看")))
+                      onPressed: _clickRequest, child: Text("哔哩哔哩每周必看"))),
+              Text("记录数量：${recordCount}")
             ],
           ),
         ),
