@@ -12,7 +12,7 @@ class Param {
   final Map<String, String> _headerMap = <String, String>{};
 
   Param.url(this._url);
-  Param.stream();
+  // Param.stream();
 
   Map<String, String>? queryMap(){
     if(_queryMap.isEmpty) return null;
@@ -36,6 +36,8 @@ class Param {
     return _bodyMap;
   }
 
+  /// 参数绑定
+  /// [type]为发起网络请求时，参数所在的载体位置。默认为body 参数。
   Param tie(String key, dynamic value, {ParamType type = ParamType.body}) {
     switch (type) {
       case ParamType.body:

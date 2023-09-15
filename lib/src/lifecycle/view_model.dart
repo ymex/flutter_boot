@@ -83,19 +83,36 @@ class HttpViewModel<S extends AnHttpViewModelScope> extends LiveViewModel<S> {
   HttpViewModel(S scope) : super(scope);
 
   Future<Response<T>> anHttpRaw<T>(Param param,
-      {HttpMethodType method = HttpMethodType.post}) {
-    return _scope.anHttpRaw(param, method: method);
+      {HttpMethodType method = HttpMethodType.post,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) {
+    return _scope.anHttpRaw<T>(param,
+        method: method,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress);
   }
 
   Future<T> anHttp<T>(Param param,
       {required JsonObjectConvertor<T> convertor,
-      HttpMethodType method = HttpMethodType.post}) async {
-    return _scope.anHttp(param, method: method, convertor: convertor);
+      HttpMethodType method = HttpMethodType.post,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) async {
+    return _scope.anHttp<T>(param,
+        method: method,
+        convertor: convertor,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress);
   }
 
   Future<List<T>> anHttpArray<T>(Param param,
       {required JsonArrayConvertor<T> convertor,
-      HttpMethodType method = HttpMethodType.post}) async {
-    return _scope.anHttpArray(param, method: method, convertor: convertor);
+      HttpMethodType method = HttpMethodType.post,
+      ProgressCallback? onSendProgress,
+      ProgressCallback? onReceiveProgress}) async {
+    return _scope.anHttpArray<T>(param,
+        method: method,
+        convertor: convertor,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress);
   }
 }
