@@ -109,14 +109,14 @@ extension AnHttpViewModelScopeExtension on AnHttpViewModelScope {
   }
 
   /// dio 原始返回类型 请求
-  Future<Response<T>> anHttpRaw<T>(Param param,
+  Future<Response<T>> anHttp<T>(Param param,
       {HttpMethodType method = HttpMethodType.post,
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) {
     var cancelToken = HttpRequestToken();
     putHttpRequestToken(cancelToken);
 
-    return AnHttp.anHttpRaw<T>(param,
+    return AnHttp.anHttp<T>(param,
         method: method,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
@@ -128,7 +128,7 @@ extension AnHttpViewModelScopeExtension on AnHttpViewModelScope {
 
   /// http请求， 用于返回值是Object的请求。
   /// convert 数据类型转换器。
-  Future<T> anHttp<T>(Param param,
+  Future<T> anHttpJson<T>(Param param,
       {required JsonObjectConvertor<T> convertor,
       HttpMethodType method = HttpMethodType.post,
       ProgressCallback? onSendProgress,
@@ -136,16 +136,21 @@ extension AnHttpViewModelScopeExtension on AnHttpViewModelScope {
     var cancelToken = HttpRequestToken();
     putHttpRequestToken(cancelToken);
 
-    var response = await AnHttp.anHttpRaw<Map<String, dynamic>>(param,
-        method: method,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress);
+    // var response = await AnHttp.anHttp<Map<String, dynamic>>(param,
+    //     method: method,
+    //     cancelToken: cancelToken,
+    //     onSendProgress: onSendProgress,
+    //     onReceiveProgress: onReceiveProgress);
 
     // var response = await AnHttp.instance.request<Map<String, dynamic>>(param,
     //     method: method, cancelToken: cancelToken);
 
-    return convertor(response.data!);
+    // return convertor(response.data!);
+    var response = await AnHttp.anHttpJson<T>(param,  convertor: convertor,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress);
+    return response;
   }
 
   /// http请求， 用于返回值是数组的请求。
@@ -161,11 +166,19 @@ extension AnHttpViewModelScopeExtension on AnHttpViewModelScope {
     putHttpRequestToken(cancelToken);
     // var response = await AnHttp.instance.request<List<dynamic>>(param,
     //     method: method, cancelToken: cancelToken);
-    var response = await AnHttp.anHttpRaw<List<dynamic>>(param,
-        method: method,
+
+    // var response = await AnHttp.anHttp<List<dynamic>>(param,
+    //     method: method,
+    //     cancelToken: cancelToken,
+    //     onSendProgress: onSendProgress,
+    //     onReceiveProgress: onReceiveProgress);
+    // return convertor(response.data!);
+
+    var response = await AnHttp.anHttpArray<T>(param,
+        convertor: convertor,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
-    return convertor(response.data!);
+    return response;
   }
 }

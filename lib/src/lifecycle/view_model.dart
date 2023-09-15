@@ -82,22 +82,22 @@ class LiveViewModel<S extends ViewModelScope> {
 class HttpViewModel<S extends AnHttpViewModelScope> extends LiveViewModel<S> {
   HttpViewModel(S scope) : super(scope);
 
-  Future<Response<T>> anHttpRaw<T>(Param param,
+  Future<Response<T>> anHttp<T>(Param param,
       {HttpMethodType method = HttpMethodType.post,
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) {
-    return _scope.anHttpRaw<T>(param,
+    return _scope.anHttp<T>(param,
         method: method,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
   }
 
-  Future<T> anHttp<T>(Param param,
+  Future<T> anHttpJson<T>(Param param,
       {required JsonObjectConvertor<T> convertor,
       HttpMethodType method = HttpMethodType.post,
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) async {
-    return _scope.anHttp<T>(param,
+    return _scope.anHttpJson<T>(param,
         method: method,
         convertor: convertor,
         onSendProgress: onSendProgress,

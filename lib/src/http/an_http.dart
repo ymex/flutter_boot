@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -25,8 +27,8 @@ class AnHttp {
 
   /// 响应超时时间 单位：秒
   static const _receiveTimeout = Duration(seconds: 60);
-  late Dio _dio;
 
+  late Dio _dio;
   late ResponseConvert? responseConvert;
 
   AnHttp._() {
@@ -76,7 +78,7 @@ class AnHttp {
     //pathMap
     var url = param.url;
     param.pathMap()?.forEach((key, value) {
-      url = url.replaceFirst("{$key}", value);
+      url = url.replaceFirst("{$key}", value.toString());
     });
     // var cancelToken = CancelToken();
     // handle?.put(cancelToken);
@@ -84,7 +86,9 @@ class AnHttp {
         data: dataParam,
         queryParameters: param.queryMap(),
         options: option,
-        cancelToken: cancelToken);
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+        onSendProgress: onSendProgress);
   }
 
   static Options checkOptions(String method, Options? options) {
@@ -112,8 +116,20 @@ class AnHttp {
     }
   }
 
+  /// 禁用日志拦截器
+  static void forbiddenLogInterceptor() {
+    AnHttp.instance
+        .dio()
+        .interceptors
+        .removeWhere((element) => element is LogInterceptor);
+  }
+
+  static void addLogInterceptor(LogInterceptor logInterceptor) {
+    AnHttp.instance.dio().interceptors.add(logInterceptor);
+  }
+
   /// dio 原始返回类型 请求
-  static Future<Response<T>> anHttpRaw<T>(Param param,
+  static Future<Response<T>> anHttp<T>(Param param,
       {HttpMethodType method = HttpMethodType.post,
       HttpRequestToken? cancelToken,
       ProgressCallback? onSendProgress,
@@ -127,17 +143,23 @@ class AnHttp {
 
   /// http请求， 用于返回值是Object的请求。
   /// convert 数据类型转换器。
-  static Future<T> anHttp<T>(Param param,
+  static Future<T> anHttpJson<T>(Param param,
       {required JsonObjectConvertor<T> convertor,
       HttpMethodType method = HttpMethodType.post,
       HttpRequestToken? cancelToken,
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) async {
-    var response = await AnHttp.instance.request<Map<String, dynamic>>(param,
+    /// Response Headers Content-Type: application/json 时 dio 会把结果转为Map<String,dynamic>类型，
+    /// 而Content-Type: text/html; charset=UTF-8时会把结果转为String 类型。
+    // var response = await AnHttp.instance.request<Map<String,dynamic>>(param,
+    var response = await AnHttp.instance.request<dynamic>(param,
         method: method,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onSendProgress);
+    if (response.data.runtimeType == String) {
+      return convertor(jsonDecode(response.data!));
+    }
     return convertor(response.data!);
   }
 
@@ -149,11 +171,14 @@ class AnHttp {
       HttpRequestToken? cancelToken,
       ProgressCallback? onSendProgress,
       ProgressCallback? onReceiveProgress}) async {
-    var response = await AnHttp.instance.request<List<dynamic>>(param,
+    var response = await AnHttp.instance.request<dynamic>(param,
         method: method,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onSendProgress);
+    if (response.data.runtimeType == String) {
+      return convertor(jsonDecode(response.data!));
+    }
     return convertor(response.data!);
   }
 }

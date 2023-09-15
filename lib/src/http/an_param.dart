@@ -2,19 +2,19 @@ enum ParamType { form, body, query, path, header }
 /// 请求参数封装，简化请求
 class Param {
   String _url = "";
-  get url {
+  String get url {
     return _url;
   }
   final Map<String, dynamic> _formMap = <String, dynamic>{};
   final Map<String, dynamic> _bodyMap = <String, dynamic>{};
-  final Map<String, String> _queryMap = <String, String>{};
-  final Map<String, String> _pathMap = <String, String>{};
+  final Map<String, dynamic> _queryMap = <String, dynamic>{};
+  final Map<String, dynamic> _pathMap = <String, dynamic>{};
   final Map<String, String> _headerMap = <String, String>{};
 
   Param.url(this._url);
   // Param.stream();
 
-  Map<String, String>? queryMap(){
+  Map<String, dynamic>? queryMap(){
     if(_queryMap.isEmpty) return null;
     return _queryMap;
   }
@@ -23,7 +23,7 @@ class Param {
     if(_headerMap.isEmpty) return null;
     return _headerMap;
   }
-  Map<String, String>? pathMap(){
+  Map<String, dynamic>? pathMap(){
     if(_pathMap.isEmpty) return null;
     return _pathMap;
   }
