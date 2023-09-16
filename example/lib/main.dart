@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:example/http_view_model_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_boot/kits.dart';
 
 import 'base_http_page.dart';
 import 'live_view_model_page.dart';
 
 void main() {
+
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -16,6 +20,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    ///     --------------   systemEnabledUiMode
+    systemEnabledUiMode(mode: SystemUiMode.edgeToEdge,);
+    SystemUiOverlayStyle systemUiOverlayStyle =  SystemUiOverlayStyle.light.copyWith(
+      statusBarColor:  Colors.transparent, //状态栏颜色
+      systemNavigationBarColor:Colors.transparent, //导航栏颜色
+      systemNavigationBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -49,14 +63,36 @@ class _MainPageState extends State<MainPage> {
         const LiveViewModelPage(title: "LiveViewModel")),
     ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
         const HttpViewModelPage(title: "Model-View-Intent")),
+    ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
+    ItemAction("LiveViewModel", "观察多个状态变化，主动最小单位刷新",
+        const LiveViewModelPage(title: "LiveViewModel")),
+    ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
+        const HttpViewModelPage(title: "Model-View-Intent")),
+    ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
+    ItemAction("LiveViewModel", "观察多个状态变化，主动最小单位刷新",
+        const LiveViewModelPage(title: "LiveViewModel")),
+    ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
+        const HttpViewModelPage(title: "Model-View-Intent")),
+    ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
+    ItemAction("LiveViewModel", "观察多个状态变化，主动最小单位刷新",
+        const LiveViewModelPage(title: "LiveViewModel")),
+    ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
+        const HttpViewModelPage(title: "Model-View-Intent")),
+    ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
+    ItemAction("LiveViewModel", "观察多个状态变化，主动最小单位刷新",
+        const LiveViewModelPage(title: "LiveViewModel")),
+    ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
+        const HttpViewModelPage(title: "Model-View-Intent")),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("FLUTTER_BOOT"),
-      ),
+
+      // appBar: AppBar(
+      //
+      //   title: const Text("FLUTTER_BOOT"),
+      // ),
       body: ListView.separated(
           itemCount: items.length,
           separatorBuilder: (context, index) {
