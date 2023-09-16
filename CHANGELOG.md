@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.0.6
+- Param 方法优化及优化
+- 修复 AnHttp 响应数据类型转换错误
+- LiveViewModel 方法调整
+
 ## 0.0.5
 - Rename the anHttp's method name  
 

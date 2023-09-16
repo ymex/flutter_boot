@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../http/an_http.dart';
-import '../http/an_param.dart';
+import 'package:flutter_boot/src/http/an_http.dart';
+import 'package:flutter_boot/src/http/an_param.dart';
 import 'view_model_scope.dart';
 
 /// value 上一次的值
