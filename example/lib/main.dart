@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:example/http_view_model_page.dart';
 import 'package:flutter/material.dart';
 
 import 'base_http_page.dart';
@@ -46,8 +47,8 @@ class _MainPageState extends State<MainPage> {
     ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
     ItemAction("LiveViewModel", "观察多个状态变化，主动最小单位刷新",
         const LiveViewModelPage(title: "LiveViewModel")),
-    ItemAction("HttpViewModel", "http+LiveViewModel感知组件生命周期。页面销毁时结束组件内的网络请求。",
-        const LiveViewModelPage(title: "HttpViewModel")),
+    ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
+        const HttpViewModelPage(title: "Model-View-Intent")),
   ];
 
   @override

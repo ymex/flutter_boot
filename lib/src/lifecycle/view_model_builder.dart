@@ -18,6 +18,8 @@ class ViewModelStateBuilder extends ListenableBuilder {
             listenable: Listenable.merge(state),
             builder: builder,
             child: child);
+
+
 }
 
 class ViewModelSingleStateBuilder<T> extends ValueListenableBuilder<T> {

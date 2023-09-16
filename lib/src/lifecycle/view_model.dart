@@ -5,6 +5,7 @@ import '../http/an_http.dart';
 import '../http/an_param.dart';
 import 'view_model_scope.dart';
 
+/// value 上一次的值
 typedef ViewModelStateCallBack<T> = void Function(T value);
 
 class ViewModelState<T> extends ChangeNotifier implements ValueListenable<T> {
@@ -36,7 +37,7 @@ class ViewModelState<T> extends ChangeNotifier implements ValueListenable<T> {
       return;
     }
     fn(value as V);
-    super.notifyListeners();
+    this.notifyListeners();
   }
 
   /// 不建议直接调用。请使用 ViewModel setState()方法。
@@ -60,6 +61,7 @@ class LiveViewModel<S extends ViewModelScope> {
   LiveViewModel(this._scope);
 
   /// 创建 ViewModelState
+  /// notify 创建时是否更新状态
   ViewModelState<T> createState<T>(T value, {bool notify = false}) {
     var valueNotifier = ViewModelState._(value, notify: notify);
     _scope.putViewModelStateNotifier(valueNotifier);
