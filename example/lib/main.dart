@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     systemEnabledUiMode(mode: SystemUiMode.manual,overlays: [SystemUiOverlay.top]).then((value){
-      SystemUiOverlayStyle systemUiOverlayStyle =  SystemUiOverlayStyle.light.copyWith(
+      SystemUiOverlayStyle style =  SystemUiOverlayStyle.light.copyWith(
         statusBarColor:  Colors.transparent, //状态栏颜色
         systemNavigationBarColor:Colors.transparent, //导航栏颜色
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark,
       );
-      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+      systemUIOverlayStyle(style);
     });
 
     return MaterialApp(
