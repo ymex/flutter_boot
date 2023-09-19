@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:example/hint_page.dart';
 import 'package:example/http_view_model_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,6 +64,7 @@ class _MainPageState extends State<MainPage> {
         const LiveViewModelPage(title: "LiveViewModel")),
     ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
         const HttpViewModelPage(title: "Model-View-Intent")),
+    ItemAction("Toast & Dialog", "Toast & Dialog", const HintPage(title: "Toast & Dialog",))
   ];
 
   @override
