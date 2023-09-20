@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boot/widget.dart';
 
-class HintPage extends StatefulWidget {
+class HintToastDialogPage extends StatefulWidget {
   final String title;
 
-  const HintPage({super.key, required this.title});
+  const HintToastDialogPage({super.key, required this.title});
 
   @override
-  State<HintPage> createState() => _HintPageState();
+  State<HintToastDialogPage> createState() => _HintPageState();
 }
 
-class _HintPageState extends State<HintPage> {
+class _HintPageState extends State<HintToastDialogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,7 @@
 # CHANGELOG
+## 0.0.8
+- 增加toast 和 loading dialog
+- 删除Dot组件
 
 ## 0.0.7
 - 优化

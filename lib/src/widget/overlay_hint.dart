@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_boot/src/widget/overlay_tier.dart';
 
@@ -10,18 +12,19 @@ class SimpleToastWidget extends StatelessWidget {
   final String message;
   final Alignment alignment;
   final EdgeInsets margin;
+  final bool passTouch;
 
-  const SimpleToastWidget({
-    super.key,
-    required this.message,
-    this.alignment = Alignment.bottomCenter,
-    this.margin = _defMargin,
-  });
+  const SimpleToastWidget(
+      {super.key,
+      required this.message,
+      this.alignment = Alignment.bottomCenter,
+      this.margin = _defMargin,
+      this.passTouch = true});
 
   @override
   Widget build(BuildContext context) {
-    return AbsorbPointer(
-      absorbing: true,
+    return IgnorePointer(
+      ignoring: passTouch,
       child: Stack(
         children: [
           Positioned(
@@ -52,14 +55,34 @@ class SimpleToastWidget extends StatelessWidget {
 }
 
 class SimpleLoadingDialog extends StatelessWidget {
-  const SimpleLoadingDialog({super.key});
+  final bool passTouch;
+  final Color maskColor;
+  final Color frameColor;
+  final TextStyle textStyle;
+  final Color progressColor;
+  final String message;
+  final double progressSize;
+
+  static const _maskColor = Color(0x55000000);
+  static const _textStyle = TextStyle(
+      color: Colors.white, fontSize: 13, decoration: TextDecoration.none);
+
+  const SimpleLoadingDialog(
+      {super.key,
+      this.message = "loading...",
+      this.passTouch = false,
+      this.maskColor = _maskColor,
+      this.frameColor = _maskColor,
+      this.textStyle = _textStyle,
+      this.progressSize = 28,
+      this.progressColor = Colors.white});
 
   @override
   Widget build(BuildContext context) {
-    return AbsorbPointer(
-      absorbing: true,
+    return IgnorePointer(
+      ignoring: passTouch,
       child: ColoredBox(
-        color: Color(0x55000000),
+        color: maskColor,
         child: Stack(
           children: [
             Positioned(
@@ -71,24 +94,27 @@ class SimpleLoadingDialog extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 16, horizontal: 16),
                       decoration: BoxDecoration(
-                          color: Color(0xbb000000),
+                          color: frameColor,
                           borderRadius: BorderRadius.circular(24)),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-
-                        CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
-                        SizedBox(height: 10,),
-                        const Text(
-                          "加载中...",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              decoration: TextDecoration.none),
-                        )
-                      ],)),
+                          SizedBox(
+                            height: progressSize,
+                            width: progressSize,
+                            child: CircularProgressIndicator(
+                              color: progressColor,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            message,
+                            style: textStyle,
+                          )
+                        ],
+                      )),
                 ),
               ),
             )
@@ -98,8 +124,6 @@ class SimpleLoadingDialog extends StatelessWidget {
     );
   }
 }
-
-
 
 mixin HintOverlay<T extends StatefulWidget> on State<T> {
   OverlayTier? _toastTier;
@@ -119,16 +143,6 @@ mixin HintOverlay<T extends StatefulWidget> on State<T> {
     super.dispose();
   }
 
-  void _showLoading(Widget widget){
-    if(_loadingTier!=null && _loadingTier!.isShowing){
-      return;
-    }
-    _loadingTier?.dismiss();
-    _loadingTier = OverlayTier(builder: (_){
-      return widget;
-    });
-    _loadingTier?.show(context);
-  }
 
   void _toastWidget(Widget widget, {int duration = 2}) {
     _toastTier?.dismiss();
@@ -179,7 +193,18 @@ mixin HintOverlay<T extends StatefulWidget> on State<T> {
         duration: duration);
   }
 
-  void loadingWidget(Widget widget){
+  void _showLoading(Widget widget) {
+    if (_loadingTier != null && _loadingTier!.isShowing) {
+      return;
+    }
+    _loadingTier?.dismiss();
+    _loadingTier = OverlayTier(builder: (_) {
+      return widget;
+    });
+    _loadingTier?.show(context);
+  }
+
+  void loadingWidget(Widget widget) {
     _showLoading(widget);
   }
 

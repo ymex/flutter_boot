@@ -1,15 +1,14 @@
 
-助力Flutter快速开发的库、目前实现ViewModel框架层、生命周期感知的网络请求封装及常用便捷方法。
+Flutter MVI 快速开发实现库。
 
 ## 功能
 * MVI
 * 网络请求，基于Dio 封装，生命周期感知。
 * LiveViewModel 。
 * 常用工具 ，便捷方法拓展。
-* 功能性组件
+* 组件
   * LayoutOnCreated ：首次渲染完成回调
-* 外观组件
-  * Dot 小圆点
+  * Toast & LoadingDialog 基于OverlayTier实现
 
 ## 开始
 
