@@ -16,7 +16,7 @@ class HttpViewModelPage extends StatefulWidget {
 }
 
 class _HttpViewModelPageState extends State<HttpViewModelPage>
-    with AnHttpViewModelScope<HttpViewModelPage> {
+    with HttpViewModelScope<HttpViewModelPage> {
   //自定义 RefreshIndicatorState 类型的 Key
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey();
 

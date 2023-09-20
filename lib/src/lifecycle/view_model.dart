@@ -81,7 +81,7 @@ class LiveViewModel<S extends ViewModelScope> {
   }
 }
 
-class HttpViewModel<S extends AnHttpViewModelScope> extends LiveViewModel<S> {
+class HttpViewModel<S extends HttpViewModelScope> extends LiveViewModel<S> {
   HttpViewModel(S scope) : super(scope);
 
   Future<Response<T>> anHttp<T>(Param param,

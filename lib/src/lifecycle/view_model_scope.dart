@@ -60,7 +60,7 @@ extension ViewModelScopeExtension on ViewModelScope {
 }
 
 /// 用于请求管理，当页面关闭时结束 请求
-mixin AnHttpViewModelScope<T extends StatefulWidget> on State<T>
+mixin HttpViewModelScope<T extends StatefulWidget> on State<T>
     implements ViewModelScope<T> {
   @override
   late List<ViewModelState> _notifiers;
@@ -90,7 +90,7 @@ mixin AnHttpViewModelScope<T extends StatefulWidget> on State<T>
 
 /////////////////////////////////////////extension//////////////////////////////
 
-extension AnHttpViewModelScopeExtension on AnHttpViewModelScope {
+extension HttpViewModelScopeExtension on HttpViewModelScope {
   void _anHttpScopeInitState() {
     _httpRequestTokens = [];
   }
