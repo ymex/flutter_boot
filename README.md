@@ -12,7 +12,7 @@ Flutter MVI 快速开发实现库。
 
 
 <br><br><br><br> 
-<img src="https://github.com/ymex/flutter_boot/blob/main/example/assets/demo_home.png" width="360px">
+<img src="https://raw.githubusercontent.com/ymex/flutter_boot/main/example/assets/demo_home.png" width="360px">
 
 
 ## 开始
