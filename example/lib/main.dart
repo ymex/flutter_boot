@@ -5,6 +5,7 @@ import 'package:example/http_view_model_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boot/kits.dart';
+import 'package:flutter_boot/lifecycle.dart';
 
 import 'base_http_page.dart';
 import 'live_view_model_page.dart';
@@ -57,7 +58,7 @@ class ItemAction {
   ItemAction(this.title, this.des, this.page);
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with ActionViewModelScope{
   var items = [
     ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
     ItemAction("LiveViewModel", "观察多个状态变化，主动最小单位刷新",

@@ -15,6 +15,7 @@ class HttpPageViewModel extends HttpViewModel {
   var currentPage = 1;
 
   void loadBiliBili({Param? query}) async {
+    loading();
     //哔哩哔哩每周必看
     var param = Param.url("https://tenapi.cn/v2/{id}")
         .merge(query)
@@ -44,7 +45,7 @@ class HttpPageViewModel extends HttpViewModel {
       /// 但是，
       /// 你可以使用sendNotify()向视图层发送通知，在视图层重载onNotify()方法处理通知。
       sendNotify("网络请求成功",what: 10,data: result);
-
+      dismissLoading();
     });
   }
 }

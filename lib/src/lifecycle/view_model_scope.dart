@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_boot/src/lifecycle/view_model.dart';
 import 'package:flutter_boot/src/http/an_http.dart';
 import 'package:flutter_boot/src/http/an_param.dart';
+import 'package:flutter_boot/widget.dart';
 
+/////////////////////////////////////////ViewModelScope//////////////////////////////
 mixin ViewModelScope<T extends StatefulWidget> on State<T> {
   late List<ViewModelState> _notifiers;
 
@@ -13,11 +15,6 @@ mixin ViewModelScope<T extends StatefulWidget> on State<T> {
   void initState() {
     _viewModelScopeInitState();
     super.initState();
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
   }
 
   /// 关闭页面后，请求取消。
@@ -59,19 +56,148 @@ extension ViewModelScopeExtension on ViewModelScope {
   }
 }
 
-/// 用于请求管理，当页面关闭时结束 请求
-mixin HttpViewModelScope<T extends StatefulWidget> on State<T>
+/////////////////////////////////////////ActionViewModelScope//////////////////////////////
+/// UI 状态管理
+mixin ActionViewModelScope<T extends StatefulWidget> on State<T>
     implements ViewModelScope<T> {
   @override
   late List<ViewModelState> _notifiers;
-  late List<CancelToken> _httpRequestTokens;
+  OverlayTier? _toastTier;
+  OverlayTier? _loadingTier;
+
+  @override
+  void initState() {
+    _viewModelScopeInitState();
+    _actionScopeInitState();
+    super.initState();
+  }
+
+  /// 关闭页面后，请求取消。
+  @override
+  void dispose() {
+    _viewModelScopeDispose();
+    _actionScopeDispose();
+    super.dispose();
+  }
 
   @override
   void onNotify(String message, {int? what, Object? data}) {}
 
   @override
+  FutureOr<void> onRendered(BuildContext context) {}
+
+  void toast(
+    String message, {
+    int duration = 2,
+    ToastAlignment alignment = ToastAlignment.bottom,
+    Widget? widget,
+  }) {
+    _toast(
+        message: message,
+        duration: duration,
+        alignment: alignment,
+        widget: widget);
+  }
+
+  void loading({Widget? widget}) {
+    _showLoading(widget ?? const SimpleLoadingDialog());
+  }
+
+  void dismissLoading() {
+    _dismissLoading();
+  }
+}
+
+extension ActionViewModelScopeExtension on ActionViewModelScope {
+  void _actionScopeInitState() {}
+
+  void _actionScopeDispose() {
+    _toastTier?.dismiss();
+    _loadingTier?.dismiss();
+    _toastTier = null;
+    _loadingTier = null;
+  }
+
+  void _showLoading(Widget widget) {
+    if (_loadingTier != null && _loadingTier!.isShowing) {
+      return;
+    }
+    _loadingTier?.dismiss();
+    _loadingTier = OverlayTier(builder: (_) {
+      return widget;
+    });
+    _loadingTier?.show(context);
+  }
+
+  /// toast
+  /// [message] 提醒的文字
+  /// [duration] 显示的时长，单位秒
+  /// [alignment] 显示的位置
+  /// [margin] 边距
+  void _toast(
+      {Widget? widget,
+      String? message,
+      int duration = 2,
+      ToastAlignment alignment = ToastAlignment.bottom}) {
+    if (widget == null) {
+      var marginBottom = 0.0;
+      var marginTop = 0.0;
+      Alignment posAlignment;
+      if (alignment == ToastAlignment.bottom) {
+        marginBottom = MediaQuery.of(context).size.height / 7;
+        posAlignment = Alignment.bottomCenter;
+      } else if (alignment == ToastAlignment.top) {
+        marginTop = MediaQuery.of(context).size.height / 7;
+        posAlignment = Alignment.topCenter;
+      } else {
+        posAlignment = Alignment.center;
+      }
+      var tw = SimpleToastWidget(
+          message: message ?? "",
+          alignment: posAlignment,
+          margin: EdgeInsets.only(
+              left: 16, right: 16, top: marginTop, bottom: marginBottom));
+      _toastWidget(tw, duration: duration);
+      return;
+    }
+    _toastWidget(widget, duration: duration);
+  }
+
+  void _toastWidget(Widget widget, {int duration = 2}) {
+    _toastTier?.dismiss();
+
+    _toastTier = OverlayTier(
+      duration: Duration(seconds: duration),
+      opaque: false, //不透明
+      builder: (_) {
+        return Material(type: MaterialType.transparency, child: widget);
+      },
+    );
+    _toastTier?.show(context);
+  }
+
+  void _dismissLoading() {
+    _loadingTier?.dismiss();
+  }
+}
+
+/////////////////////////////////////////HttpViewModelScope//////////////////////////////
+
+/// 用于请求管理，当页面关闭时结束 请求
+mixin HttpViewModelScope<T extends StatefulWidget> on State<T>
+    implements ActionViewModelScope<T> {
+  @override
+  late List<ViewModelState> _notifiers;
+  @override
+  OverlayTier? _toastTier;
+  @override
+  OverlayTier? _loadingTier;
+  late List<CancelToken> _httpRequestTokens;
+
+  @override
   void initState() {
     _viewModelScopeInitState();
+    _actionScopeInitState();
     _anHttpScopeInitState();
     super.initState();
   }
@@ -80,12 +206,41 @@ mixin HttpViewModelScope<T extends StatefulWidget> on State<T>
   @override
   void dispose() {
     _viewModelScopeDispose();
+    _actionScopeDispose();
     _anHttpScopeDispose();
     super.dispose();
   }
 
   @override
+  void onNotify(String message, {int? what, Object? data}) {}
+
+  @override
   FutureOr<void> onRendered(BuildContext context) {}
+
+  //--------action
+  @override
+  void toast(
+    String message, {
+    int duration = 2,
+    ToastAlignment alignment = ToastAlignment.bottom,
+    Widget? widget,
+  }) {
+    _toast(
+        message: message,
+        duration: duration,
+        alignment: alignment,
+        widget: widget);
+  }
+
+  @override
+  void loading({Widget? widget}) {
+    _showLoading(widget ?? const SimpleLoadingDialog());
+  }
+
+  @override
+  void dismissLoading() {
+    _dismissLoading();
+  }
 }
 
 /////////////////////////////////////////extension//////////////////////////////
@@ -146,7 +301,8 @@ extension HttpViewModelScopeExtension on HttpViewModelScope {
     //     method: method, cancelToken: cancelToken);
 
     // return convertor(response.data!);
-    var response = await AnHttp.anHttpJson<T>(param,  convertor: convertor,
+    var response = await AnHttp.anHttpJson<T>(param,
+        convertor: convertor,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);

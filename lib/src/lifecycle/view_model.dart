@@ -1,13 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter_boot/src/http/an_http.dart';
 import 'package:flutter_boot/src/http/an_param.dart';
+import 'package:flutter_boot/widget.dart';
 import 'view_model_scope.dart';
 
 /// value 上一次的值
 typedef ViewModelStateCallBack<T> = void Function(T value);
 
+/// 状态值
 class ViewModelState<T> extends ChangeNotifier implements ValueListenable<T> {
   ViewModelState._(this._value, {bool notify = false}) {
     if (notify) {
@@ -81,7 +84,34 @@ class LiveViewModel<S extends ViewModelScope> {
   }
 }
 
-class HttpViewModel<S extends HttpViewModelScope> extends LiveViewModel<S> {
+/// Action ViewModel
+class ActionViewModel<S extends ActionViewModelScope> extends LiveViewModel<S> {
+  ActionViewModel(super.scope);
+
+  @override
+  void toast(
+    String message, {
+    int duration = 2,
+    ToastAlignment alignment = ToastAlignment.bottom,
+    Widget? widget,
+  }) {
+    _scope.toast(message,
+        duration: duration, alignment: alignment, widget: widget);
+  }
+
+  @override
+  void loading({Widget? widget}) {
+    _scope.loading(widget: widget);
+  }
+
+  @override
+  void dismissLoading() {
+    _scope.dismissLoading();
+  }
+}
+
+/// Http ViewModel
+class HttpViewModel<S extends HttpViewModelScope> extends ActionViewModel<S> {
   HttpViewModel(S scope) : super(scope);
 
   Future<Response<T>> anHttp<T>(Param param,

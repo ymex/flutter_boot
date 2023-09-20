@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boot/lifecycle.dart';
 import 'package:flutter_boot/widget.dart';
 
 class HintToastDialogPage extends StatefulWidget {
@@ -30,7 +31,7 @@ class OverLayView extends StatefulWidget {
   State<OverLayView> createState() => _OverLayViewState();
 }
 
-class _OverLayViewState extends State<OverLayView> with HintOverlay {
+class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,6 +41,8 @@ class _OverLayViewState extends State<OverLayView> with HintOverlay {
       ),
     );
   }
+
+
 
   Column buildColumn() {
     return Column(
