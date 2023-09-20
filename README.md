@@ -10,6 +10,8 @@ Flutter MVI 快速开发实现库。
   * LayoutOnCreated ：首次渲染完成回调
   * Toast & LoadingDialog 基于OverlayTier实现
 
+![image](example/assets/demo_home.png)
+
 ## 开始
 
 ```shell
