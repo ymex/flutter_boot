@@ -17,6 +17,11 @@ mixin ViewModelScope<T extends StatefulWidget> on State<T> {
     super.initState();
   }
 
+  @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+  }
+
   /// 关闭页面后，请求取消。
   @override
   void dispose() {

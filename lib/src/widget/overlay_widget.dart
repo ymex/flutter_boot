@@ -20,8 +20,7 @@ class _SimpleToastWidget extends StatelessWidget {
   final bool passTouch;
 
   const _SimpleToastWidget(
-      {super.key,
-      required this.message,
+      {required this.message,
       this.alignment = Alignment.bottomCenter,
       this.margin = _defMargin,
       this.passTouch = true});
@@ -69,8 +68,7 @@ class _SimpleLoadingDialog extends StatelessWidget {
   final double progressSize;
 
   const _SimpleLoadingDialog(
-      {super.key,
-      this.message = "loading...",
+      {this.message = "loading...",
       this.passTouch = false,
       this.maskColor = OverlayConst.maskColor,
       this.frameColor = OverlayConst.maskColor,
@@ -129,6 +127,7 @@ class _SimpleLoadingDialog extends StatelessWidget {
 Widget buildDefToastOverlay(BuildContext context,
     {String? message,
     int duration = 2,
+    bool passTouch = true,
     ToastAlignment alignment = ToastAlignment.bottom}) {
   var marginBottom = 0.0;
   var marginTop = 0.0;
@@ -145,6 +144,7 @@ Widget buildDefToastOverlay(BuildContext context,
 
   return _SimpleToastWidget(
       message: message ?? "",
+      passTouch: passTouch,
       alignment: posAlignment,
       margin: EdgeInsets.only(
           left: 16, right: 16, top: marginTop, bottom: marginBottom));
