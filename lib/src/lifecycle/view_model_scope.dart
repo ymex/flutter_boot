@@ -63,6 +63,7 @@ mixin ActionViewModelScope<T extends StatefulWidget> on State<T>
   @override
   late List<ViewModelState> _notifiers;
   OverlayTier? _toastTier;
+
   OverlayTier? _loadingTier;
 
   @override
@@ -100,7 +101,7 @@ mixin ActionViewModelScope<T extends StatefulWidget> on State<T>
   }
 
   void loading({Widget? widget}) {
-    _showLoading(widget ?? const SimpleLoadingDialog());
+    _showLoading(widget);
   }
 
   void dismissLoading() {
@@ -109,7 +110,10 @@ mixin ActionViewModelScope<T extends StatefulWidget> on State<T>
 }
 
 extension ActionViewModelScopeExtension on ActionViewModelScope {
-  void _actionScopeInitState() {}
+  void _actionScopeInitState() {
+    _toastTier = OverlayTier();
+    _loadingTier = OverlayTier();
+  }
 
   void _actionScopeDispose() {
     _toastTier?.dismiss();
@@ -118,15 +122,9 @@ extension ActionViewModelScopeExtension on ActionViewModelScope {
     _loadingTier = null;
   }
 
-  void _showLoading(Widget widget) {
-    if (_loadingTier != null && _loadingTier!.isShowing) {
-      return;
-    }
-    _loadingTier?.dismiss();
-    _loadingTier = OverlayTier(builder: (_) {
-      return widget;
-    });
-    _loadingTier?.show(context);
+  void _showLoading(Widget? widget) {
+    _loadingTier?.show(context, widget ?? buildDefLoadingOverlay(context),
+        replace: false);
   }
 
   /// toast
@@ -140,23 +138,8 @@ extension ActionViewModelScopeExtension on ActionViewModelScope {
       int duration = 2,
       ToastAlignment alignment = ToastAlignment.bottom}) {
     if (widget == null) {
-      var marginBottom = 0.0;
-      var marginTop = 0.0;
-      Alignment posAlignment;
-      if (alignment == ToastAlignment.bottom) {
-        marginBottom = MediaQuery.of(context).size.height / 7;
-        posAlignment = Alignment.bottomCenter;
-      } else if (alignment == ToastAlignment.top) {
-        marginTop = MediaQuery.of(context).size.height / 7;
-        posAlignment = Alignment.topCenter;
-      } else {
-        posAlignment = Alignment.center;
-      }
-      var tw = SimpleToastWidget(
-          message: message ?? "",
-          alignment: posAlignment,
-          margin: EdgeInsets.only(
-              left: 16, right: 16, top: marginTop, bottom: marginBottom));
+      var tw = buildDefToastOverlay(context,
+          message: message, duration: duration, alignment: alignment);
       _toastWidget(tw, duration: duration);
       return;
     }
@@ -164,16 +147,8 @@ extension ActionViewModelScopeExtension on ActionViewModelScope {
   }
 
   void _toastWidget(Widget widget, {int duration = 2}) {
-    _toastTier?.dismiss();
-
-    _toastTier = OverlayTier(
-      duration: Duration(seconds: duration),
-      opaque: false, //不透明
-      builder: (_) {
-        return Material(type: MaterialType.transparency, child: widget);
-      },
-    );
-    _toastTier?.show(context);
+    _toastTier?.show(context, widget,
+        duration: Duration(seconds: duration), opaque: false);
   }
 
   void _dismissLoading() {
@@ -234,7 +209,7 @@ mixin HttpViewModelScope<T extends StatefulWidget> on State<T>
 
   @override
   void loading({Widget? widget}) {
-    _showLoading(widget ?? const SimpleLoadingDialog());
+    _showLoading(widget);
   }
 
   @override

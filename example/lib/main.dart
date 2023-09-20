@@ -65,7 +65,7 @@ class _MainPageState extends State<MainPage> with ActionViewModelScope{
         const LiveViewModelPage(title: "LiveViewModel")),
     ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
         const HttpViewModelPage(title: "Model-View-Intent")),
-    ItemAction("Toast & Dialog", "Toast & Dialog", const HintToastDialogPage(title: "Toast & Dialog",))
+    ItemAction("TimeOverlayTier", "For Toast & Loading", const HintToastDialogPage(title: "TimeOverlayTier",))
   ];
 
   @override

@@ -32,6 +32,18 @@ class OverLayView extends StatefulWidget {
 }
 
 class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
+
+  OverlayTier? timeTier;
+  OverlayTier? timeTier2;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    timeTier?.dismiss();
+    timeTier2?.dismiss();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,14 +54,55 @@ class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
     );
   }
 
-
-
   Column buildColumn() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Toast",
+          "Time Overlay",
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Row(
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  timeTier = OverlayTier().show(
+                      context,
+                       const Stack(
+                        children: [
+                          Positioned(
+                              child: Align(
+                            alignment: Alignment.center,
+                            child: Text("2秒后消失。"),
+                          ))
+                        ],
+                      ),
+                      duration: Duration(seconds: 2),
+                      replace: false);
+                },
+                child: const Text("Toast")),
+            const Spacer(),
+            ElevatedButton(
+                onPressed: () {
+                 timeTier2 = OverlayTier()
+                      .show(context,  const Stack(
+                    children: [
+                      Positioned(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text("Loading...不消失。"),
+                          ))
+                    ],
+                  ), replace: true);
+                },
+                child: const Text("Loading")),
+          ],
+        ),
+        const Text(
+          "ActionViewModelScope Toast",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(
@@ -82,7 +135,7 @@ class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
           height: 16,
         ),
         const Text(
-          "Dialog",
+          "ActionViewModelScope Loading",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(
