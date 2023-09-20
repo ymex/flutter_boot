@@ -76,7 +76,7 @@ class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
                           Positioned(
                               child: Align(
                             alignment: Alignment.center,
-                            child: Text("2秒后消失。"),
+                            child: Text("2秒后消失。",style: TextStyle(color: Colors.red,fontSize: 20),),
                           ))
                         ],
                       ),
@@ -93,7 +93,7 @@ class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
                       Positioned(
                           child: Align(
                             alignment: Alignment.center,
-                            child: Text("Loading...不消失。"),
+                            child: Text("Loading...不消失。",style: TextStyle(color: Colors.red,fontSize: 20)),
                           ))
                     ],
                   ), replace: true);
@@ -145,7 +145,7 @@ class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
           children: [
             OutlinedButton(
                 onPressed: () {
-                  loading();
+                  showLoading();
                 },
                 child: Text("Show Loading")),
             Spacer(),

@@ -20,11 +20,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-    systemEnabledUiMode(mode: SystemUiMode.manual,overlays: [SystemUiOverlay.top]).then((value){
-      SystemUiOverlayStyle style =  SystemUiOverlayStyle.light.copyWith(
-        statusBarColor:  Colors.transparent, //状态栏颜色
-        systemNavigationBarColor:Colors.transparent, //导航栏颜色
+    systemEnabledUiMode(
+        mode: SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top]).then((value) {
+      SystemUiOverlayStyle style = SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: Colors.transparent,
+        //状态栏颜色
+        systemNavigationBarColor: Colors.transparent,
+        //导航栏颜色
         systemNavigationBarIconBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark,
@@ -58,14 +61,19 @@ class ItemAction {
   ItemAction(this.title, this.des, this.page);
 }
 
-class _MainPageState extends State<MainPage> with ActionViewModelScope{
+class _MainPageState extends State<MainPage> with ActionViewModelScope {
   var items = [
     ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
     ItemAction("LiveViewModel", "观察多个状态变化，主动最小单位刷新",
         const LiveViewModelPage(title: "LiveViewModel")),
     ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
         const HttpViewModelPage(title: "Model-View-Intent")),
-    ItemAction("TimeOverlayTier", "For Toast & Loading", const HintToastDialogPage(title: "TimeOverlayTier",))
+    ItemAction(
+        "TimeOverlayTier",
+        "For Toast & Loading",
+        const HintToastDialogPage(
+          title: "TimeOverlayTier",
+        ))
   ];
 
   @override
@@ -85,7 +93,7 @@ class _MainPageState extends State<MainPage> with ActionViewModelScope{
           },
           itemBuilder: (context, index) {
             return InkWell(
-              onTap: () {
+              onTap: () async {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return items[index].page;
                 }));

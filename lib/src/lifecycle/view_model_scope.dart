@@ -100,7 +100,7 @@ mixin ActionViewModelScope<T extends StatefulWidget> on State<T>
         widget: widget);
   }
 
-  void loading({Widget? widget}) {
+  void showLoading({Widget? widget}) {
     _showLoading(widget);
   }
 
@@ -208,7 +208,7 @@ mixin HttpViewModelScope<T extends StatefulWidget> on State<T>
   }
 
   @override
-  void loading({Widget? widget}) {
+  void showLoading({Widget? widget}) {
     _showLoading(widget);
   }
 

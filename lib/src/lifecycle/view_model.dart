@@ -88,7 +88,6 @@ class LiveViewModel<S extends ViewModelScope> {
 class ActionViewModel<S extends ActionViewModelScope> extends LiveViewModel<S> {
   ActionViewModel(super.scope);
 
-  @override
   void toast(
     String message, {
     int duration = 2,
@@ -99,12 +98,10 @@ class ActionViewModel<S extends ActionViewModelScope> extends LiveViewModel<S> {
         duration: duration, alignment: alignment, widget: widget);
   }
 
-  @override
-  void loading({Widget? widget}) {
-    _scope.loading(widget: widget);
+  void showLoading({Widget? widget}) {
+    _scope.showLoading(widget: widget);
   }
 
-  @override
   void dismissLoading() {
     _scope.dismissLoading();
   }

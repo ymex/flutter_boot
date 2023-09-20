@@ -4,11 +4,11 @@ Flutter MVI 快速开发实现库。
 ## 功能
 * MVI
 * 网络请求，基于Dio 封装，生命周期感知。
-* LiveViewModel 。
+* LiveViewModel、HttpViewModel 等
 * 常用工具 ，便捷方法拓展。
 * 组件
   * LayoutOnCreated ：首次渲染完成回调
-  * Toast & LoadingDialog 基于OverlayTier实现
+  * OverlayTier : 基于OverlayEntry的弹出层，可设置超时时间。可制作toast 与 弹框。 
 
 
 <br><br><br><br> 

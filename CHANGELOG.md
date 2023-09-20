@@ -1,4 +1,10 @@
 # CHANGELOG
+
+## 0.0.9
+- 优化结构及增加example代码。
+- 增加ActionViewModel
+- 增加组件OverlayTier
+
 ## 0.0.8
 - 增加toast 和 loading dialog
 - 删除Dot组件

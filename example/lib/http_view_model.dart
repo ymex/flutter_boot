@@ -15,7 +15,7 @@ class HttpPageViewModel extends HttpViewModel {
   var currentPage = 1;
 
   void loadBiliBili({Param? query}) async {
-    loading();
+    showLoading();
     //哔哩哔哩每周必看
     var param = Param.url("https://tenapi.cn/v2/{id}")
         .merge(query)
