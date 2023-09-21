@@ -1,28 +1,37 @@
-
 import 'package:flutter/material.dart';
 
-extension BuildContextExt on BuildContext{
-
+extension BuildContextExt on BuildContext {
   /// 屏幕宽度
-  double screenWidth(){
-    return MediaQuery.of(this).size.width;
-  }
+  double get screenWidth => MediaQuery.of(this).size.width;
 
   /// 屏幕高度
-  double screenHeight(){
-    return MediaQuery.of(this).size.height;
-  }
-
+  double get screenHeight => MediaQuery.of(this).size.height;
 
   /// 状态栏高度
-  double stateBarHeight(){
-    return  MediaQuery.of(this).padding.top;
+  double get stateBarHeight => MediaQuery.of(this).padding.top;
+
+  /// ToolBar 高度
+  double get toolBarHeight => kToolbarHeight;
+
+  /// AppBar 高度
+  double get appBarHeight => stateBarHeight + toolBarHeight;
+
+  /// 获取组件在屏幕中的坐标
+  Rect? get paintBounds {
+    final renderObject = findRenderObject();
+    final translation = renderObject?.getTransformTo(null).getTranslation();
+    if (translation != null && renderObject?.paintBounds != null) {
+      final offset = Offset(translation.x, translation.y);
+      return renderObject!.paintBounds.shift(offset);
+    } else {
+      return null;
+    }
   }
 
-
-  double appBarHeight(){
-    return kToolbarHeight;
+  /// 获取组件的宽高
+  Size? get paintBoundsSize{
+    var rect = paintBounds;
+    if(rect==null) return null;
+    return Size(rect.right - rect.left, rect.bottom - rect.top);
   }
-
-
 }
