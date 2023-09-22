@@ -1,6 +1,6 @@
 name: flutter_boot
 description: Flutter MVI rapid development implementation library.
-version: 0.0.9
+version: 0.1.0
 homepage: https://github.com/ymex/flutter_boot
 
 environment:

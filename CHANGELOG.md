@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.1.0
+- 增加BuildContext 拓展方法 
+
 ## 0.0.9
 - 优化结构及增加example代码。
 - 增加ActionViewModel
