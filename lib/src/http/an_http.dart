@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_boot/kits.dart';
 
 import 'an_param.dart';
 
@@ -48,7 +49,11 @@ class AnHttp {
     // 日志打印
     if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
-          responseHeader: false, requestBody: true, responseBody: true));
+        logPrint: (ob)=>logI(ob),
+        responseHeader: false,
+        requestBody: true,
+        responseBody: true,
+      ));
     }
   }
 
