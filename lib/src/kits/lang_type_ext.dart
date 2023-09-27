@@ -1,4 +1,3 @@
-
 extension LangBoolExt on bool {
   T truth<T>(T tv, T fv) {
     if (this) {
@@ -11,5 +10,46 @@ extension LangBoolExt on bool {
 extension LangObjectExt on Object {
   T let<T>(T Function(T v) block) {
     return block(this as T);
+  }
+}
+
+extension DateTimeExt on DateTime {
+  String _paddingZero(int num) {
+    var v = num.abs();
+    if (v < 10) {
+      return num > 0 ? '0$v' : '-0$v';
+    }
+    return "$num";
+  }
+
+  /// 格式化 yyyy-MM-dd HH:mm:ss
+  /// yyyy年
+  /// MM月 补0
+  /// dd日 补0
+  /// HH时 补0
+  /// mm分 补0
+  /// ss秒 补0
+  String format({String pattern = "yyyy-MM-dd HH:mm:ss"}) {
+    // var nf = NumberFormat("00");
+    if (pattern.contains("yyyy")) {
+      pattern = pattern.replaceFirst("yyyy", "$year");
+    }
+    if (pattern.contains("MM")) {
+      // pattern = pattern.replaceFirst("MM",nf.format(month));
+      pattern = pattern.replaceFirst("MM", _paddingZero(month));
+    }
+    if (pattern.contains("dd")) {
+      pattern = pattern.replaceFirst("dd", _paddingZero(day));
+    }
+    if (pattern.contains("HH")) {
+      pattern = pattern.replaceFirst("HH", _paddingZero(hour));
+    }
+    if (pattern.contains("mm")) {
+      pattern = pattern.replaceFirst("mm", _paddingZero(minute));
+    }
+    if (pattern.contains("ss")) {
+      pattern = pattern.replaceFirst("ss", _paddingZero(second));
+    }
+    return pattern;
   }
 }
