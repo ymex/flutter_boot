@@ -1,7 +1,12 @@
 # CHANGELOG
 
+## 0.1.1
+- 增加点击淡出效果组件
+
+
 ## 0.1.0
 - 增加BuildContext 拓展方法 
+- 优化anHttp日志打印
 
 ## 0.0.9
 - 优化结构及增加example代码。
