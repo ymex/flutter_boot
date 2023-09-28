@@ -41,8 +41,6 @@ class _FadeEffectState extends State<FadeEffect> {
   }
 }
 
-
-
 class AnimationFadeEffect extends StatefulWidget {
   final Widget child;
   final GestureTapCallback? onTap;
@@ -52,10 +50,10 @@ class AnimationFadeEffect extends StatefulWidget {
 
   const AnimationFadeEffect(
       {super.key,
-        required this.child,
-        this.onTap,
-        this.opacity = 0.6,
-        this.duration = 150});
+      required this.child,
+      this.onTap,
+      this.opacity = 0.6,
+      this.duration = 150});
 
   @override
   State<AnimationFadeEffect> createState() => _AnimationFadeEffectState();

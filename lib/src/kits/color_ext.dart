@@ -11,19 +11,16 @@ class HexColor extends Color {
   }
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
-
 }
 
-
-extension ColorStringExt on String{
-  Color color(){
+extension ColorStringExt on String {
+  Color color() {
     return HexColor(this);
   }
 }
 
-extension ColorIntExt on int{
-  Color color(){
+extension ColorIntExt on int {
+  Color color() {
     return Color(this);
   }
 }
-

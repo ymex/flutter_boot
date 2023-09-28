@@ -29,9 +29,12 @@ extension BuildContextExt on BuildContext {
   }
 
   /// 获取组件的宽高
-  Size? get paintBoundsSize{
+  Size? get paintBoundsSize {
     var rect = paintBounds;
-    if(rect==null) return null;
+    if (rect == null) return null;
     return Size(rect.right - rect.left, rect.bottom - rect.top);
   }
+
+  /// 命名路由参数
+  Object? get arguments => ModalRoute.of(this)?.settings.arguments;
 }

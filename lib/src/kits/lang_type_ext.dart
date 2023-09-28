@@ -8,16 +8,18 @@ extension LangBoolExt on bool {
 }
 
 extension LangObjectExt on Object {
-  T let<T>(T Function(T v) block) {
-    return block(this as T);
+
+  void let<T>(void Function(T v) block) {
+    block(this as T);
   }
+
 }
 
 extension DateTimeExt on DateTime {
   String _paddingZero(int num) {
     var v = num.abs();
     if (v < 10) {
-      return num > 0 ? '0$v' : '-0$v';
+      return num >= 0 ? '0$v' : '-0$v';
     }
     return "$num";
   }
@@ -29,7 +31,7 @@ extension DateTimeExt on DateTime {
   /// HH时 补0
   /// mm分 补0
   /// ss秒 补0
-  String format({String pattern = "yyyy-MM-dd HH:mm:ss"}) {
+  String format([String pattern = "yyyy-MM-dd HH:mm:ss"]) {
     // var nf = NumberFormat("00");
     if (pattern.contains("yyyy")) {
       pattern = pattern.replaceFirst("yyyy", "$year");
@@ -51,5 +53,13 @@ extension DateTimeExt on DateTime {
       pattern = pattern.replaceFirst("ss", _paddingZero(second));
     }
     return pattern;
+  }
+
+  /// 当前月份的开始日期与结束日期
+  (DateTime, DateTime) monthRange() {
+    var startMonth = DateTime(year, month, 1);
+    var endMonth =
+        DateTime(year, month + 1, 1).subtract(const Duration(days: 1));
+    return (startMonth, endMonth);
   }
 }
