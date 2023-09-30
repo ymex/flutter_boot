@@ -13,8 +13,13 @@ class LiveViewModelPage extends StatefulWidget {
 }
 
 // 混入 ViewModelScope
-class _LiveViewModelPageState extends State<LiveViewModelPage> with ViewModelScope {
-  late var viewModel = CounterViewModel(this);
+class _LiveViewModelPageState extends State<LiveViewModelPage> with ViewModelScope{
+  var viewModel = CounterViewModel();
+
+  @override
+  List<ViewModel> initViewModel() {
+    return [viewModel];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +38,10 @@ class _LiveViewModelPageState extends State<LiveViewModelPage> with ViewModelSco
             const SizedBox(
               height: 8,
             ),
-            // 可观察多个状态变化 ， 如果仅观察一个，可使用 ViewModelSingleStateBuilder
-            ViewModelStateBuilder(
+            // 可观察多个状态变化 ， 如果仅观察一个，可使用 SingleLiveDataBuilder
+            LiveDataBuilder(
               //状态，要观察的 view model 的状态
-                state: [viewModel.stateCounter],
+                observe: [viewModel.stateCounter],
                 builder: (context, child) {
                   var counterValue = viewModel.stateCounter.value;
 

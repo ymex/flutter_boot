@@ -1,6 +1,6 @@
 name: flutter_boot
-description: Flutter MVI rapid development implementation library.
-version: 0.1.2
+description: Quickly develop Flutter App's MVI framework, encapsulate Dio network requests, and convenient tools.
+version: 0.1.3
 homepage: https://github.com/ymex/flutter_boot
 
 environment:

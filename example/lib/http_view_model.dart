@@ -6,11 +6,11 @@ import 'model/base_model.dart';
 import 'model/bili_bili.dart';
 
 class HttpPageViewModel extends HttpViewModel {
-  HttpPageViewModel(super.scope);
+  HttpPageViewModel();
 
   /// 需要监听的状态
-  late ViewModelState<List<BiliBiliRecord>> recordState =
-      createState(<BiliBiliRecord>[], notify: false);
+  late LiveData<List<BiliBiliRecord>> recordState =
+      useState(<BiliBiliRecord>[], notify: false);
 
   var currentPage = 1;
 

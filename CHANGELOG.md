@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.1.3
+主要重构lifecycle 模块、类型命名更合理化。
+- 1、ViewModel 不再持用Flutter State 需要修改 引用 ViewModel的地方。
+- 2、ViewModelStateBuilder 更名为 LiveDataBuilder ， state 修改为 observe
+- 3、SingleViewModelStateBuilder 更名为 SingleLiveDataBuilder ， state 修改为 observe
+- 4、删除了HttpViewModelScope、ActionViewModelScope ，可使用ViewModelScope 替换，且需要实现initViewModel方法。
+- 5、ViewModelState 变更为 LiveData 。  ViewModelState 现在为Flutter State的抽象子类、方便自定拓展。
+
 ## 0.1.2
 - 增加DateTime拓展时间格式化
 - fix let方法

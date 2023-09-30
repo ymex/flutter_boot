@@ -31,7 +31,7 @@ class OverLayView extends StatefulWidget {
   State<OverLayView> createState() => _OverLayViewState();
 }
 
-class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
+class _OverLayViewState extends State<OverLayView> with ViewModelScope{
 
   OverlayTier? timeTier;
   OverlayTier? timeTier2;
@@ -159,4 +159,5 @@ class _OverLayViewState extends State<OverLayView> with ActionViewModelScope {
       ],
     );
   }
+
 }

@@ -61,12 +61,12 @@ class ItemAction {
   ItemAction(this.title, this.des, this.page);
 }
 
-class _MainPageState extends State<MainPage> with ActionViewModelScope {
+class _MainPageState extends State<MainPage> {
   var items = [
     ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
-    ItemAction("LiveViewModel", "观察多个状态变化，主动最小单位刷新",
+    ItemAction("LiveData", "观察多个状态变化，主动最小单位刷新",
         const LiveViewModelPage(title: "LiveViewModel")),
-    ItemAction("Model-View-Intent", "使用LiveViewModel实现MVI架构。AnHttp 对组件生命周期感知。",
+    ItemAction("Model-View-Intent", "使用ViewModel实现MVI架构及对组件生命周期感知的网络请求。",
         const HttpViewModelPage(title: "Model-View-Intent")),
     ItemAction(
         "TimeOverlayTier",

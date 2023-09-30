@@ -14,15 +14,21 @@ class HttpViewModelPage extends StatefulWidget {
   @override
   State<HttpViewModelPage> createState() => _HttpViewModelPageState();
 }
-
+/// 亦可继承 ViewModelState
 class _HttpViewModelPageState extends State<HttpViewModelPage>
-    with HttpViewModelScope<HttpViewModelPage> {
+    with ViewModelScope {
   //自定义 RefreshIndicatorState 类型的 Key
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey();
 
   //ViewModel 初始化
-  late var viewModel = HttpPageViewModel(this);
+  late var viewModel = HttpPageViewModel();
   var scrollerController = ScrollController();
+
+
+  @override
+  List<ViewModel> initViewModel() {
+    return [viewModel];
+  }
 
   @override
   void initState() {
@@ -35,7 +41,6 @@ class _HttpViewModelPageState extends State<HttpViewModelPage>
     });
   }
 
-
   @override
   FutureOr<void> onRendered(BuildContext context) {
     _refreshKey.currentState?.show();
@@ -44,7 +49,7 @@ class _HttpViewModelPageState extends State<HttpViewModelPage>
   /// 处理接收到的通知
   @override
   void onNotify(String message, {int? what, Object? data}) {
-    if(what==10){
+    if (what == 10) {
       print('收到通知：${message}  标识：${what}  数据：${data}');
     }
   }
@@ -64,8 +69,8 @@ class _HttpViewModelPageState extends State<HttpViewModelPage>
           key: _refreshKey,
           onRefresh: _onRefresh,
           // ViewModelStateBuilder 监听状态
-          child: ViewModelStateBuilder(
-              state: [viewModel.recordState],
+          child: LiveDataBuilder(
+              observe: [viewModel.recordState],
               builder: (context, child) {
                 var records = viewModel.recordState.value;
                 return ListView.separated(
