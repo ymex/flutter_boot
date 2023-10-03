@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 
 /// 二次贝塞尔曲线
@@ -6,26 +5,26 @@ import 'package:flutter/widgets.dart';
 /// http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html
 
 class TipRRectShape extends ShapeBorder {
-
   final BorderSide _side = BorderSide.none;
   final BorderRadiusGeometry _borderRadius = BorderRadius.zero;
 
   final double radius, triangleOffsetX, triangleWidth, triangleHeight;
 
-  const TipRRectShape(
-      {this.radius = 10,
-        this.triangleOffsetX = 20,
-        this.triangleWidth = 20,
-        this.triangleHeight = 10});
+  const TipRRectShape({
+    this.radius = 10,
+    this.triangleOffsetX = 20,
+    this.triangleWidth = 20,
+    this.triangleHeight = 10,
+  });
 
   @override
   EdgeInsetsGeometry get dimensions => EdgeInsets.all(_side.width);
 
   @override
   Path getInnerPath(
-      Rect rect, {
-        TextDirection? textDirection,
-      }) {
+    Rect rect, {
+    TextDirection? textDirection,
+  }) {
     final Path path = Path();
 
     path.addRRect(
@@ -70,7 +69,7 @@ class TipRRectShape extends ShapeBorder {
 
   @override
   ShapeBorder scale(double t) => RoundedRectangleBorder(
-    side: _side.scale(t),
-    borderRadius: _borderRadius * t,
-  );
+        side: _side.scale(t),
+        borderRadius: _borderRadius * t,
+      );
 }

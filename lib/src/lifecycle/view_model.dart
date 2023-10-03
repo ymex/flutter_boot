@@ -4,7 +4,6 @@ import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/widget.dart';
 import 'package:flutter_boot/lifecycle.dart';
 
-
 class ActionViewModel extends ViewModel {
   Function(
     String message, {
@@ -30,17 +29,15 @@ class ActionViewModel extends ViewModel {
   }
 
   void showLoading({Widget? widget}) {
-    if(showLoadingCall!=null) {
+    if (showLoadingCall != null) {
       showLoadingCall!(widget: widget);
     }
-
   }
 
   void dismissLoading() {
-    if(dismissLoadingCall!=null){
+    if (dismissLoadingCall != null) {
       dismissLoadingCall!();
     }
-
   }
 }
 
@@ -128,4 +125,3 @@ class HttpViewModel extends ActionViewModel {
     return response;
   }
 }
-

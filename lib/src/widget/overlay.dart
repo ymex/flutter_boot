@@ -61,7 +61,7 @@ class OverlayTier {
     bool replace = true,
   }) {
     /// 不替换且显示中则不处理
-    if(!replace && _tier != null && _tier!.isShowing){
+    if (!replace && _tier != null && _tier!.isShowing) {
       return this;
     }
 

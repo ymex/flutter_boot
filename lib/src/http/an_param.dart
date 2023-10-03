@@ -14,7 +14,6 @@ class Param {
   final Map<String, dynamic> _formMap = <String, dynamic>{};
   final Map<String, dynamic> _bodyMap = <String, dynamic>{};
 
-
   Param.url(this._url);
 
   Param.stream();
@@ -67,7 +66,6 @@ class Param {
     }
     return this;
   }
-
 
   /// 合并 Param 参数
   Param merge(Param? param) {
@@ -129,5 +127,4 @@ class Param {
     }
     return this;
   }
-
 }

@@ -17,8 +17,6 @@ class LiveDataBuilder extends ListenableBuilder {
             listenable: Listenable.merge(observe),
             builder: builder,
             child: child);
-
-
 }
 
 class SingleLiveDataBuilder<T> extends ValueListenableBuilder<T> {

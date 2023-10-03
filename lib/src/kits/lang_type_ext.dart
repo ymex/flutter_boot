@@ -8,11 +8,9 @@ extension LangBoolExt on bool {
 }
 
 extension LangObjectExt on Object {
-
   void let<T>(void Function(T v) block) {
     block(this as T);
   }
-
 }
 
 extension DateTimeExt on DateTime {

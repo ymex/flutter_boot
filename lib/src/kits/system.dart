@@ -6,8 +6,7 @@ import 'package:flutter/services.dart';
 ///样式跟随原生App
 
 void systemUiStyleLight() {
-  SystemUiOverlayStyle style =
-      SystemUiOverlayStyle.light.copyWith(
+  SystemUiOverlayStyle style = SystemUiOverlayStyle.light.copyWith(
     statusBarColor: Colors.transparent,
     //状态栏颜色
     systemNavigationBarColor: Colors.transparent,
@@ -20,8 +19,7 @@ void systemUiStyleLight() {
 }
 
 void systemUiStyleDark() {
-  SystemUiOverlayStyle style =
-      SystemUiOverlayStyle.dark.copyWith(
+  SystemUiOverlayStyle style = SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: Colors.transparent,
     systemNavigationBarColor: Colors.black,
     systemNavigationBarIconBrightness: Brightness.light,
@@ -32,11 +30,9 @@ void systemUiStyleDark() {
   systemUIOverlayStyle(style);
 }
 
-void systemUIOverlayStyle(SystemUiOverlayStyle style){
+void systemUIOverlayStyle(SystemUiOverlayStyle style) {
   SystemChrome.setSystemUIOverlayStyle(style);
 }
-
-
 
 /// 设置是否隐藏状态栏或导航栏
 /// SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);// 隐藏状态栏，底部按钮栏
@@ -77,7 +73,8 @@ Future systemEnabledUiMode(
 /// 设置屏幕方向
 /// [DeviceOrientation.portraitUp] - 竖屏
 /// [DeviceOrientation.landscapeLeft] - 横屏
-void systemScreenOrientation({required List<DeviceOrientation> orientations}) async {
+void systemScreenOrientation(
+    {required List<DeviceOrientation> orientations}) async {
   return SystemChrome.setPreferredOrientations(orientations);
 }
 
