@@ -13,7 +13,7 @@ class LiveViewModelPage extends StatefulWidget {
 }
 
 // 混入 ViewModelScope
-class _LiveViewModelPageState extends State<LiveViewModelPage> with ViewModelScope{
+class _LiveViewModelPageState extends State<LiveViewModelPage> with ViewModelStateScope{
   var viewModel = CounterViewModel();
 
   @override

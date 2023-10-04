@@ -4,11 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_boot/lifecycle.dart';
 import 'package:flutter_boot/widget.dart';
 
-mixin ViewModelScope<T extends StatefulWidget> on State<T> {
+mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
 
-  List<ViewModel> get viewModels => _viewModels;
+  /// 获取指定的ViewModel
+  V getViewModel<V extends ViewModel>({int index = 0}) {
+    return _viewModels[index] as V;
+  }
 
+  /// 初始化 ViewModel
+  /// ViewModel 仅初始化一次。
   List<ViewModel> initViewModel() {
     return [];
   }
@@ -27,7 +32,7 @@ mixin ViewModelScope<T extends StatefulWidget> on State<T> {
       },
     );
 
-    var vms = viewModels;
+    var vms = _viewModels;
     for (var vm in vms) {
       vm.stateCall = this.setState;
       vm.notifyCall = this.onNotify;
@@ -51,7 +56,7 @@ mixin ViewModelScope<T extends StatefulWidget> on State<T> {
   /// 关闭页面后，请求取消。
   @override
   void dispose() {
-    var vms = viewModels;
+    var vms = _viewModels;
     for (var vm in vms) {
       for (var liveDataItem in vm.liveDataList) {
         liveDataItem.hostDispose = true;
@@ -138,4 +143,4 @@ mixin ViewModelScope<T extends StatefulWidget> on State<T> {
 }
 
 abstract class ViewModelState<T extends StatefulWidget> extends State<T>
-    with ViewModelScope {}
+    with ViewModelStateScope {}

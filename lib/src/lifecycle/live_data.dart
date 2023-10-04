@@ -70,11 +70,13 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
 class ViewModel {
   final List<LiveData> _liveDataList = [];
   Function(VoidCallback)? _stateCall;
-  Function(String message, {int? what, Object? data})? notifyCall;
+  Function(String message, {int? what, Object? data})? _notifyCall;
 
   List<LiveData> get liveDataList => _liveDataList;
 
   set stateCall(value) => _stateCall = value;
+
+  set notifyCall(value) => _notifyCall = value;
 
   //管理
   void _putViewModelStateNotifier(LiveData liveData) {
@@ -98,6 +100,6 @@ class ViewModel {
   }
 
   void sendNotify(String message, {int? what, Object? data}) {
-    if (notifyCall != null) notifyCall!(message, what: what, data: data);
+    if (_notifyCall != null) _notifyCall!(message, what: what, data: data);
   }
 }
