@@ -29,6 +29,11 @@ class _FadeEffectState extends State<FadeEffect> {
             opacity = widget.opacity;
           });
         },
+        onTapCancel: () {
+          setState(() {
+            opacity = 1;
+          });
+        },
         onTapUp: (event) {
           setState(() {
             opacity = 1;
@@ -74,7 +79,10 @@ class _AnimationFadeEffectState extends State<AnimationFadeEffect>
         }
       },
       onTapUp: (event) {
-        _controller.reset();
+        _controller.reverse();
+      },
+      onTapCancel: () {
+        _controller.reverse();
       },
       onTapDown: (event) {
         _controller.forward();

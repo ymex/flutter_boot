@@ -12,6 +12,12 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     return _viewModels[index] as V;
   }
 
+  void vm<V extends ViewModel>({int index = 0, Function(V v)? block}) {
+    if (block != null && index >= 0 && index < _viewModels.length) {
+      block(getViewModel(index: index));
+    }
+  }
+
   /// 初始化 ViewModel
   /// ViewModel 仅初始化一次。
   List<ViewModel> initViewModel() {
