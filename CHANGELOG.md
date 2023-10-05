@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.1.4
+- 修复FadeEffect组件取消点击状态不消失问题
+- 重命名ViewModelScope -> ViewModelStateScope
+- 优化代码格式符合Dart Format
+
 ## 0.1.3
 主要重构lifecycle 模块、类型命名更合理化。
 - 1、ViewModel 不再持用Flutter State 需要修改 引用 ViewModel的地方。
