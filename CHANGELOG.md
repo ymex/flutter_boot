@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.5
+- EventBus
+- lifecycle package -> architecture
+
 ## 0.1.4
 - 修复FadeEffect组件取消点击状态不消失问题
 - 重命名ViewModelScope -> ViewModelStateScope

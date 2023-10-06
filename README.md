@@ -87,7 +87,7 @@ class _HttpViewModelPageState extends State<HttpViewModelPage>
 
   //ViewModel 初始化
   @override
-  List<ViewModel> initViewModel() {
+  List<ViewModel> useViewModels() {
     return [viewModel];
   }
   

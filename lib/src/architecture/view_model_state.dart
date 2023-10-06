@@ -1,8 +1,14 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_boot/lifecycle.dart';
+import 'package:flutter_boot/architecture.dart';
+import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/widget.dart';
+
+part 'action_view_model.dart';
+part 'event_bus_mixin.dart';
+part 'http_view_model.dart';
 
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
@@ -20,7 +26,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
 
   /// 初始化 ViewModel
   /// ViewModel 仅初始化一次。
-  List<ViewModel> initViewModel() {
+  List<ViewModel> useViewModels() {
     return [];
   }
 
@@ -30,7 +36,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     _viewModels.clear();
-    _viewModels.addAll(initViewModel());
+    _viewModels.addAll(useViewModels());
 
     WidgetsBinding.instance.endOfFrame.then(
       (_) {
@@ -42,16 +48,33 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     for (var vm in vms) {
       vm.stateCall = this.setState;
       vm.notifyCall = this.onNotify;
-      if (vm is ActionViewModel) {
-        vm.toastCall = this.toast;
-        vm.showLoadingCall = this.showLoading;
-        vm.dismissLoadingCall = this.dismissLoading;
+      if (vm is VmActionMixin) {
+        _initActionVm(vm);
+      }
+      if (vm is VmEventBusMixin) {
+        _initEventBusVm(vm);
       }
     }
 
     super.initState();
     _toastTier = OverlayTier();
     _loadingTier = OverlayTier();
+  }
+
+  void _initActionVm(VmActionMixin vm) {
+    vm._toastCall = this.toast;
+    vm._showLoadingCall = this.showLoading;
+    vm._dismissLoadingCall = this.dismissLoading;
+  }
+
+  void _initEventBusVm(VmEventBusMixin vm) {
+    vm._eventBus = vm.useEventBus();
+    vm._eventPairs = vm.useEvents();
+    if (vm._eventBus != null &&
+        vm._eventPairs != null &&
+        vm._eventPairs!.isNotEmpty) {
+      vm._registerEvents();
+    }
   }
 
   @override
@@ -69,20 +92,32 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
         liveDataItem.dispose();
       }
       vm.liveDataList.clear();
-      if (vm is HttpViewModel) {
-        for (var tokeItem in vm.httpRequestTokens) {
-          if (!tokeItem.isCancelled) {
-            tokeItem.cancel();
-          }
-        }
-        vm.httpRequestTokens.clear();
+      if (vm is VmHttpMixin) {
+        _disposeHttpVm(vm);
+      }
+      if (vm is VmEventBusMixin) {
+        _disposeEventBusVm(vm);
       }
     }
     super.dispose();
+
     _toastTier?.dismiss();
     _loadingTier?.dismiss();
     _toastTier = null;
     _loadingTier = null;
+  }
+
+  void _disposeHttpVm(VmHttpMixin vm) {
+    for (var tokeItem in vm.httpRequestTokens) {
+      if (!tokeItem.isCancelled) {
+        tokeItem.cancel();
+      }
+    }
+    vm.httpRequestTokens.clear();
+  }
+
+  void _disposeEventBusVm(VmEventBusMixin vm) {
+    vm._unregisterEvents();
   }
 
   FutureOr<void> onRendered(BuildContext context) {}

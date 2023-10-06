@@ -5,7 +5,7 @@ import 'package:example/http_view_model_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boot/kits.dart';
-import 'package:flutter_boot/lifecycle.dart';
+import 'package:flutter_boot/architecture.dart';
 
 import 'base_http_page.dart';
 import 'live_view_model_page.dart';

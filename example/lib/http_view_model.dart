@@ -1,6 +1,6 @@
 import 'package:example/model/bili_bili_record.dart';
 import 'package:flutter_boot/http.dart';
-import 'package:flutter_boot/lifecycle.dart';
+import 'package:flutter_boot/architecture.dart';
 
 import 'model/base_model.dart';
 import 'model/bili_bili.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/lifecycle.dart';
+import 'package:flutter_boot/architecture.dart';
 
 import 'live_view_model.dart';
 
@@ -17,7 +17,7 @@ class _LiveViewModelPageState extends State<LiveViewModelPage> with ViewModelSta
   var viewModel = CounterViewModel();
 
   @override
-  List<ViewModel> initViewModel() {
+  List<ViewModel> useViewModels() {
     return [viewModel];
   }
 
