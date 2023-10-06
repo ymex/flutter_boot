@@ -4,7 +4,6 @@ import 'package:flutter_boot/kits.dart';
 class EventBusViewModel extends ActionViewModel with EventBusVmMixin {
   static String messageId = "message_id";
 
-
   late LiveData<String> liveMessage = useState("");
 
   /// 注册事件回调
@@ -24,5 +23,4 @@ class EventBusViewModel extends ActionViewModel with EventBusVmMixin {
       liveMessage.value = "$data";
     });
   }
-
 }

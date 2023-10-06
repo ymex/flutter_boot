@@ -31,8 +31,7 @@ class OverLayView extends StatefulWidget {
   State<OverLayView> createState() => _OverLayViewState();
 }
 
-class _OverLayViewState extends State<OverLayView> with ViewModelStateScope{
-
+class _OverLayViewState extends State<OverLayView> with ViewModelStateScope {
   OverlayTier? timeTier;
   OverlayTier? timeTier2;
 
@@ -71,12 +70,15 @@ class _OverLayViewState extends State<OverLayView> with ViewModelStateScope{
                 onPressed: () {
                   timeTier = OverlayTier().show(
                       context,
-                       const Stack(
+                      const Stack(
                         children: [
                           Positioned(
                               child: Align(
                             alignment: Alignment.center,
-                            child: Text("2秒后消失。",style: TextStyle(color: Colors.red,fontSize: 20),),
+                            child: Text(
+                              "2秒后消失。",
+                              style: TextStyle(color: Colors.red, fontSize: 20),
+                            ),
                           ))
                         ],
                       ),
@@ -87,16 +89,20 @@ class _OverLayViewState extends State<OverLayView> with ViewModelStateScope{
             const Spacer(),
             ElevatedButton(
                 onPressed: () {
-                 timeTier2 = OverlayTier()
-                      .show(context,  const Stack(
-                    children: [
-                      Positioned(
-                          child: Align(
+                  timeTier2 = OverlayTier().show(
+                      context,
+                      const Stack(
+                        children: [
+                          Positioned(
+                              child: Align(
                             alignment: Alignment.center,
-                            child: Text("Loading...不消失。",style: TextStyle(color: Colors.red,fontSize: 20)),
+                            child: Text("Loading...不消失。",
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 20)),
                           ))
-                    ],
-                  ), replace: true);
+                        ],
+                      ),
+                      replace: true);
                 },
                 child: const Text("Loading")),
           ],
@@ -159,5 +165,4 @@ class _OverLayViewState extends State<OverLayView> with ViewModelStateScope{
       ],
     );
   }
-
 }

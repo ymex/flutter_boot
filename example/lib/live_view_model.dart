@@ -12,7 +12,7 @@ class CounterViewModel extends ViewModel {
   CounterViewModel();
 
   late LiveData<CounterEntity> stateCounter =
-  useState(CounterEntity(num: 0, color: Colors.red));
+      useState(CounterEntity(num: 0, color: Colors.red));
 
   void incrementCounter() {
     setState<CounterEntity>(stateCounter, (value) {

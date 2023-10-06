@@ -14,6 +14,7 @@ class HttpViewModelPage extends StatefulWidget {
   @override
   State<HttpViewModelPage> createState() => _HttpViewModelPageState();
 }
+
 /// 亦可继承 ViewModelState
 class _HttpViewModelPageState extends State<HttpViewModelPage>
     with ViewModelStateScope {
@@ -23,7 +24,6 @@ class _HttpViewModelPageState extends State<HttpViewModelPage>
   //ViewModel 初始化
   late var viewModel = HttpPageViewModel();
   var scrollerController = ScrollController();
-
 
   @override
   List<ViewModel> useViewModels() {

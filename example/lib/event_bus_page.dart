@@ -1,5 +1,5 @@
-import 'package:example/event_bus_view_model.dart';
 import 'package:example/event_bus_next_page.dart';
+import 'package:example/event_bus_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boot/architecture.dart';
 import 'package:flutter_boot/kits.dart';
@@ -13,13 +13,12 @@ class EventBusPage extends StatefulWidget {
   State<EventBusPage> createState() => _EventBusPageState();
 }
 
-class _EventBusPageState extends State<EventBusPage> with ViewModelStateScope{
-
+class _EventBusPageState extends State<EventBusPage> with ViewModelStateScope {
   EventBusViewModel viewModel = EventBusViewModel();
 
   @override
   List<ViewModel> useViewModels() {
-     return [viewModel];
+    return [viewModel];
   }
 
   @override
@@ -53,23 +52,36 @@ class _EventBusPageState extends State<EventBusPage> with ViewModelStateScope{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("EventBus使用"),
-              const SizedBox(height: 24,),
-              Text("方式一：在ViewModel中混入EventBusVmMixin、自动注册和销毁。"),
-              const SizedBox(height: 24,),
-              Text("方式二：在任意位置使用、需要手动注册和销毁。"),
-              const SizedBox(height: 24,),
-              SingleLiveDataBuilder(
-                observe: viewModel.liveMessage,
-                builder: (context,value,widget) {
-                  return Text("收到的消息：$value",style: TextStyle(color: Colors.red),);
-                }
+              const SizedBox(
+                height: 24,
               ),
-              const SizedBox(height: 64,),
-              FilledButton(onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (builder){
-                  return EventBusNextPage(title: "EventBusNextPage");
-                }));
-              }, child: const Text("下一页面"))
+              Text("方式一：在ViewModel中混入EventBusVmMixin、自动注册和销毁。"),
+              const SizedBox(
+                height: 24,
+              ),
+              Text("方式二：在任意位置使用、需要手动注册和销毁。"),
+              const SizedBox(
+                height: 24,
+              ),
+              SingleLiveDataBuilder(
+                  observe: viewModel.liveMessage,
+                  builder: (context, value, widget) {
+                    return Text(
+                      "收到的消息：$value",
+                      style: TextStyle(color: Colors.red),
+                    );
+                  }),
+              const SizedBox(
+                height: 64,
+              ),
+              FilledButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (builder) {
+                      return EventBusNextPage(title: "EventBusNextPage");
+                    }));
+                  },
+                  child: const Text("下一页面"))
             ],
           ),
         ),
