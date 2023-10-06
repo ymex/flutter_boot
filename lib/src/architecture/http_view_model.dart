@@ -1,6 +1,6 @@
 part of "view_model_state.dart";
 
-mixin VmHttpMixin on ViewModel {
+mixin HttpVmMixin on ViewModel {
   final List<CancelToken> _httpRequestTokens = [];
 
   List<CancelToken> get httpRequestTokens => _httpRequestTokens;
@@ -61,4 +61,4 @@ mixin VmHttpMixin on ViewModel {
   }
 }
 
-class HttpViewModel extends ViewModel with VmActionMixin, VmHttpMixin {}
+class HttpViewModel extends ViewModel with ActionVmMixin, HttpVmMixin {}

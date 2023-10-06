@@ -1,6 +1,6 @@
 part of "view_model_state.dart";
 
-mixin VmActionMixin on ViewModel {
+mixin ActionVmMixin on ViewModel {
   Function(
     String message, {
     int duration,
@@ -37,4 +37,4 @@ mixin VmActionMixin on ViewModel {
   }
 }
 
-class ActionViewModel extends ViewModel with VmActionMixin {}
+class ActionViewModel extends ViewModel with ActionVmMixin {}

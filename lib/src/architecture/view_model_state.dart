@@ -48,10 +48,10 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     for (var vm in vms) {
       vm.stateCall = this.setState;
       vm.notifyCall = this.onNotify;
-      if (vm is VmActionMixin) {
+      if (vm is ActionVmMixin) {
         _initActionVm(vm);
       }
-      if (vm is VmEventBusMixin) {
+      if (vm is EventBusVmMixin) {
         _initEventBusVm(vm);
       }
     }
@@ -61,13 +61,13 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     _loadingTier = OverlayTier();
   }
 
-  void _initActionVm(VmActionMixin vm) {
+  void _initActionVm(ActionVmMixin vm) {
     vm._toastCall = this.toast;
     vm._showLoadingCall = this.showLoading;
     vm._dismissLoadingCall = this.dismissLoading;
   }
 
-  void _initEventBusVm(VmEventBusMixin vm) {
+  void _initEventBusVm(EventBusVmMixin vm) {
     vm._eventBus = vm.useEventBus();
     vm._eventPairs = vm.useEvents();
     if (vm._eventBus != null &&
@@ -92,10 +92,10 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
         liveDataItem.dispose();
       }
       vm.liveDataList.clear();
-      if (vm is VmHttpMixin) {
+      if (vm is HttpVmMixin) {
         _disposeHttpVm(vm);
       }
-      if (vm is VmEventBusMixin) {
+      if (vm is EventBusVmMixin) {
         _disposeEventBusVm(vm);
       }
     }
@@ -107,7 +107,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     _loadingTier = null;
   }
 
-  void _disposeHttpVm(VmHttpMixin vm) {
+  void _disposeHttpVm(HttpVmMixin vm) {
     for (var tokeItem in vm.httpRequestTokens) {
       if (!tokeItem.isCancelled) {
         tokeItem.cancel();
@@ -116,7 +116,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     vm.httpRequestTokens.clear();
   }
 
-  void _disposeEventBusVm(VmEventBusMixin vm) {
+  void _disposeEventBusVm(EventBusVmMixin vm) {
     vm._unregisterEvents();
   }
 

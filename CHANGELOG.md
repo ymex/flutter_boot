@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.6
+- add EventBusStateMinix
+- update example
+
 ## 0.1.5
 - EventBus
 - lifecycle package -> architecture

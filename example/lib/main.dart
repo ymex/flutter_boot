@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:example/event_bus_page.dart';
 import 'package:example/hint_toast_loading_page.dart';
 import 'package:example/http_view_model_page.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     systemEnabledUiMode(
-        mode: SystemUiMode.manual,
+        mode: SystemUiMode.immersiveSticky,
         overlays: [SystemUiOverlay.top]).then((value) {
       SystemUiOverlayStyle style = SystemUiOverlayStyle.light.copyWith(
         statusBarColor: Colors.transparent,
@@ -73,6 +74,12 @@ class _MainPageState extends State<MainPage> {
         "For Toast & Loading",
         const HintToastDialogPage(
           title: "TimeOverlayTier",
+        )),
+    ItemAction(
+        "EventBus",
+        "event bus",
+        EventBusPage(
+          title: "EventBus",
         ))
   ];
 
