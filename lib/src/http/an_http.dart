@@ -75,7 +75,9 @@ class AnHttp {
       });
       formData = FormData.fromMap(formMap);
     }
-    var dataParam = formData ?? param.bodyMap();
+    //bodyObject 不为空bodyMap则不生效
+    var dataParam = formData ?? (param.bodyObject ?? param.bodyMap());
+
     // headerMap
     var headerMap = param.headerMap();
     var option = checkOptions(_httpMethod(method), null);

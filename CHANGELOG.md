@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.1.7
+- anHttp 非map入参处理
+
 ## 0.1.6
 - add EventBusStateMinix
 - update example

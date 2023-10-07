@@ -13,6 +13,7 @@ class Param {
   final Map<String, dynamic> _queryMap = <String, dynamic>{};
   final Map<String, dynamic> _formMap = <String, dynamic>{};
   final Map<String, dynamic> _bodyMap = <String, dynamic>{};
+  Object? _bodyObject; // body
 
   Param.url(this._url);
 
@@ -42,6 +43,30 @@ class Param {
     if (_bodyMap.isEmpty) return null;
     return _bodyMap;
   }
+
+  Object? get bodyObject => _bodyObject;
+
+  /// 自定义body 参数
+  /// 设置非空值后 bodyMap 则不在生效。
+  Param body(Object? data) {
+    _bodyObject = data;
+    return this;
+  }
+
+  Param tieBody(String key, dynamic value) =>
+      tie(key, value, type: ParamType.body);
+
+  Param tiePath(String key, dynamic value) =>
+      tie(key, value, type: ParamType.path);
+
+  Param tieForm(String key, dynamic value) =>
+      tie(key, value, type: ParamType.form);
+
+  Param tieHeader(String key, dynamic value) =>
+      tie(key, value, type: ParamType.header);
+
+  Param tieQuery(String key, dynamic value) =>
+      tie(key, value, type: ParamType.query);
 
   /// 参数绑定
   /// [type]为发起网络请求时，参数所在的载体位置。默认为body 参数。
