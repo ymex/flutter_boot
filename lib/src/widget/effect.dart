@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 
 /// 点击时子组件有淡出效果。
 class FadeEffect extends StatefulWidget {
+  final HitTestBehavior? behavior;
   final Widget child;
   final GestureTapCallback? onTap;
   final double opacity;
 
-  const FadeEffect(
-      {super.key, required this.child, this.onTap, this.opacity = 0.6});
+  const FadeEffect({
+    super.key,
+    required this.child,
+    this.onTap,
+    this.opacity = 0.6,
+    this.behavior,
+  });
 
   @override
   State<FadeEffect> createState() => _FadeEffectState();
@@ -19,6 +25,7 @@ class _FadeEffectState extends State<FadeEffect> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        behavior: widget.behavior,
         onTap: () {
           if (widget.onTap != null) {
             widget.onTap!();
@@ -47,18 +54,21 @@ class _FadeEffectState extends State<FadeEffect> {
 }
 
 class AnimationFadeEffect extends StatefulWidget {
+  final HitTestBehavior? behavior;
   final Widget child;
   final GestureTapCallback? onTap;
   final double opacity;
 
   final int duration; //milliseconds
 
-  const AnimationFadeEffect(
-      {super.key,
-      required this.child,
-      this.onTap,
-      this.opacity = 0.6,
-      this.duration = 150});
+  const AnimationFadeEffect({
+    super.key,
+    required this.child,
+    this.onTap,
+    this.opacity = 0.6,
+    this.duration = 150,
+    this.behavior,
+  });
 
   @override
   State<AnimationFadeEffect> createState() => _AnimationFadeEffectState();
@@ -73,6 +83,7 @@ class _AnimationFadeEffectState extends State<AnimationFadeEffect>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: widget.behavior,
       onTap: () {
         if (widget.onTap != null) {
           widget.onTap!();

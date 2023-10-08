@@ -61,4 +61,6 @@ mixin HttpVmMixin on ViewModel {
   }
 }
 
-class HttpViewModel extends ViewModel with ActionVmMixin, HttpVmMixin {}
+class HttpViewModel extends ViewModel with ActionVmMixin, HttpVmMixin {
+  HttpViewModel({super.key});
+}

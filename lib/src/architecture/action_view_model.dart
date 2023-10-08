@@ -37,4 +37,6 @@ mixin ActionVmMixin on ViewModel {
   }
 }
 
-class ActionViewModel extends ViewModel with ActionVmMixin {}
+class ActionViewModel extends ViewModel with ActionVmMixin {
+  ActionViewModel({super.key});
+}

@@ -9,6 +9,12 @@ class ViewModel {
   Function(VoidCallback)? _stateCall;
   Function(String message, {int? what, Object? data})? _notifyCall;
 
+  /// 创建时传入
+  /// 用于区分由谁实例化了ViewModel。
+  final Object? key;
+
+  ViewModel({this.key});
+
   List<LiveData> get liveDataList => _liveDataList;
 
   set stateCall(value) => _stateCall = value;

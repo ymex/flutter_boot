@@ -6,7 +6,8 @@ import 'model/base_model.dart';
 import 'model/bili_bili.dart';
 
 class HttpPageViewModel extends HttpViewModel {
-  HttpPageViewModel();
+
+  HttpPageViewModel({super.key});
 
   /// 需要监听的状态
   late LiveData<List<BiliBiliRecord>> recordState =
