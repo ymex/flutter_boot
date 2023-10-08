@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.1.9
+- log 打印调用信息
+
 ## 0.1.8
 - ViewModel 增加 key 字段
 - BuildContent 扩展

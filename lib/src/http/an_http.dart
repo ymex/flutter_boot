@@ -49,7 +49,7 @@ class AnHttp {
     // 日志打印
     if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
-        logPrint: (ob) => logI(ob),
+        logPrint: (ob) => logI(ob,stackIndex: -1),
         responseHeader: false,
         requestBody: true,
         responseBody: true,
