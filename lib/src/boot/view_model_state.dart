@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_boot/architecture.dart';
+import 'package:flutter_boot/boot.dart';
 import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/widget.dart';
 
 part 'action_view_model.dart';
-part 'event_bus_mixin.dart';
+part 'channel/event_bus_mixin.dart';
 part 'http_view_model.dart';
 
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {

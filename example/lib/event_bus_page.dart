@@ -1,7 +1,7 @@
 import 'package:example/event_bus_next_page.dart';
 import 'package:example/event_bus_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/architecture.dart';
+import 'package:flutter_boot/boot.dart';
 import 'package:flutter_boot/kits.dart';
 
 class EventBusPage extends StatefulWidget {

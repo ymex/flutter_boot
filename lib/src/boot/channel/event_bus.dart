@@ -1,4 +1,4 @@
-import 'package:flutter_boot/architecture.dart';
+import 'package:flutter_boot/boot.dart';
 
 var globalBus = EventBus();
 

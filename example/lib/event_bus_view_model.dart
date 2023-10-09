@@ -1,4 +1,4 @@
-import 'package:flutter_boot/architecture.dart';
+import 'package:flutter_boot/boot.dart';
 import 'package:flutter_boot/kits.dart';
 
 class EventBusViewModel extends ActionViewModel with EventBusVmMixin {

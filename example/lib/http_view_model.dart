@@ -1,5 +1,5 @@
 import 'package:example/model/bili_bili_record.dart';
-import 'package:flutter_boot/architecture.dart';
+import 'package:flutter_boot/boot.dart';
 import 'package:flutter_boot/http.dart';
 
 import 'model/base_model.dart';

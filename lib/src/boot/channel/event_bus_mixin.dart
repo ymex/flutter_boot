@@ -1,4 +1,4 @@
-part of "view_model_state.dart";
+part of '../view_model_state.dart';
 
 mixin EventBusStateMixin<T extends StatefulWidget> on State<T> {
   EventBus? _eventBus;
