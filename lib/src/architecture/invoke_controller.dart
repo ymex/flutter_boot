@@ -9,8 +9,8 @@ class InvokeController {
     _mFun[funName] = call;
   }
 
-  void _clear() {
-    _mFun.clear();
+  void _remove(Object funName) {
+    _mFun.remove(funName);
   }
 
   void invoke(Object funName, [dynamic data]) {
@@ -19,6 +19,10 @@ class InvokeController {
     } else {
       logI("not find $funName method!}");
     }
+  }
+
+  void dispose() {
+    _mFun.clear();
   }
 }
 
@@ -29,12 +33,15 @@ abstract class StatefulInvokerWidget extends StatefulWidget {
 }
 
 mixin StateInvokerMinix<S extends StatefulInvokerWidget> on State<S> {
+  late List<MethodPair<VoidValueCallback>> _invokes;
+
   @override
   void initState() {
     super.initState();
-    useInvokes().forEach((item) {
+    _invokes = useInvokes();
+    for (var item in _invokes) {
       widget.controller._bind(item.key, item.value);
-    });
+    }
   }
 
   List<MethodPair<VoidValueCallback>> useInvokes() {
@@ -44,6 +51,8 @@ mixin StateInvokerMinix<S extends StatefulInvokerWidget> on State<S> {
   @override
   void dispose() {
     super.dispose();
-    widget.controller._clear();
+    for (var item in _invokes) {
+      widget.controller._remove(item.key);
+    }
   }
 }
