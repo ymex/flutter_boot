@@ -1,12 +1,4 @@
-//订阅者回调签名
-typedef EventCallback = void Function(dynamic data);
-
-class EventPair {
-  Object key;
-  EventCallback value;
-
-  EventPair(this.key, this.value);
-}
+import 'package:flutter_boot/architecture.dart';
 
 var globalBus = EventBus();
 
@@ -21,16 +13,16 @@ class EventBus {
   factory EventBus() => _instance;
 
   //保存事件订阅者队列，key:事件名(id)，value: 对应事件的订阅者队列
-  final _eMap = <Object, List<EventCallback>?>{};
+  final _eMap = <Object, List<VoidValueCallback>?>{};
 
   //注册订阅者
-  void register(Object eventName, EventCallback f) {
-    _eMap[eventName] ??= <EventCallback>[];
+  void register(Object eventName, VoidValueCallback f) {
+    _eMap[eventName] ??= <VoidValueCallback>[];
     _eMap[eventName]!.add(f);
   }
 
   //移除订阅者
-  void unregister(Object eventName, [EventCallback? f]) {
+  void unregister(Object eventName, [VoidValueCallback? f]) {
     var list = _eMap[eventName];
     if (list == null) return;
     if (f == null) {

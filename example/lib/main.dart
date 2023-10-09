@@ -1,6 +1,7 @@
 import 'package:example/event_bus_page.dart';
 import 'package:example/hint_toast_loading_page.dart';
 import 'package:example/http_view_model_page.dart';
+import 'package:example/invoke_controller_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boot/kits.dart';
@@ -77,7 +78,13 @@ class _MainPageState extends State<MainPage> {
         "event bus",
         EventBusPage(
           title: "EventBus",
-        ))
+        )),
+    ItemAction(
+        "InvokeController",
+        "跨组件调用、状态提升",
+        const StateControllerPage(
+          title: "Invoke Controller",
+        )),
   ];
 
   @override

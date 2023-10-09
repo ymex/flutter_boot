@@ -2,13 +2,13 @@ part of "view_model_state.dart";
 
 mixin EventBusStateMixin<T extends StatefulWidget> on State<T> {
   EventBus? _eventBus;
-  List<EventPair>? _eventPairs;
+  List<MethodPair<VoidValueCallback>>? _eventPairs;
 
   EventBus useEventBus() {
     return globalBus;
   }
 
-  List<EventPair>? useEvents() {
+  List<MethodPair<VoidValueCallback>>? useEvents() {
     return null;
   }
 
@@ -41,13 +41,13 @@ mixin EventBusStateMixin<T extends StatefulWidget> on State<T> {
 
 mixin EventBusVmMixin on ViewModel {
   EventBus? _eventBus;
-  List<EventPair>? _eventPairs;
+  List<MethodPair<VoidValueCallback>>? _eventPairs;
 
   EventBus useEventBus() {
     return globalBus;
   }
 
-  List<EventPair>? useEvents() {
+  List<MethodPair<VoidValueCallback>>? useEvents() {
     return null;
   }
 

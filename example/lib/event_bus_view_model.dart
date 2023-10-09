@@ -8,9 +8,9 @@ class EventBusViewModel extends ActionViewModel with EventBusVmMixin {
 
   /// 注册事件回调
   @override
-  List<EventPair>? useEvents() {
+  List<MethodPair<VoidValueCallback>>? useEvents() {
     return [
-      EventPair(messageId, onMessageEvent),
+      MethodPair(messageId, onMessageEvent),
     ];
   }
 
