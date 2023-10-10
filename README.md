@@ -5,6 +5,8 @@
 * 对生命周期感知的网络请求，基于Dio 封装。
 * LiveData、ViewModel等实现 MVI
 * 便捷工具及方法拓展。
+* 全局EventBus
+* InvokeController 组件间状态提升
 * 组件
   * LayoutOnCreated ：首帧渲染完成回调
   * OverlayTier : 基于OverlayEntry的弹出层，可设置超时时间。可制作toast 与 弹框。 
