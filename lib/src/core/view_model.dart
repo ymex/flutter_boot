@@ -34,12 +34,21 @@ class ViewModel {
     return valueNotifier;
   }
 
-  void setScopeState(VoidCallback fn) {
+  /// 通知所持有ViewModel的State组件更新。
+  /// notify 参数表示可关闭通知更新，只执行fn。
+  void setScopeState(VoidCallback fn, {bool notify = true}) {
+    if (!notify) {
+      fn();
+      return;
+    }
     if (_stateCall != null) _stateCall!(fn);
   }
 
-  void setState<T>(LiveData liveData, LiveDataCallBack<T> fn) {
-    liveData._setState<T>(fn);
+  /// 通知订阅LiveData的组件更新。
+  /// notify 参数表示可关闭通知更新，只执行fn。
+  void setState<T>(LiveData liveData, LiveDataCallBack<T> fn,
+      {bool notify = true}) {
+    liveData._setState<T>(fn, notify: notify);
   }
 
   void sendNotify(String message, {int? what, Object? data}) {

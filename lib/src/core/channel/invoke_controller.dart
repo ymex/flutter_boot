@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/kits.dart';
 
+/// 用于状态提升、通过InvokeController 可以通知的形式调用
+/// 组件内的方法。
 class InvokeController {
   final Map<Object, List<VoidValueCallback>> _mFun = {};
 
