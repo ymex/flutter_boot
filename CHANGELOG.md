@@ -1,4 +1,6 @@
 # CHANGELOG
+## 0.2.3
+- ViewModel setState 添加开关参数
 
 ## 0.2.2
 - StatefulInvokerWidget 添加泛型
