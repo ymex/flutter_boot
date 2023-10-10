@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example/http_view_model.dart';
 import 'package:example/model/bili_bili_record.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/boot.dart';
+import 'package:flutter_boot/core.dart';
 
 class HttpViewModelPage extends StatefulWidget {
   final String title;

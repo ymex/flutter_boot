@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.2.0
+- 增加 InvokeController 实现组件状态提升
+- architecture package -> core
+
+
 ## 0.1.9
 - log 打印调用信息
 

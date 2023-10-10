@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/boot.dart';
+import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/kits.dart';
 
 class InvokeController {
-  final Map<Object, VoidValueCallback> _mFun = {};
+  final Map<Object, List<VoidValueCallback>> _mFun = {};
 
   void _bind(Object funName, VoidValueCallback call) {
-    _mFun[funName] = call;
-  }
-
-  void _remove(Object funName) {
-    _mFun.remove(funName);
+    if (!_mFun.containsKey(funName)) {
+      _mFun[funName] = [];
+    }
+    _mFun[funName]?.add(call);
   }
 
   void invoke(Object funName, [dynamic data]) {
     if (_mFun.containsKey(funName)) {
-      _mFun[funName]!(data);
+      _mFun[funName]?.forEach((item) {
+        item(data);
+      });
     } else {
       logI("not find $funName method!}");
     }
+  }
+
+  void unInvoke(Object key, [VoidValueCallback? callback]) {
+    if (callback != null) {
+      _mFun[key]?.remove(callback);
+      return;
+    }
+    _mFun.remove(key);
   }
 
   void dispose() {
@@ -52,7 +61,10 @@ mixin StateInvokerMinix<S extends StatefulInvokerWidget> on State<S> {
   void dispose() {
     super.dispose();
     for (var item in _invokes) {
-      widget.controller._remove(item.key);
+      var map = widget.controller._mFun;
+      if (map.containsKey(item.key)) {
+        map[item.key]?.remove(item.value);
+      }
     }
   }
 }

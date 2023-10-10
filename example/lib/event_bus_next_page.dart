@@ -1,6 +1,6 @@
 import 'package:example/event_bus_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/boot.dart';
+import 'package:flutter_boot/core.dart';
 
 class EventBusNextPage extends StatefulWidget {
   String title;

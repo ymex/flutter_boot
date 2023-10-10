@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_boot/boot.dart';
+import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/widget.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_boot/boot.dart';
+import 'package:flutter_boot/core.dart';
 
 typedef LiveDataWidgetBuilder = Widget Function(
     BuildContext context, Widget? child);

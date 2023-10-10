@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/boot.dart';
+import 'package:flutter_boot/core.dart';
 
 class CounterEntity {
   CounterEntity({required this.num, required this.color});

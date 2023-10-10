@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/boot.dart';
+import 'package:flutter_boot/core.dart';
 
 import 'live_view_model.dart';
 
