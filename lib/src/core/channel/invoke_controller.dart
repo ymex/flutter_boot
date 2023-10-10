@@ -35,8 +35,9 @@ class InvokeController {
   }
 }
 
-abstract class StatefulInvokerWidget extends StatefulWidget {
-  final InvokeController controller;
+abstract class StatefulInvokerWidget<T extends InvokeController>
+    extends StatefulWidget {
+  final T controller;
 
   const StatefulInvokerWidget({super.key, required this.controller});
 }
