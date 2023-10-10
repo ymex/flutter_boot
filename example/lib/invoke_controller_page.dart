@@ -62,7 +62,7 @@ class StateChangeWidget extends StatefulInvokerWidget {
 }
 
 class _StateChangeWidgetState extends State<StateChangeWidget>
-    with StateInvokerMinix {
+    with InvokeStateMinix {
   String message = "init";
 
   @override

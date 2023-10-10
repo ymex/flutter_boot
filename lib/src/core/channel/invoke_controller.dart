@@ -41,7 +41,7 @@ abstract class StatefulInvokerWidget extends StatefulWidget {
   const StatefulInvokerWidget({super.key, required this.controller});
 }
 
-mixin StateInvokerMinix<S extends StatefulInvokerWidget> on State<S> {
+mixin InvokeStateMinix<S extends StatefulInvokerWidget> on State<S> {
   late List<MethodPair<VoidValueCallback>> _invokes;
 
   @override
