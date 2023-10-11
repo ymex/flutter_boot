@@ -4,14 +4,18 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/http.dart';
+import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
 part 'action_view_model.dart';
+
 part 'channel/event_bus_mixin.dart';
+
 part 'http_view_model.dart';
 
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
+  bool _isInitArg = false;
 
   /// 获取指定的ViewModel
   V getViewModel<V extends ViewModel>({int index = 0}) {
@@ -59,6 +63,21 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     super.initState();
     _toastTier = OverlayTier();
     _loadingTier = OverlayTier();
+  }
+
+  /// 首先要在build 方法中调用 parseArguments。
+  /// 只会调用一次
+  /// arg 路由传递的参数
+  void onParseArguments(Object? args) {}
+
+  /// 须在build主动调用、
+  /// 关于主动调用的原因：父类build方法没找到合适的方式自动调用
+
+  void parseArguments() {
+    if (!_isInitArg) {
+      _isInitArg = true;
+      onParseArguments(context.arguments);
+    }
   }
 
   void _initActionVm(ActionVmMixin vm) {
