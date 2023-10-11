@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.5
+
+- BuildContent 扩展
+
 ## 0.2.4
 
 - 优化ViewModelScope

@@ -38,10 +38,34 @@ extension BuildContextExt on BuildContext {
   /// 命名路由参数
   Object? get arguments => ModalRoute.of(this)?.settings.arguments;
 
-
   /// 路由返回。结束当前页面。
   void back<T extends Object?>([T? result]) => Navigator.of(this).pop(result);
 
   /// 获取navigator state
   NavigatorState get navigator => Navigator.of(this);
+
+  Future<T?> push<T extends Object?>({Widget? page, Route<T>? route}) {
+    if (route != null) return navigator.push<T>(route);
+    return navigator.push<T>(MaterialPageRoute<T>(builder: (context) {
+      return widget;
+    }));
+  }
+
+  Future<T?> pushAndRemoveUntil<T extends Object?>(
+      {Widget? page, Route<T>? newRoute, required RoutePredicate predicate}) {
+    if (newRoute != null) {
+      return navigator.pushAndRemoveUntil(newRoute, predicate);
+    }
+    return navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => page!), predicate);
+  }
+
+  Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
+      {Widget? page, Route<T>? newRoute, TO? result}) {
+    if (newRoute != null) {
+      return navigator.pushReplacement(newRoute, result: result);
+    }
+    return navigator.pushReplacement(MaterialPageRoute(builder: (_) => page!),
+        result: result);
+  }
 }
