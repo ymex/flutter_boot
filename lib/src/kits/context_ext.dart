@@ -41,13 +41,14 @@ extension BuildContextExt on BuildContext {
   /// 路由返回。结束当前页面。
   void back<T extends Object?>([T? result]) => Navigator.of(this).pop(result);
 
+
   /// 获取navigator state
   NavigatorState get navigator => Navigator.of(this);
 
   Future<T?> push<T extends Object?>({Widget? page, Route<T>? route}) {
     if (route != null) return navigator.push<T>(route);
     return navigator.push<T>(MaterialPageRoute<T>(builder: (context) {
-      return widget;
+      return page!;
     }));
   }
 
