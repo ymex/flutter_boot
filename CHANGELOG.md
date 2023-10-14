@@ -1,5 +1,10 @@
 # CHANGELOG
 
+
+## 0.2.6
+
+- fix: BuildContent push
+
 ## 0.2.5
 
 - BuildContent 扩展
