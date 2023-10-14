@@ -1,7 +1,7 @@
 part of '../view_model.dart';
 
 /// ov 上一次的值
-typedef LiveDataCallBack<T> = void Function(T ov);
+typedef LiveDataCallBack<T> = void Function(T cv);
 
 /// 状态值
 class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
@@ -37,24 +37,26 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
   }
 
   /// 通知更新
-  void _setState<V>(LiveDataCallBack<V> fn, {bool notify = true}) {
-    if (hostDispose) {
-      return;
-    }
-    fn(value as V);
-    if (notify) {
-      this.notifyListeners();
-    }
-  }
-
-  /// 通知更新
-  // void setState<V>(LiveDataCallBack<V> fn) {
+  // void _setState<V>(LiveDataCallBack<V> fn, {bool notify = true}) {
   //   if (hostDispose) {
   //     return;
   //   }
   //   fn(value as V);
-  //   this.notifyListeners();
+  //   if (notify) {
+  //     this.notifyListeners();
+  //   }
   // }
+
+  /// 通知更新
+  void setState(LiveDataCallBack<T> fn,{bool notify = true}) {
+    if (hostDispose) {
+      return;
+    }
+    fn(value);
+    if (notify) {
+      this.notifyListeners();
+    }
+  }
 
   /// 不建议直接调用。请使用 ViewModel setState()方法。
   @protected
