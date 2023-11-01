@@ -1,6 +1,10 @@
 # CHANGELOG
 
 
+## 0.2.7
+
+- fix: EventBusStateMixin
+
 ## 0.2.6
 
 - fix: BuildContent push
