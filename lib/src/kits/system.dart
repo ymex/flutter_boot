@@ -73,9 +73,17 @@ Future systemEnabledUiMode(
 /// 设置屏幕方向
 /// [DeviceOrientation.portraitUp] - 竖屏
 /// [DeviceOrientation.landscapeLeft] - 横屏
-void systemScreenOrientation(
+/// 当 orientations 为空时跟随系统。
+Future<void>  systemScreenOrientation(
     {required List<DeviceOrientation> orientations}) async {
   return SystemChrome.setPreferredOrientations(orientations);
+}
+
+/// orientations 为空时跟随系统屏幕方向。
+/// 组件：OrientationBuilder
+/// 或 MediaQuery.of(context).orientation 可获取屏幕方向
+Future<void>  systemScreenOrientationAuto(){
+  return SystemChrome.setPreferredOrientations([]);
 }
 
 /// 关闭键盘
