@@ -15,6 +15,7 @@ mixin EventBusStateMixin<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     super.initState();
+    _eventBus = useEventBus();
     _eventPairs = useEvents();
     if (_eventBus != null && _eventPairs != null && _eventPairs!.isNotEmpty) {
       _registerEvents();
