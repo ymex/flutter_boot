@@ -24,6 +24,9 @@ class _FadeEffectState extends State<FadeEffect> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.onTap == null) {
+      return widget.child;
+    }
     return GestureDetector(
         behavior: widget.behavior,
         onTap: () {
@@ -77,11 +80,20 @@ class AnimationFadeEffect extends StatefulWidget {
 class _AnimationFadeEffectState extends State<AnimationFadeEffect>
     with SingleTickerProviderStateMixin {
   double opacity = 1;
-  late final AnimationController _controller = AnimationController(
-      vsync: this, duration: Duration(milliseconds: widget.duration));
+  AnimationController? _controller;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.onTap == null) {
+      return widget.child;
+    }
+    _controller ??= AnimationController(
+        vsync: this, duration: Duration(milliseconds: widget.duration));
     return GestureDetector(
       behavior: widget.behavior,
       onTap: () {
@@ -90,23 +102,23 @@ class _AnimationFadeEffectState extends State<AnimationFadeEffect>
         }
       },
       onTapUp: (event) {
-        _controller.reverse();
+        _controller?.reverse();
       },
       onTapCancel: () {
-        _controller.reverse();
+        _controller?.reverse();
       },
       onTapDown: (event) {
-        _controller.forward();
+        _controller?.forward();
       },
       child: FadeTransition(
-          opacity: Tween(begin: 1.0, end: widget.opacity).animate(_controller),
+          opacity: Tween(begin: 1.0, end: widget.opacity).animate(_controller!),
           child: widget.child),
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 }

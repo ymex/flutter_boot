@@ -13,6 +13,13 @@ extension LangObjectExt on Object {
   }
 }
 
+extension LangIntExt on int {
+  /// 秒转为DateTime
+  DateTime toDateTime() {
+    return DateTime.fromMillisecondsSinceEpoch(this * 1000);
+  }
+}
+
 extension DateTimeExt on DateTime {
   String _paddingZero(int num) {
     var v = num.abs();
@@ -51,6 +58,14 @@ extension DateTimeExt on DateTime {
       pattern = pattern.replaceFirst("ss", _paddingZero(second));
     }
     return pattern;
+  }
+
+  String formatDate([String pattern = "yyyy-MM-dd"]) {
+    return format(pattern);
+  }
+
+  String formatTime([String pattern = "HH:mm:ss"]) {
+    return format(pattern);
   }
 
   /// 当前月份的开始日期与结束日期

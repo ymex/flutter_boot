@@ -3,6 +3,44 @@ import 'package:flutter/widgets.dart';
 /// 二次贝塞尔曲线
 /// https://juejin.cn/post/6857418437254512654
 /// http://blogs.sitepointstatic.com/examples/tech/canvas-curves/quadratic-curve.html
+// PopupMenuButton(
+//       color: Colors.black54,
+//       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+//       constraints: BoxConstraints(maxWidth: 130),
+//       surfaceTintColor: Colors.transparent,
+//       shape: const TipRRectShape(triangleOffsetX: 86),
+//       offset: Offset(0, 36),
+//       itemBuilder: (context) {
+//         return [
+//           PopupMenuItem(
+//             child: Text(
+//               "扫码",
+//               style: AppTextStyles.normalWhiteTextStyle,
+//             ),
+//             height: 36,
+//           ),
+//           PopupMenuItem(child: Text("收款"), height: 36),
+//           PopupMenuItem(
+//               child: Row(
+//                 children: [
+//                   Text("账单"),
+//                   SizedBox(
+//                     width: 12,
+//                   ),
+//                   Icon(Icons.expand_more)
+//                 ],
+//               ),
+//               height: 36),
+//         ];
+//       },
+//       child: const Padding(
+//         padding: EdgeInsets.only(right: 12.0, left: 12),
+//         child: Icon(
+//           Icons.add,
+//           color: Colors.white,
+//         ),
+//       ),
+//     )
 
 class TipRRectShape extends ShapeBorder {
   final BorderSide _side = BorderSide.none;
