@@ -1,4 +1,6 @@
 # CHANGELOG
+## 0.2.9
+- fix: anHttp get
 
 ## 0.2.8
 - fix: EventBusStateMixin

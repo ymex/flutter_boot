@@ -35,6 +35,7 @@ mixin HttpVmMixin on ViewModel {
     putHttpRequestToken(cancelToken);
     var response = await AnHttp.anHttpJson<T>(param,
         convertor: convertor,
+        method: method,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
