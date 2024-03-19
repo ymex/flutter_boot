@@ -6,7 +6,13 @@ import 'package:flutter_boot/kits.dart';
 
 import 'an_param.dart';
 
-class HttpRequestToken extends CancelToken {}
+mixin HttpRequestToken {
+  void cancel([Object? reason]);
+
+  bool get isCancelled;
+}
+
+class DioCancelToken extends CancelToken with HttpRequestToken {}
 
 enum HttpMethodType {
   get,
@@ -49,7 +55,7 @@ class AnHttp {
     // 日志打印
     if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
-        logPrint: (ob) => logI(ob,stackIndex: -1),
+        logPrint: (ob) => logI(ob, stackIndex: -1),
         responseHeader: false,
         requestBody: true,
         responseBody: true,
@@ -93,7 +99,8 @@ class AnHttp {
         data: dataParam,
         queryParameters: param.queryMap(),
         options: option,
-        cancelToken: cancelToken,
+        cancelToken:
+            cancelToken is CancelToken ? cancelToken as CancelToken : null,
         onReceiveProgress: onReceiveProgress,
         onSendProgress: onSendProgress);
   }
@@ -131,8 +138,12 @@ class AnHttp {
         .removeWhere((element) => element is LogInterceptor);
   }
 
-  static void addLogInterceptor(LogInterceptor logInterceptor) {
-    AnHttp.instance.dio().interceptors.add(logInterceptor);
+  static void addInterceptor(Interceptor interceptor) {
+    AnHttp.instance.dio().interceptors.add(interceptor);
+  }
+
+  static Interceptors interceptors() {
+    return AnHttp.instance.dio().interceptors;
   }
 
   /// dio 原始返回类型 请求

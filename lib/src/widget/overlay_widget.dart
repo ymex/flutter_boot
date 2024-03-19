@@ -5,7 +5,7 @@ enum ToastAlignment { top, center, bottom }
 class OverlayConst {
   static const Duration short = Duration(seconds: 1, milliseconds: 500);
   static const Duration long = Duration(seconds: 3);
-  static const maskColor = Color(0x55000000);
+  static const maskColor = Color(0x44000000);
   static const textStyle = TextStyle(
       color: Colors.white, fontSize: 13, decoration: TextDecoration.none);
 }
@@ -64,17 +64,22 @@ class _SimpleLoadingDialog extends StatelessWidget {
   final Color frameColor;
   final TextStyle textStyle;
   final Color progressColor;
+  final Color progressBackgroundColor;
   final String message;
   final double progressSize;
+  final double progressStrokeWidth;
 
-  const _SimpleLoadingDialog(
-      {this.message = "loading...",
-      this.passTouch = false,
-      this.maskColor = OverlayConst.maskColor,
-      this.frameColor = OverlayConst.maskColor,
-      this.textStyle = OverlayConst.textStyle,
-      this.progressSize = 28,
-      this.progressColor = Colors.white});
+  const _SimpleLoadingDialog({
+    this.message = "",
+    this.passTouch = false,
+    this.maskColor = OverlayConst.maskColor,
+    this.frameColor = OverlayConst.maskColor,
+    this.textStyle = OverlayConst.textStyle,
+    this.progressSize = 24,
+    this.progressColor = Colors.white,
+    this.progressStrokeWidth = 3,
+    this.progressBackgroundColor = Colors.transparent,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -103,15 +108,18 @@ class _SimpleLoadingDialog extends StatelessWidget {
                             width: progressSize,
                             child: CircularProgressIndicator(
                               color: progressColor,
+                              backgroundColor: progressBackgroundColor,
+                              strokeWidth: progressStrokeWidth,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            message,
-                            style: textStyle,
-                          )
+                          if (message.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Text(
+                                message,
+                                style: textStyle,
+                              ),
+                            )
                         ],
                       )),
                 ),
@@ -150,14 +158,18 @@ Widget buildDefToastOverlay(BuildContext context,
           left: 16, right: 16, top: marginTop, bottom: marginBottom));
 }
 
-Widget buildDefLoadingOverlay(BuildContext context,
-    {String message = "loading...",
-    bool passTouch = false,
-    Color maskColor = OverlayConst.maskColor,
-    Color frameColor = OverlayConst.maskColor,
-    TextStyle textStyle = OverlayConst.textStyle,
-    double progressSize = 28,
-    Color progressColor = Colors.white}) {
+Widget buildDefLoadingOverlay(
+  BuildContext context, {
+  String message = "",
+  bool passTouch = false,
+  Color maskColor = OverlayConst.maskColor,
+  Color frameColor = Colors.transparent,
+  TextStyle textStyle = OverlayConst.textStyle,
+  double progressSize = 24,
+  Color progressColor = Colors.white,
+  double progressStrokeWidth = 2,
+  Color progressBackgroundColor = Colors.transparent,
+}) {
   return _SimpleLoadingDialog(
     message: message,
     passTouch: passTouch,

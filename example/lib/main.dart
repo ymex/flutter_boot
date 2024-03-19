@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     systemEnabledUiMode(
-        mode: SystemUiMode.immersiveSticky,
+        mode: SystemUiMode.manual,
         overlays: [SystemUiOverlay.top]).then((value) {
       SystemUiOverlayStyle style = SystemUiOverlayStyle.light.copyWith(
         statusBarColor: Colors.transparent,

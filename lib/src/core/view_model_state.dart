@@ -87,7 +87,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   }
 
   void _initEventBusVm(EventBusVmMixin vm) {
-    vm._eventBus = vm.useEventBus();
+    vm._eventBus = vm._useEventBus();
     vm._eventPairs = vm.useEvents();
     if (vm._eventBus != null &&
         vm._eventPairs != null &&

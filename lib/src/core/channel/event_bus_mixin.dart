@@ -47,7 +47,7 @@ mixin EventBusVmMixin on ViewModel {
   EventBus? _eventBus;
   List<MethodPair<VoidValueCallback>>? _eventPairs;
 
-  EventBus useEventBus() {
+  EventBus _useEventBus() {
     return globalBus;
   }
 

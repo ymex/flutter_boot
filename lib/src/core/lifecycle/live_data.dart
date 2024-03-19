@@ -1,13 +1,16 @@
 part of '../view_model.dart';
 
-/// ov 上一次的值
 typedef LiveDataCallBack<T> = void Function(T cv);
 
 /// 状态值
 class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
+  //赋值即更新
+  bool autoNotify = false;
+
   LiveData._(
     this._value, {
     bool notify = false,
+    this.autoNotify = false,
   }) {
     if (notify) {
       notifyListeners();
@@ -33,7 +36,9 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
     }
     _value = newValue;
     // 为增加更新的可控制性，要主动去调用
-    // notifyListeners();
+    if(autoNotify){
+      notifyListeners();
+    }
   }
 
   /// 通知更新
@@ -48,7 +53,7 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
   // }
 
   /// 通知更新
-  void setState(LiveDataCallBack<T> fn,{bool notify = true}) {
+  void setState(LiveDataCallBack<T> fn, {bool notify = true}) {
     if (hostDispose) {
       return;
     }

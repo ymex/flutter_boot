@@ -2,6 +2,15 @@ import 'package:flutter_boot/core.dart';
 
 var globalBus = EventBus();
 
+typedef VoidValueCallback = void Function(dynamic data);
+
+class MethodPair<T> {
+  Object key;
+  T value;
+
+  MethodPair(this.key, this.value);
+}
+
 class EventBus {
   //私有构造函数
   EventBus._();
