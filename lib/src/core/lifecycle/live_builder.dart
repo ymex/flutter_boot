@@ -7,8 +7,8 @@ typedef LiveDataWidgetBuilder = Widget Function(
 typedef SingleLiveDataWidgetBuilder<T> = Widget Function(
     BuildContext context, T value, Widget? child);
 
-class LiveDataBuilder extends ListenableBuilder {
-  LiveDataBuilder({
+class MultiLiveDataBuilder extends ListenableBuilder {
+  MultiLiveDataBuilder({
     super.key,
     required List<LiveData> observe,
     required LiveDataWidgetBuilder builder,
@@ -19,8 +19,8 @@ class LiveDataBuilder extends ListenableBuilder {
             child: child);
 }
 
-class SingleLiveDataBuilder<T> extends ValueListenableBuilder<T> {
-  const SingleLiveDataBuilder({
+class LiveDataBuilder<T> extends ValueListenableBuilder<T> {
+  const LiveDataBuilder({
     super.key,
     required LiveData<T> observe,
     required SingleLiveDataWidgetBuilder<T> builder,

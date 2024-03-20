@@ -69,7 +69,7 @@ class _HttpViewModelPageState extends State<HttpViewModelPage>
           key: _refreshKey,
           onRefresh: _onRefresh,
           // ViewModelStateBuilder 监听状态
-          child: LiveDataBuilder(
+          child: MultiLiveDataBuilder(
               observe: [viewModel.recordState],
               builder: (context, child) {
                 var records = viewModel.recordState.value;

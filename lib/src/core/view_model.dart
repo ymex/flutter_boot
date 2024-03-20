@@ -51,10 +51,15 @@ class ViewModel {
     // liveData._setState<T>(fn, notify: notify);
     liveData.setState((cv) {
       fn(cv);
-    },notify: notify);
+    }, notify: notify);
   }
 
   void sendNotify(String message, {int? what, Object? data}) {
     if (_notifyCall != null) _notifyCall!(message, what: what, data: data);
+  }
+
+  //结束持有ViewModel的页面
+  void finish([Object? data]) {
+    sendNotify("_finish_current_page", data: data);
   }
 }

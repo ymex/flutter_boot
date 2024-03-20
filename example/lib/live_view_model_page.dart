@@ -40,7 +40,7 @@ class _LiveViewModelPageState extends State<LiveViewModelPage>
               height: 8,
             ),
             // 可观察多个状态变化 ， 如果仅观察一个，可使用 SingleLiveDataBuilder
-            LiveDataBuilder(
+            MultiLiveDataBuilder(
                 //状态，要观察的 view model 的状态
                 observe: [viewModel.stateCounter],
                 builder: (context, child) {

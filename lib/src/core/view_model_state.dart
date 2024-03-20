@@ -145,7 +145,11 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   /// message 消息说明,相当于注释吧。
   /// what 可自定义消息标记
   /// data 携带的数据
-  void onNotify(String message, {int? what, Object? data}) {}
+  void onNotify(String message, {int? what, Object? data}) {
+    if(message == "_finish_current_page"){
+      context.navigator.pop(data);
+    }
+  }
 
   void toast(
     String message, {
