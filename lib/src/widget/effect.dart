@@ -28,7 +28,7 @@ class _FadeEffectState extends State<FadeEffect> {
       return widget.child;
     }
     return GestureDetector(
-        behavior: widget.behavior,
+        behavior: widget.behavior??HitTestBehavior.opaque,
         onTap: () {
           if (widget.onTap != null) {
             widget.onTap!();
@@ -95,7 +95,7 @@ class _AnimationFadeEffectState extends State<AnimationFadeEffect>
     _controller ??= AnimationController(
         vsync: this, duration: Duration(milliseconds: widget.duration));
     return GestureDetector(
-      behavior: widget.behavior,
+      behavior: widget.behavior??HitTestBehavior.opaque,
       onTap: () {
         if (widget.onTap != null) {
           widget.onTap!();

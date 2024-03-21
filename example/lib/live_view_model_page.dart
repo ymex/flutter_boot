@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_boot/core.dart';
+import 'package:flutter_boot/kits.dart';
 
 import 'live_view_model.dart';
 
@@ -39,20 +40,25 @@ class _LiveViewModelPageState extends State<LiveViewModelPage>
             const SizedBox(
               height: 8,
             ),
-            // 可观察多个状态变化 ， 如果仅观察一个，可使用 SingleLiveDataBuilder
+            // 可观察多个状态变化 ， 如果仅观察一个，可使用 LiveDataBuilder
             MultiLiveDataBuilder(
                 //状态，要观察的 view model 的状态
                 observe: [viewModel.stateCounter],
                 builder: (context, child) {
+                  logI("----------------:${viewModel.stateCounter.state.num}");
                   var counterValue = viewModel.stateCounter.value;
 
-                  return Text(
-                    // 计数
-                    '${counterValue.num}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(color: counterValue.color),
+                  return Column(
+                    children: [
+                      Text(
+                        // 计数
+                        '${counterValue.num}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(color: counterValue.color),
+                      ),
+                    ],
                   );
                 }),
           ],

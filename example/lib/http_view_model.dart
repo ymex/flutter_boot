@@ -36,9 +36,9 @@ class HttpPageViewModel extends HttpViewModel {
       /// 发起更新通知 ，显式的调用setState 去通知更新。
       setState<List<BiliBiliRecord>>(recordState, (value) {
         if (currentPage == 1) {
-          recordState.value = result.data?.list ?? [];
+          recordState.state = result.data?.list ?? [];
         } else {
-          recordState.value.addAll(result.data?.list ?? []);
+          recordState.state.addAll(result.data?.list ?? []);
         }
       });
 

@@ -11,19 +11,17 @@ class MultiLiveDataBuilder extends ListenableBuilder {
   MultiLiveDataBuilder({
     super.key,
     required List<LiveData> observe,
-    required LiveDataWidgetBuilder builder,
-    Widget? child,
+    required super.builder,
+    super.child,
   }) : super(
-            listenable: Listenable.merge(observe),
-            builder: builder,
-            child: child);
+            listenable: Listenable.merge(observe));
 }
 
 class LiveDataBuilder<T> extends ValueListenableBuilder<T> {
   const LiveDataBuilder({
     super.key,
     required LiveData<T> observe,
-    required SingleLiveDataWidgetBuilder<T> builder,
-    Widget? child,
-  }) : super(valueListenable: observe, builder: builder, child: child);
+    required super.builder,
+    super.child,
+  }) : super(valueListenable: observe);
 }

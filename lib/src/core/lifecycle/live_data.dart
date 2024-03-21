@@ -1,56 +1,45 @@
 part of '../view_model.dart';
 
-typedef LiveDataCallBack<T> = void Function(T cv);
+typedef LiveDataCallBack<T> = void Function(T v);
 
 /// 状态值
 class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
-  //赋值即更新
-  bool autoNotify = false;
+  //赋值即更新（注意：改变对象字段无效）
+  bool _notify = false;
+  T _state;
 
   LiveData._(
-    this._value, {
+    this._state, {
     bool notify = false,
-    this.autoNotify = false,
-  }) {
+  }) : _notify = notify {
+    if (_notify) {
+      notifyListeners();
+    }
+  }
+
+  LiveData.ref(this._state, {bool notify = false}) {
     if (notify) {
       notifyListeners();
     }
   }
 
-  // LiveData.ref(this._value, {bool notify = false}) {
-  //   if (notify) {
-  //     notifyListeners();
-  //   }
-  // }
-
   bool hostDispose = false;
 
   @override
-  T get value => _value;
+  T get value => _state;
 
-  T _value;
+  T get state => _state;
 
-  set value(T newValue) {
-    if (_value == newValue) {
+  set state(T value) {
+    if (_state == value) {
       return;
     }
-    _value = newValue;
-    // 为增加更新的可控制性，要主动去调用
-    if(autoNotify){
+    _state = value;
+    if(_notify){
       notifyListeners();
     }
   }
 
-  /// 通知更新
-  // void _setState<V>(LiveDataCallBack<V> fn, {bool notify = true}) {
-  //   if (hostDispose) {
-  //     return;
-  //   }
-  //   fn(value as V);
-  //   if (notify) {
-  //     this.notifyListeners();
-  //   }
-  // }
 
   /// 通知更新
   void setState(LiveDataCallBack<T> fn, {bool notify = true}) {

@@ -48,7 +48,6 @@ class ViewModel {
   /// notify 参数表示可关闭通知更新，只执行fn。
   void setState<T>(LiveData liveData, LiveDataCallBack<T> fn,
       {bool notify = true}) {
-    // liveData._setState<T>(fn, notify: notify);
     liveData.setState((cv) {
       fn(cv);
     }, notify: notify);

@@ -9,7 +9,7 @@ mixin HttpVmMixin on ViewModel {
     _httpRequestTokens.add(cancelToken);
   }
 
-  HttpRequestToken getHttpRequestToken([HttpRequestToken? requestToken]) {
+  HttpRequestToken lifeCancelToken([HttpRequestToken? requestToken]) {
     var rt = requestToken ?? DioCancelToken();
     _putHttpRequestToken(rt);
     return rt;
@@ -25,7 +25,7 @@ mixin HttpVmMixin on ViewModel {
   }) {
     return AnHttp.anHttp<T>(param,
         method: method,
-        cancelToken: getHttpRequestToken(cancelToken),
+        cancelToken: lifeCancelToken(cancelToken),
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
   }
@@ -43,7 +43,7 @@ mixin HttpVmMixin on ViewModel {
     var response = await AnHttp.anHttpJson<T>(param,
         convertor: convertor,
         method: method,
-        cancelToken: getHttpRequestToken(cancelToken),
+        cancelToken: lifeCancelToken(cancelToken),
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
     return response;
@@ -61,7 +61,7 @@ mixin HttpVmMixin on ViewModel {
   }) async {
     var response = await AnHttp.anHttpArray<T>(param,
         convertor: convertor,
-        cancelToken: getHttpRequestToken(cancelToken),
+        cancelToken: lifeCancelToken(cancelToken),
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress);
     return response;
