@@ -15,7 +15,6 @@ class CounterViewModel extends ViewModel {
       useState(CounterEntity(num: 0, color: Colors.red), notify: true);
 
   void incrementCounter() {
-
     setState<CounterEntity>(stateCounter, (v) {
       stateCounter.state.num = v.num + 1;
     });

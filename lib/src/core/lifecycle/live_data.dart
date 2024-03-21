@@ -35,11 +35,10 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
       return;
     }
     _state = value;
-    if(_notify){
+    if (_notify) {
       notifyListeners();
     }
   }
-
 
   /// 通知更新
   void setState(LiveDataCallBack<T> fn, {bool notify = true}) {

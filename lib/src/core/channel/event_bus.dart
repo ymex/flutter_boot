@@ -1,5 +1,3 @@
-import 'package:flutter_boot/core.dart';
-
 var globalBus = EventBus();
 
 typedef VoidValueCallback = void Function(dynamic data);

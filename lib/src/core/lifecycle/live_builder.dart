@@ -13,8 +13,7 @@ class MultiLiveDataBuilder extends ListenableBuilder {
     required List<LiveData> observe,
     required super.builder,
     super.child,
-  }) : super(
-            listenable: Listenable.merge(observe));
+  }) : super(listenable: Listenable.merge(observe));
 }
 
 class LiveDataBuilder<T> extends ValueListenableBuilder<T> {

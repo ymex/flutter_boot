@@ -8,9 +8,7 @@ import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
 part 'action_view_model.dart';
-
 part 'channel/event_bus_mixin.dart';
-
 part 'http_view_model.dart';
 
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
