@@ -22,15 +22,31 @@
 ```shell
 flutter pub add flutter_boot
 ```
+
+## LiveData
+可观察状态变动
+```dart
+  //定义待观察的状态
+  var liveCounter = LiveData.useState(0);
+  //使用
+  liveCounter.watch((count) => Text('$count'))
+  //更新状态 
+  liveCounter.setState((v) {
+      liveCounter.value = v + 1;
+  });
+```
+
+
+
 ## ViewModel
-配合ViewModelStateBuilder用于观察多个状态变化。
+配合LiveData用于观察多个状态变化。
 
 ```dart
 // 可观察多个状态变化 ， 如果仅观察一个，可使用 SingleLiveDataBuilder
 LiveDataBuilder(
     //状态，要观察的 view model 的状态
-    observe: [viewModel.stateCounter],
-    builder: (context, child) {
+    observe: viewModel.stateCounter,
+    builder: (context,value, child) {
     var counterValue = viewModel.stateCounter.value;
     
     return Text(
@@ -109,8 +125,8 @@ class _HttpViewModelPageState extends State<HttpViewModelPage>
           key: _refreshKey,
           onRefresh: _onRefresh,
           child: LiveDataBuilder(
-              observe: [viewModel.recordState],// 监听状态
-              builder: (context, child) {
+              observe: viewModel.recordState,// 监听状态
+              builder: (context,value, child) {
                 var records = viewModel.recordState.value;
                 return ListView.separated(...);
               })),

@@ -33,14 +33,7 @@ class _CounterPageState extends State<CounterPage> /* with LiveDataScope*/ {
             const SizedBox(
               height: 8,
             ),
-            liveCounter.watch((count) => Column(
-                  children: [
-                    Text(
-                      // 计数
-                      '$count',
-                    ),
-                  ],
-                )),
+            liveCounter.watch((count) => Text('$count')),
           ],
         ),
       ),
