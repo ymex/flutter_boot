@@ -16,7 +16,7 @@ class CounterViewModel extends ViewModel {
 
   void incrementCounter() {
     setState<CounterEntity>(stateCounter, (v) {
-      stateCounter.state.num = v.num + 1;
+      stateCounter.value.num = v.num + 1;
     });
 
     //或 useState（notify = true ）时

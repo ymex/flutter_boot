@@ -2,6 +2,7 @@ import 'package:example/event_bus_page.dart';
 import 'package:example/hint_toast_loading_page.dart';
 import 'package:example/http_view_model_page.dart';
 import 'package:example/invoke_controller_page.dart';
+import 'package:example/live_counter_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boot/kits.dart';
@@ -64,7 +65,9 @@ class ItemAction {
 class _MainPageState extends State<MainPage> {
   var items = [
     ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
-    ItemAction("LiveData", "观察多个状态变化，主动最小单位刷新",
+    ItemAction(
+        "计数器（LiveData）", "最简单使用方式", const CounterPage(title: "LiveData")),
+    ItemAction("计数器（LiveData ViewModel）", "观察多个状态变化，主动最小单位刷新",
         const LiveViewModelPage(title: "LiveViewModel")),
     ItemAction("Model-View-Intent", "使用ViewModel实现MVI架构及对组件生命周期感知的网络请求。",
         const HttpViewModelPage(title: "Model-View-Intent")),

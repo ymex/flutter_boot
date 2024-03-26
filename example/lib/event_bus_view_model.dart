@@ -20,7 +20,7 @@ class EventBusViewModel extends ActionViewModel with EventBusVmMixin {
 
     // 更新到页面
     setState(liveMessage, (ov) {
-      liveMessage.state = "$data";
+      liveMessage.value = "$data";
     });
   }
 }

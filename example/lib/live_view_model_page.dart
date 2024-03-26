@@ -40,12 +40,13 @@ class _LiveViewModelPageState extends State<LiveViewModelPage>
             const SizedBox(
               height: 8,
             ),
+
             // 可观察多个状态变化 ， 如果仅观察一个，可使用 LiveDataBuilder
             MultiLiveDataBuilder(
                 //状态，要观察的 view model 的状态
                 observe: [viewModel.stateCounter],
                 builder: (context, child) {
-                  logI("----------------:${viewModel.stateCounter.state.num}");
+                  logI("----------------:${viewModel.stateCounter.value.num}");
                   var counterValue = viewModel.stateCounter.value;
 
                   return Column(

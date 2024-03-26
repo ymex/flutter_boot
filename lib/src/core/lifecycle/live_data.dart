@@ -6,10 +6,10 @@ typedef LiveDataCallBack<T> = void Function(T v);
 class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
   //赋值即更新（注意：改变对象字段无效）
   bool _notify = false;
-  T _state;
+  T _value;
 
   LiveData._(
-    this._state, {
+    this._value, {
     bool notify = false,
   }) : _notify = notify {
     if (_notify) {
@@ -17,7 +17,8 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
     }
   }
 
-  LiveData.ref(this._state, {bool notify = false}) {
+  /// 需要手动调用 liveData.dispose() 销毁
+  LiveData.useState(this._value, {bool notify = false}) {
     if (notify) {
       notifyListeners();
     }
@@ -26,15 +27,13 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
   bool hostDispose = false;
 
   @override
-  T get value => _state;
+  T get value => _value;
 
-  T get state => _state;
-
-  set state(T value) {
-    if (_state == value) {
+  set value(T value) {
+    if (_value == value) {
       return;
     }
-    _state = value;
+    _value = value;
     if (_notify) {
       notifyListeners();
     }

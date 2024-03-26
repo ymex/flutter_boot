@@ -1,8 +1,11 @@
 # CHANGELOG
+
+## 0.3.1
+- optimize：live data
+
 ## 0.3.0
 - optimize：anHttp 
 - optimize：view model
-- backward incompatible 
 
 ## 0.2.9
 - fix: anHttp get

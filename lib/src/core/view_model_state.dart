@@ -116,6 +116,8 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
         _disposeEventBusVm(vm);
       }
     }
+    _viewModels.clear();
+
     super.dispose();
 
     _toastTier?.dismiss();
