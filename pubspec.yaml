@@ -1,6 +1,6 @@
 name: flutter_boot
 description: Quickly develop Flutter App's MVI framework, encapsulate Dio network requests, and convenient tools.
-version: 0.3.1
+version: 0.3.2
 homepage: https://github.com/ymex/flutter_boot
 
 environment:

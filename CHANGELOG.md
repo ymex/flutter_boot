@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.3.2
+- add：nil widget
+
 ## 0.3.1
 - optimize：live data
 
