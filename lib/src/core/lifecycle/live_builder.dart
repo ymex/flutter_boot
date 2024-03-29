@@ -46,7 +46,6 @@ extension LiveDataExt<T> on LiveData<T> {
       key: key,
       observe: this,
       builder: (context, value, _) {
-        logI(value);
         return builder(value);
       },
     );
