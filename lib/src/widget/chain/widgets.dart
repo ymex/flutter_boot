@@ -219,8 +219,8 @@ extension WidgetChainExt on Widget {
   }
 
   ///用Align包裹当前组件
-  Widget align(
-    AlignmentGeometry alignment, {
+  Widget align({
+    AlignmentGeometry alignment = Alignment.center,
     Key? key,
     double? widthFactor,
     double? heightFactor,
@@ -229,19 +229,22 @@ extension WidgetChainExt on Widget {
         key: key,
         widthFactor: widthFactor,
         heightFactor: heightFactor,
-        alignment: alignment ?? Alignment.center,
+        alignment: alignment,
         child: this);
   }
 
   ///用Center包裹当前组件
   Widget center({
     Key? key,
-    AlignmentGeometry? alignment,
+    AlignmentGeometry alignment = Alignment.center,
     double? widthFactor,
     double? heightFactor,
   }) {
-    return align(alignment ?? Alignment.center,
-        key: key, widthFactor: widthFactor, heightFactor: heightFactor);
+    return align(
+        alignment: alignment,
+        key: key,
+        widthFactor: widthFactor,
+        heightFactor: heightFactor);
   }
 
   ///用Container包裹当前组件
