@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.3.4
+- add: widget chain
+
 ## 0.3.3
 - add: widget chain
 
