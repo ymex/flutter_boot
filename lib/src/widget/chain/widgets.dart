@@ -21,8 +21,80 @@ extension WidgetChainExt on Widget {
     return gestureDetector(onTap: onTap, behavior: HitTestBehavior.opaque);
   }
 
+  /// 用InkWell包裹当前组件
+  InkWell inkWell({
+    Key? key,
+    GestureTapCallback? onTap,
+    GestureTapDownCallback? onTapDown,
+    GestureTapUpCallback? onTapUp,
+    GestureTapCallback? onTapCancel,
+    GestureTapCallback? onDoubleTap,
+    GestureLongPressCallback? onLongPress,
+    GestureTapCallback? onSecondaryTap,
+    GestureTapUpCallback? onSecondaryTapUp,
+    GestureTapDownCallback? onSecondaryTapDown,
+    GestureTapCallback? onSecondaryTapCancel,
+    ValueChanged<bool>? onHighlightChanged,
+    ValueChanged<bool>? onHover,
+    MouseCursor? mouseCursor,
+    bool containedInkWell = false,
+    BoxShape highlightShape = BoxShape.circle,
+    double? radius,
+    BorderRadius? borderRadius,
+    ShapeBorder? customBorder,
+    Color? focusColor,
+    Color? hoverColor,
+    Color? highlightColor,
+    MaterialStateProperty<Color?>? overlayColor,
+    Color? splashColor,
+    InteractiveInkFeatureFactory? splashFactory,
+    bool enableFeedback = true,
+    bool excludeFromSemantics = false,
+    FocusNode? focusNode,
+    bool canRequestFocus = true,
+    ValueChanged<bool>? onFocusChange,
+    bool autofocus = false,
+    MaterialStatesController? statesController,
+    Duration? hoverDuration,
+  }) {
+    return InkWell(
+      key: key,
+      onTap: onTap,
+      onDoubleTap: onDoubleTap,
+      onLongPress: onLongPress,
+      onTapDown: onTapDown,
+      onTapUp: onTapUp,
+      onTapCancel: onTapCancel,
+      onSecondaryTap: onSecondaryTap,
+      onSecondaryTapUp: onSecondaryTapUp,
+      onSecondaryTapDown: onSecondaryTapDown,
+      onSecondaryTapCancel: onSecondaryTapCancel,
+      onHighlightChanged: onHighlightChanged,
+      onHover: onHover,
+      mouseCursor: mouseCursor,
+      focusColor: focusColor,
+      hoverColor: hoverColor,
+      highlightColor: highlightColor,
+      overlayColor: overlayColor,
+      splashColor: splashColor,
+      splashFactory: splashFactory,
+      radius: radius,
+      borderRadius: borderRadius,
+      customBorder: customBorder,
+      enableFeedback: enableFeedback,
+      excludeFromSemantics: excludeFromSemantics,
+      focusNode: focusNode,
+      canRequestFocus: canRequestFocus,
+      onFocusChange: onFocusChange,
+      autofocus: autofocus,
+      statesController: statesController,
+      hoverDuration: hoverDuration,
+      child: this,
+    );
+  }
+
   /// 用GestureDetector包裹当前组件
-  Widget gestureDetector({
+  GestureDetector gestureDetector({
     Key? key,
     GestureTapDownCallback? onTapDown,
     GestureTapUpCallback? onTapUp,
@@ -158,7 +230,7 @@ extension WidgetChainExt on Widget {
   }
 
   /// 用Visibility包裹当前组件
-  Widget visibility(
+  Visibility visibility(
     bool visible, {
     Key? key,
     Widget replacement = const SizedBox.shrink(),
@@ -181,7 +253,7 @@ extension WidgetChainExt on Widget {
   }
 
   /// 用Offstage包裹当前组件
-  Widget offstage(bool offstage, {Key? key}) {
+  Offstage offstage(bool offstage, {Key? key}) {
     return Offstage(
       key: key,
       offstage: offstage,
@@ -190,7 +262,7 @@ extension WidgetChainExt on Widget {
   }
 
   /// 用ColoredBox包裹当前组件
-  Widget coloredBox(Color color, {Key? key}) {
+  ColoredBox coloredBox(Color color, {Key? key}) {
     return ColoredBox(
       color: color,
       key: key,
@@ -199,7 +271,7 @@ extension WidgetChainExt on Widget {
   }
 
   /// 用Padding包裹当前组件
-  Widget padding(
+  Padding padding(
     EdgeInsetsGeometry padding, {
     Key? key,
   }) {
@@ -211,7 +283,7 @@ extension WidgetChainExt on Widget {
   }
 
   /// 用Padding包裹当前组件
-  Widget margin(
+  Padding margin(
     EdgeInsetsGeometry margin, {
     Key? key,
   }) {
@@ -219,7 +291,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用Align包裹当前组件
-  Widget align({
+  Align align({
     AlignmentGeometry alignment = Alignment.center,
     Key? key,
     double? widthFactor,
@@ -234,7 +306,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用Center包裹当前组件
-  Widget center({
+  Align center({
     Key? key,
     AlignmentGeometry alignment = Alignment.center,
     double? widthFactor,
@@ -248,7 +320,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用Container包裹当前组件
-  Widget container({
+  Container container({
     Key? key,
     AlignmentGeometry? alignment,
     EdgeInsetsGeometry? padding,
@@ -281,7 +353,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用DecoratedBox包裹当前组件
-  Widget decoratedBox(
+  DecoratedBox decoratedBox(
     Decoration decoration, {
     Key? key,
     DecorationPosition position = DecorationPosition.background,
@@ -295,7 +367,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用ConstrainedBox包裹当前组件
-  Widget constrainedBox(
+  ConstrainedBox constrainedBox(
     BoxConstraints constraints, {
     Key? key,
   }) {
@@ -307,7 +379,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用Opacity包裹当前组件
-  Widget opacity(double opacity,
+  Opacity opacity(double opacity,
       {Key? key, bool alwaysIncludeSemantics = false}) {
     return Opacity(
       key: key,
@@ -318,7 +390,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用Positioned包裹当前组件
-  Widget positioned({
+  Positioned positioned({
     Key? key,
     double? left,
     double? top,
@@ -340,7 +412,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用Expanded包裹当前组件
-  Widget expanded(
+  Expanded expanded(
     int flex, {
     Key? key,
   }) {
@@ -352,7 +424,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用IgnorePointer包裹当前组件
-  Widget ignorePointer({
+  IgnorePointer ignorePointer({
     Key? key,
     bool ignoring = true,
   }) {
@@ -360,7 +432,7 @@ extension WidgetChainExt on Widget {
   }
 
   ///用AbsorbPointer包裹当前组件
-  Widget absorbPointer({
+  AbsorbPointer absorbPointer({
     Key? key,
     bool absorbing = true,
   }) {
@@ -371,7 +443,7 @@ extension WidgetChainExt on Widget {
     );
   }
 
-  Widget sizedBox({Key? key, double? width, double? height}) {
+  SizedBox sizedBox({Key? key, double? width, double? height}) {
     return SizedBox(
       key: key,
       width: width,
@@ -387,7 +459,7 @@ extension WidgetsChainExt<T extends Widget> on List<T> {
     return builder(this);
   }
 
-  Widget flex({
+  Flex flex({
     Key? key,
     required Axis direction,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
@@ -413,7 +485,7 @@ extension WidgetsChainExt<T extends Widget> on List<T> {
     );
   }
 
-  Widget row({
+  Flex row({
     Key? key,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
     MainAxisSize mainAxisSize = MainAxisSize.max,
@@ -436,7 +508,7 @@ extension WidgetsChainExt<T extends Widget> on List<T> {
         clipBehavior: clipBehavior);
   }
 
-  Widget column({
+  Flex column({
     Key? key,
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
     MainAxisSize mainAxisSize = MainAxisSize.max,
@@ -459,7 +531,7 @@ extension WidgetsChainExt<T extends Widget> on List<T> {
         clipBehavior: clipBehavior);
   }
 
-  Widget stack({
+  Stack stack({
     Key? key,
     AlignmentGeometry alignment = AlignmentDirectional.topStart,
     TextDirection? textDirection,
@@ -473,6 +545,44 @@ extension WidgetsChainExt<T extends Widget> on List<T> {
       fit: fit,
       clipBehavior: clipBehavior,
       children: this,
+    );
+  }
+}
+
+extension WidgetsEm on String {
+
+  Text text({
+    Key? key,
+    TextStyle? style,
+    StrutStyle? strutStyle,
+    TextAlign? textAlign,
+    TextDirection? textDirection,
+    Locale? locale,
+    bool? softWrap,
+    TextOverflow? overflow,
+    TextScaler? textScaler,
+    int? maxLines,
+    String? semanticsLabel,
+    TextWidthBasis? textWidthBasis,
+    TextHeightBehavior? textHeightBehavior,
+    Color? selectionColor,
+  }) {
+    return Text(
+      this,
+      key: key,
+      style: style,
+      strutStyle: strutStyle,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      locale: locale,
+      softWrap: softWrap,
+      overflow: overflow,
+      textScaler: textScaler,
+      maxLines: maxLines,
+      semanticsLabel: semanticsLabel,
+      textWidthBasis: textWidthBasis,
+      textHeightBehavior: textHeightBehavior,
+      selectionColor: selectionColor,
     );
   }
 }
