@@ -4,7 +4,7 @@ import 'package:flutter_boot/widget.dart';
 
 extension WidgetChainExt on Widget {
   /// 包裹当前组件
-  Widget wrap(Widget Function(Widget child) builder) {
+  Widget enfold(Widget Function(Widget child) builder) {
     return builder(this);
   }
 
@@ -189,6 +189,15 @@ extension WidgetChainExt on Widget {
     );
   }
 
+  /// 用ColoredBox包裹当前组件
+  Widget coloredBox(Color color, {Key? key}) {
+    return ColoredBox(
+      color: color,
+      key: key,
+      child: this,
+    );
+  }
+
   /// 用Padding包裹当前组件
   Widget padding(
     EdgeInsetsGeometry padding, {
@@ -267,11 +276,111 @@ extension WidgetChainExt on Widget {
       child: this,
     );
   }
+
+  ///用DecoratedBox包裹当前组件
+  Widget decoratedBox(
+    Decoration decoration, {
+    Key? key,
+    DecorationPosition position = DecorationPosition.background,
+  }) {
+    return DecoratedBox(
+      decoration: decoration,
+      key: key,
+      position: position,
+      child: this,
+    );
+  }
+
+  ///用ConstrainedBox包裹当前组件
+  Widget constrainedBox(
+    BoxConstraints constraints, {
+    Key? key,
+  }) {
+    return ConstrainedBox(
+      key: key,
+      constraints: constraints,
+      child: this,
+    );
+  }
+
+  ///用Opacity包裹当前组件
+  Widget opacity(double opacity,
+      {Key? key, bool alwaysIncludeSemantics = false}) {
+    return Opacity(
+      key: key,
+      opacity: opacity,
+      alwaysIncludeSemantics: alwaysIncludeSemantics,
+      child: this,
+    );
+  }
+
+  ///用Positioned包裹当前组件
+  Widget positioned({
+    Key? key,
+    double? left,
+    double? top,
+    double? right,
+    double? bottom,
+    double? width,
+    double? height,
+  }) {
+    return Positioned(
+      key: key,
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom,
+      width: width,
+      height: height,
+      child: this,
+    );
+  }
+
+  ///用Expanded包裹当前组件
+  Widget expanded(
+    int flex, {
+    Key? key,
+  }) {
+    return Expanded(
+      key: key,
+      flex: flex,
+      child: this,
+    );
+  }
+
+  ///用IgnorePointer包裹当前组件
+  Widget ignorePointer({
+    Key? key,
+    bool ignoring = true,
+  }) {
+    return IgnorePointer(key: key, ignoring: ignoring, child: this);
+  }
+
+  ///用AbsorbPointer包裹当前组件
+  Widget absorbPointer({
+    Key? key,
+    bool absorbing = true,
+  }) {
+    return AbsorbPointer(
+      key: key,
+      absorbing: absorbing,
+      child: this,
+    );
+  }
+
+  Widget sizedBox({Key? key, double? width, double? height}) {
+    return SizedBox(
+      key: key,
+      width: width,
+      height: height,
+      child: this,
+    );
+  }
 }
 
 extension WidgetsChainExt<T extends Widget> on List<T> {
   /// 包裹当前组件
-  Widget wrap(Widget Function(List<T> children) builder) {
+  Widget enfold(Widget Function(List<T> children) builder) {
     return builder(this);
   }
 
