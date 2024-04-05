@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.6
+- add: widget chain clip
+- add: widget chain singleChildScrollView
+
 ## 0.3.5
 - add: widget chain text
 

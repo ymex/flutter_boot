@@ -451,6 +451,79 @@ extension WidgetChainExt on Widget {
       child: this,
     );
   }
+
+  ClipRRect clipRRect({
+    Key? key,
+    BorderRadiusGeometry borderRadius = BorderRadius.zero,
+    Clip clipBehavior = Clip.antiAlias,
+    CustomClipper<RRect>? clipper,
+  }) {
+    return ClipRRect(
+      key: key,
+      borderRadius: borderRadius,
+      clipBehavior: clipBehavior,
+      clipper: clipper,
+      child: this,
+    );
+  }
+
+  ClipOval clipOval({
+    Key? key,
+    Clip clipBehavior = Clip.antiAlias,
+    CustomClipper<Rect>? clipper,
+  }) {
+    return ClipOval(
+        key: key, clipper: clipper, clipBehavior: clipBehavior, child: this);
+  }
+
+  ClipRect clipRect({
+    Key? key,
+    Clip clipBehavior = Clip.antiAlias,
+    CustomClipper<Rect>? clipper,
+  }) {
+    return ClipRect(
+        key: key, clipBehavior: clipBehavior, clipper: clipper, child: this);
+  }
+
+  ClipPath clipPath({
+    Key? key,
+    Clip clipBehavior = Clip.antiAlias,
+    CustomClipper<Path>? clipper,
+  }) {
+    return ClipPath(
+        key: key, clipBehavior: clipBehavior, clipper: clipper, child: this);
+  }
+
+  SingleChildScrollView singleChildScrollView({
+    Key? key,
+    Axis scrollDirection = Axis.vertical,
+    bool reverse = false,
+    EdgeInsetsGeometry? padding,
+    bool? primary,
+    ScrollPhysics? physics,
+    ScrollController? controller,
+    child,
+    DragStartBehavior dragStartBehavior = DragStartBehavior.start,
+    Clip clipBehavior = Clip.hardEdge,
+    String? restorationId,
+    ScrollViewKeyboardDismissBehavior keyboardDismissBehavior =
+        ScrollViewKeyboardDismissBehavior.manual,
+  }) {
+    return SingleChildScrollView(
+      key: key,
+      scrollDirection: scrollDirection,
+      reverse: reverse,
+      padding: padding ?? EdgeInsets.zero,
+      primary: primary,
+      physics: physics,
+      controller: controller,
+      dragStartBehavior: dragStartBehavior,
+      clipBehavior: clipBehavior,
+      restorationId: restorationId,
+      keyboardDismissBehavior: keyboardDismissBehavior,
+      child: this,
+    );
+  }
 }
 
 extension WidgetsChainExt<T extends Widget> on List<T> {
@@ -550,7 +623,6 @@ extension WidgetsChainExt<T extends Widget> on List<T> {
 }
 
 extension WidgetsEm on String {
-
   Text text({
     Key? key,
     TextStyle? style,
