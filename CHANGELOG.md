@@ -1,4 +1,6 @@
 # CHANGELOG
+## 0.3.7
+- add: viewModel autoDispose 
 
 ## 0.3.6
 - add: widget chain clip

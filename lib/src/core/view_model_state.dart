@@ -102,6 +102,19 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   /// 关闭页面后，请求取消。
   @override
   void dispose() {
+    if (!autoDispose()) {
+      super.dispose();
+      return;
+    }
+    destroy();
+    super.dispose();
+  }
+
+  bool autoDispose() {
+    return true;
+  }
+
+  void destroy() {
     var vms = _viewModels;
     for (var vm in vms) {
       for (var liveDataItem in vm.liveDataList) {
@@ -117,9 +130,6 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
       }
     }
     _viewModels.clear();
-
-    super.dispose();
-
     _toastTier?.dismiss();
     _loadingTier?.dismiss();
     _toastTier = null;
