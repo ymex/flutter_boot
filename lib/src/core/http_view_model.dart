@@ -66,6 +66,16 @@ mixin HttpVmMixin on ViewModel {
         onReceiveProgress: onReceiveProgress);
     return response;
   }
+
+  void disposeRequestToken() {
+    for (var tokeItem in httpRequestTokens) {
+      if (!tokeItem.isCancelled) {
+        tokeItem.cancel();
+      }
+    }
+    httpRequestTokens.clear();
+  }
+
 }
 
 class HttpViewModel extends ViewModel with ActionVmMixin, HttpVmMixin {

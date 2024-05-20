@@ -63,7 +63,7 @@ mixin EventBusVmMixin on ViewModel {
   }
 
   /// 卸载
-  void _unregisterEvents() {
+  void unregisterEvents() {
     _eventPairs?.forEach((pair) {
       _eventBus?.unregister(pair.key, pair.value);
     });

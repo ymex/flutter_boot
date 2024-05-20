@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 
+import '../../core.dart';
+
 part 'lifecycle/live_data.dart';
 
 /// ViewModel
@@ -14,8 +16,6 @@ class ViewModel {
   final Object? key;
 
   ViewModel({this.key});
-
-  List<LiveData> get liveDataList => _liveDataList;
 
   set stateCall(value) => _stateCall = value;
 
@@ -60,5 +60,13 @@ class ViewModel {
   //结束持有ViewModel的页面
   void finish([Object? data]) {
     sendNotify("_finish_current_page", data: data);
+  }
+
+  void dispose(){
+    for (var liveDataItem in _liveDataList) {
+      liveDataItem.hostDispose = true;
+      liveDataItem.dispose();
+    }
+    _liveDataList.clear();
   }
 }

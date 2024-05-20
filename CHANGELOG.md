@@ -1,4 +1,7 @@
 # CHANGELOG
+## 0.3.8
+- optimize: code
+
 ## 0.3.7
 - add: viewModel autoDispose 
 

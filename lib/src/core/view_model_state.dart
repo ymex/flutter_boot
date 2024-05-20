@@ -8,7 +8,9 @@ import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
 part 'action_view_model.dart';
+
 part 'channel/event_bus_mixin.dart';
+
 part 'http_view_model.dart';
 
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
@@ -117,16 +119,12 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   void destroy() {
     var vms = _viewModels;
     for (var vm in vms) {
-      for (var liveDataItem in vm.liveDataList) {
-        liveDataItem.hostDispose = true;
-        liveDataItem.dispose();
-      }
-      vm.liveDataList.clear();
+      vm.dispose();
       if (vm is HttpVmMixin) {
-        _disposeHttpVm(vm);
+        vm.disposeRequestToken();
       }
       if (vm is EventBusVmMixin) {
-        _disposeEventBusVm(vm);
+        vm.unregisterEvents();
       }
     }
     _viewModels.clear();
@@ -134,19 +132,6 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     _loadingTier?.dismiss();
     _toastTier = null;
     _loadingTier = null;
-  }
-
-  void _disposeHttpVm(HttpVmMixin vm) {
-    for (var tokeItem in vm.httpRequestTokens) {
-      if (!tokeItem.isCancelled) {
-        tokeItem.cancel();
-      }
-    }
-    vm.httpRequestTokens.clear();
-  }
-
-  void _disposeEventBusVm(EventBusVmMixin vm) {
-    vm._unregisterEvents();
   }
 
   FutureOr<void> onRendered(BuildContext context) {}
