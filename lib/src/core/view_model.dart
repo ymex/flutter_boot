@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import '../../core.dart';
-
 part 'lifecycle/live_data.dart';
 
 /// ViewModel
@@ -62,7 +60,7 @@ class ViewModel {
     sendNotify("_finish_current_page", data: data);
   }
 
-  void dispose(){
+  void dispose() {
     for (var liveDataItem in _liveDataList) {
       liveDataItem.hostDispose = true;
       liveDataItem.dispose();
