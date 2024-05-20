@@ -45,14 +45,14 @@ extension BuildContextExt on BuildContext {
   /// 获取navigator state
   NavigatorState get navigator => Navigator.of(this);
 
-  Future<T?> push<T extends Object?>({Widget? page, Route<T>? route}) {
+  Future<T?> routePush<T extends Object?>({Widget? page, Route<T>? route}) {
     if (route != null) return navigator.push<T>(route);
     return navigator.push<T>(MaterialPageRoute<T>(builder: (context) {
       return page!;
     }));
   }
 
-  Future<T?> pushAndRemoveUntil<T extends Object?>(
+  Future<T?> routePushAndRemoveUntil<T extends Object?>(
       {Widget? page, Route<T>? newRoute, required RoutePredicate predicate}) {
     if (newRoute != null) {
       return navigator.pushAndRemoveUntil(newRoute, predicate);
@@ -61,7 +61,7 @@ extension BuildContextExt on BuildContext {
         MaterialPageRoute(builder: (_) => page!), predicate);
   }
 
-  Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
+  Future<T?> routePushReplacement<T extends Object?, TO extends Object?>(
       {Widget? page, Route<T>? newRoute, TO? result}) {
     if (newRoute != null) {
       return navigator.pushReplacement(newRoute, result: result);

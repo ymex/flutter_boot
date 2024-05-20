@@ -15,8 +15,9 @@ extension LangObjectExt on Object {
 
 extension LangIntExt on int {
   /// 秒转为DateTime
-  DateTime toDateTime() {
-    return DateTime.fromMillisecondsSinceEpoch(this * 1000);
+  /// 默认为秒 转 DateTime ，若为 Millisecond 时  rate 设置为 1
+  DateTime toDateTime({int rate = 1000}) {
+    return DateTime.fromMillisecondsSinceEpoch(this * rate);
   }
 }
 

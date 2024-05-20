@@ -1,4 +1,10 @@
 # CHANGELOG
+
+## 0.3.9
+- optimize: toDateTime
+- optimize: push
+- optimize: systemHideKeyboard
+
 ## 0.3.8
 - optimize: code
 

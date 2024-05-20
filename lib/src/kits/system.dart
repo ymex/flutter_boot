@@ -74,7 +74,7 @@ Future systemEnabledUiMode(
 /// [DeviceOrientation.portraitUp] - 竖屏
 /// [DeviceOrientation.landscapeLeft] - 横屏
 /// 当 orientations 为空时跟随系统。
-Future<void>  systemScreenOrientation(
+Future<void> systemScreenOrientation(
     {required List<DeviceOrientation> orientations}) async {
   return SystemChrome.setPreferredOrientations(orientations);
 }
@@ -82,12 +82,12 @@ Future<void>  systemScreenOrientation(
 /// orientations 为空时跟随系统屏幕方向。
 /// 组件：OrientationBuilder
 /// 或 MediaQuery.of(context).orientation 可获取屏幕方向
-Future<void>  systemScreenOrientationAuto(){
+Future<void> systemScreenOrientationAuto() {
   return SystemChrome.setPreferredOrientations([]);
 }
 
 /// 关闭键盘
-void systemHideKeyboard({bool hideFocus = false}) async {
+void systemHideKeyboard({bool hideFocus = true}) async {
   if (hideFocus) {
     /// 关闭键盘并失去焦点
     return FocusManager.instance.primaryFocus?.unfocus();
