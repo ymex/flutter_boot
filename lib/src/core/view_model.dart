@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_boot/core.dart';
 
-
 /// ViewModel
 
 class ViewModel with LiveDataScope {
@@ -14,9 +13,13 @@ class ViewModel with LiveDataScope {
 
   ViewModel({this.key});
 
-  set stateCall(value) => _stateCall = value;
-
-  set notifyCall(value) => _notifyCall = value;
+  void setInvokingFun({
+    Function(VoidCallback)? stateCall,
+    Function(String message, {int? what, Object? data})? notifyCall,
+  }) {
+    _stateCall = stateCall;
+    _notifyCall = notifyCall;
+  }
 
   /// 通知所持有ViewModel的State组件更新。
   /// notify 参数表示可关闭通知更新，只执行fn。

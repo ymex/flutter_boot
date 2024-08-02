@@ -6,8 +6,6 @@ import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
-// part 'view_model_http.dart';
-
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
   OverlayTier? _toastTier;
@@ -44,8 +42,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
 
     var vms = _viewModels;
     for (var vm in vms) {
-      vm.stateCall = this.setState;
-      vm.notifyCall = this.onNotify;
+      vm.setInvokingFun(stateCall: setState, notifyCall: onNotify);
       if (vm is ActionVmMixin) {
         _initActionVm(vm as ActionVmMixin);
       }
@@ -98,7 +95,6 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   /// 关闭页面后，请求取消。
   @override
   void dispose() {
-    logI("--------------------------view model state dispose");
     if (!autoDispose()) {
       super.dispose();
       return;
