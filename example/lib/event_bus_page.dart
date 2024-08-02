@@ -55,7 +55,7 @@ class _EventBusPageState extends State<EventBusPage> with ViewModelStateScope {
               const SizedBox(
                 height: 24,
               ),
-              Text("方式一：在ViewModel中混入EventBusVmMixin、自动注册和销毁。"),
+              Text("方式一：在ViewModel中混入EventBusMixin、自动注册和销毁。"),
               const SizedBox(
                 height: 24,
               ),

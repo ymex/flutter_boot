@@ -1,10 +1,10 @@
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_boot/http.dart';
 
 import '../../widget.dart';
 import 'view_model.dart';
 
-mixin ActionVmMixin{
+mixin ActionVmMixin {
   Function(
     String message, {
     int duration,
@@ -43,4 +43,8 @@ mixin ActionVmMixin{
 
 class ActionViewModel extends ViewModel with ActionVmMixin {
   ActionViewModel({super.key});
+}
+
+class HttpViewModel extends ViewModel with ActionVmMixin, AnHttpMixin {
+  HttpViewModel({super.key});
 }

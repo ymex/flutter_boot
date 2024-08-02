@@ -6,7 +6,7 @@ import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
-mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
+mixin ViewModelStateScope<T extends StatefulWidget> on State<T>{
   final List<ViewModel> _viewModels = [];
   OverlayTier? _toastTier;
   OverlayTier? _loadingTier;
@@ -46,8 +46,8 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
       if (vm is ActionVmMixin) {
         _initActionVm(vm as ActionVmMixin);
       }
-      if (vm is EventBusVmMixin) {
-        _initEventBusVm(vm);
+      if (vm is EventBusMixin) {
+        _initEventBusVm(vm as EventBusMixin);
       }
     }
 
@@ -77,14 +77,8 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     vm.dismissLoadingCall = this.dismissLoading;
   }
 
-  void _initEventBusVm(EventBusVmMixin vm) {
-    vm.eventBus = vm.useEventBus();
-    vm.eventPairs = vm.useEvents();
-    if (vm.eventBus != null &&
-        vm.eventPairs != null &&
-        vm.eventPairs!.isNotEmpty) {
-      vm.registerEvents();
-    }
+  void _initEventBusVm(EventBusMixin vm) {
+    vm.registerEvents();
   }
 
   @override
@@ -114,9 +108,8 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
       if (vm is AnHttpMixin) {
         (vm as AnHttpMixin).disposeRequestToken();
       }
-
-      if (vm is EventBusVmMixin) {
-        vm.unregisterEvents();
+      if (vm is EventBusMixin) {
+        (vm as EventBusMixin).unregisterEvents();
       }
     }
     _viewModels.clear();
