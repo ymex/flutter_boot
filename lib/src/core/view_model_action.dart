@@ -1,16 +1,20 @@
-part of "view_model_state.dart";
 
-mixin ActionVmMixin on ViewModel {
+import 'package:flutter/cupertino.dart';
+
+import '../../widget.dart';
+import 'view_model.dart';
+
+mixin ActionVmMixin{
   Function(
     String message, {
     int duration,
     ToastAlignment alignment,
     Widget? widget,
-  })? _toastCall;
+  })? toastCall;
 
-  Function({Widget? widget})? _showLoadingCall;
+  Function({Widget? widget})? showLoadingCall;
 
-  VoidCallback? _dismissLoadingCall;
+  VoidCallback? dismissLoadingCall;
 
   void toast(
     String message, {
@@ -18,21 +22,21 @@ mixin ActionVmMixin on ViewModel {
     ToastAlignment alignment = ToastAlignment.bottom,
     Widget? widget,
   }) {
-    if (_toastCall != null) {
-      _toastCall!(message,
+    if (toastCall != null) {
+      toastCall!(message,
           duration: duration, alignment: alignment, widget: widget);
     }
   }
 
   void showLoading({Widget? widget}) {
-    if (_showLoadingCall != null) {
-      _showLoadingCall!(widget: widget);
+    if (showLoadingCall != null) {
+      showLoadingCall!(widget: widget);
     }
   }
 
   void dismissLoading() {
-    if (_dismissLoadingCall != null) {
-      _dismissLoadingCall!();
+    if (dismissLoadingCall != null) {
+      dismissLoadingCall!();
     }
   }
 }

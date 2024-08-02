@@ -1,6 +1,9 @@
-part of "view_model_state.dart";
+import 'package:dio/dio.dart';
 
-mixin HttpVmMixin on ViewModel {
+import 'an_http.dart';
+import 'an_param.dart';
+
+mixin AnHttpMixin {
   final List<HttpRequestToken> _httpRequestTokens = [];
 
   List<HttpRequestToken> get httpRequestTokens => _httpRequestTokens;
@@ -75,9 +78,4 @@ mixin HttpVmMixin on ViewModel {
     }
     httpRequestTokens.clear();
   }
-
-}
-
-class HttpViewModel extends ViewModel with ActionVmMixin, HttpVmMixin {
-  HttpViewModel({super.key});
 }

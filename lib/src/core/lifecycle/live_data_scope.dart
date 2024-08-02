@@ -1,23 +1,27 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_boot/core.dart';
+import 'live_data.dart';
 
-mixin LiveDataScope<T extends StatefulWidget> on State<T> {
+mixin LiveDataScope {
   final List<LiveData> _liveDataList = [];
+
+  void addLiveData(LiveData liveData) {
+    if (!_liveDataList.contains(liveData)) {
+      _liveDataList.add(liveData);
+    }
+  }
 
   /// 创建 ViewModelState
   /// notify 创建时是否更新状态
   LiveData<M> useState<M>(M value, {bool notify = false}) {
-    var valueNotifier = LiveData.useState(value, notify: notify);
-    _liveDataList.add(valueNotifier);
-    return valueNotifier;
+    var liveData = LiveData.useState(value, notify: notify);
+    addLiveData(liveData);
+    return liveData;
   }
 
-  @override
   void dispose() {
     for (var liveDataItem in _liveDataList) {
       liveDataItem.hostDispose = true;
       liveDataItem.dispose();
     }
-    super.dispose();
+    _liveDataList.clear();
   }
 }

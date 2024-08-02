@@ -1,8 +1,11 @@
-part of '../view_model_state.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'channel/event_bus.dart';
+import 'view_model.dart';
 
 mixin EventBusStateMixin<T extends StatefulWidget> on State<T> {
-  EventBus? _eventBus;
-  List<MethodPair<VoidValueCallback>>? _eventPairs;
+  EventBus? eventBus;
+  List<MethodPair<VoidValueCallback>>? eventPairs;
 
   EventBus useEventBus() {
     return globalBus;
@@ -15,9 +18,9 @@ mixin EventBusStateMixin<T extends StatefulWidget> on State<T> {
   @override
   void initState() {
     super.initState();
-    _eventBus = useEventBus();
-    _eventPairs = useEvents();
-    if (_eventBus != null && _eventPairs != null && _eventPairs!.isNotEmpty) {
+    eventBus = useEventBus();
+    eventPairs = useEvents();
+    if (eventBus != null && eventPairs != null && eventPairs!.isNotEmpty) {
       _registerEvents();
     }
   }
@@ -30,24 +33,24 @@ mixin EventBusStateMixin<T extends StatefulWidget> on State<T> {
 
   /// 注册
   void _registerEvents() {
-    _eventPairs?.forEach((pair) {
-      _eventBus?.register(pair.key, pair.value);
+    eventPairs?.forEach((pair) {
+      eventBus?.register(pair.key, pair.value);
     });
   }
 
   /// 卸载
   void _unregisterEvents() {
-    _eventPairs?.forEach((pair) {
-      _eventBus?.unregister(pair.key, pair.value);
+    eventPairs?.forEach((pair) {
+      eventBus?.unregister(pair.key, pair.value);
     });
   }
 }
 
 mixin EventBusVmMixin on ViewModel {
-  EventBus? _eventBus;
-  List<MethodPair<VoidValueCallback>>? _eventPairs;
+  EventBus? eventBus;
+  List<MethodPair<VoidValueCallback>>? eventPairs;
 
-  EventBus _useEventBus() {
+  EventBus useEventBus() {
     return globalBus;
   }
 
@@ -56,22 +59,22 @@ mixin EventBusVmMixin on ViewModel {
   }
 
   /// 注册
-  void _registerEvents() {
-    _eventPairs?.forEach((pair) {
-      _eventBus?.register(pair.key, pair.value);
+  void registerEvents() {
+    eventPairs?.forEach((pair) {
+      eventBus?.register(pair.key, pair.value);
     });
   }
 
   /// 卸载
   void unregisterEvents() {
-    _eventPairs?.forEach((pair) {
-      _eventBus?.unregister(pair.key, pair.value);
+    eventPairs?.forEach((pair) {
+      eventBus?.unregister(pair.key, pair.value);
     });
   }
 
   /// 全局广播
   /// 默认：globalBus.emit() 效果相同
   void emitEvent(Object eventName, [Object? arg]) {
-    _eventBus?.emit(eventName, arg);
+    eventBus?.emit(eventName, arg);
   }
 }

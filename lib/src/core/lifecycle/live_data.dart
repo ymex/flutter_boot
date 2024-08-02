@@ -1,24 +1,21 @@
-part of '../view_model.dart';
+import 'package:flutter/foundation.dart';
+
+import 'live_data_scope.dart';
 
 typedef LiveDataCallBack<T> = void Function(T v);
 
 /// 状态值
 class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
   //赋值即更新（注意：改变对象字段无效）
-  bool _notify = false;
+  final bool _notify;
   T _value;
 
-  LiveData._(
-    this._value, {
-    bool notify = false,
-  }) : _notify = notify {
-    if (_notify) {
-      notifyListeners();
-    }
-  }
-
   /// 需要手动调用 liveData.dispose() 销毁
-  LiveData.useState(this._value, {bool notify = false}) {
+  LiveData.useState(this._value, {bool notify = false, LiveDataScope? scope})
+      : _notify = notify {
+    if (scope != null) {
+      scope.addLiveData(this);
+    }
     if (notify) {
       notifyListeners();
     }

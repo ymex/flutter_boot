@@ -1,20 +1,17 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
-part 'action_view_model.dart';
-
-part 'channel/event_bus_mixin.dart';
-
-part 'http_view_model.dart';
+// part 'view_model_http.dart';
 
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
+  OverlayTier? _toastTier;
+  OverlayTier? _loadingTier;
   bool _isInitArg = false;
 
   /// 获取指定的ViewModel
@@ -34,9 +31,6 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     return [];
   }
 
-  OverlayTier? _toastTier;
-  OverlayTier? _loadingTier;
-
   @override
   void initState() {
     _viewModels.clear();
@@ -53,7 +47,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
       vm.stateCall = this.setState;
       vm.notifyCall = this.onNotify;
       if (vm is ActionVmMixin) {
-        _initActionVm(vm);
+        _initActionVm(vm as ActionVmMixin);
       }
       if (vm is EventBusVmMixin) {
         _initEventBusVm(vm);
@@ -81,18 +75,18 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   }
 
   void _initActionVm(ActionVmMixin vm) {
-    vm._toastCall = this.toast;
-    vm._showLoadingCall = this.showLoading;
-    vm._dismissLoadingCall = this.dismissLoading;
+    vm.toastCall = this.toast;
+    vm.showLoadingCall = this.showLoading;
+    vm.dismissLoadingCall = this.dismissLoading;
   }
 
   void _initEventBusVm(EventBusVmMixin vm) {
-    vm._eventBus = vm._useEventBus();
-    vm._eventPairs = vm.useEvents();
-    if (vm._eventBus != null &&
-        vm._eventPairs != null &&
-        vm._eventPairs!.isNotEmpty) {
-      vm._registerEvents();
+    vm.eventBus = vm.useEventBus();
+    vm.eventPairs = vm.useEvents();
+    if (vm.eventBus != null &&
+        vm.eventPairs != null &&
+        vm.eventPairs!.isNotEmpty) {
+      vm.registerEvents();
     }
   }
 
@@ -104,6 +98,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   /// 关闭页面后，请求取消。
   @override
   void dispose() {
+    logI("--------------------------view model state dispose");
     if (!autoDispose()) {
       super.dispose();
       return;
@@ -120,9 +115,10 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     var vms = _viewModels;
     for (var vm in vms) {
       vm.dispose();
-      if (vm is HttpVmMixin) {
-        vm.disposeRequestToken();
+      if (vm is AnHttpMixin) {
+        (vm as AnHttpMixin).disposeRequestToken();
       }
+
       if (vm is EventBusVmMixin) {
         vm.unregisterEvents();
       }
