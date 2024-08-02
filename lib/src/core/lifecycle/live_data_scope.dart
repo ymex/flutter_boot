@@ -17,7 +17,7 @@ mixin LiveDataScope {
     return liveData;
   }
 
-  void dispose() {
+  void destroyLiveData() {
     for (var liveDataItem in _liveDataList) {
       liveDataItem.hostDispose = true;
       liveDataItem.dispose();

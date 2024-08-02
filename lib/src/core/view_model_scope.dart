@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import "package:flutter/widgets.dart";
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/kits.dart';
@@ -93,7 +93,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T>{
       super.dispose();
       return;
     }
-    destroy();
+    destroyViewModel();
     super.dispose();
   }
 
@@ -101,10 +101,10 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T>{
     return true;
   }
 
-  void destroy() {
+  void destroyViewModel() {
     var vms = _viewModels;
     for (var vm in vms) {
-      vm.dispose();
+      vm.destroyLiveData();
       if (vm is AnHttpMixin) {
         (vm as AnHttpMixin).disposeRequestToken();
       }
@@ -187,4 +187,11 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T>{
 }
 
 abstract class ViewModelState<T extends StatefulWidget> extends State<T>
-    with ViewModelStateScope {}
+    with ViewModelStateScope , LiveDataScope{
+    @override
+  void dispose() {
+    destroyLiveData();
+    super.dispose();
+
+  }
+}
