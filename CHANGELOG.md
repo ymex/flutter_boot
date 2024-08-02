@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.4.0
+- optimize: code
+- add: BootOverlay
+- add: BootState
+
 ## 0.3.9
 - optimize: toDateTime
 - optimize: push

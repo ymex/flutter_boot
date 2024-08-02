@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum ToastAlignment { top, center, bottom }
@@ -106,11 +107,15 @@ class _SimpleLoadingDialog extends StatelessWidget {
                           SizedBox(
                             height: progressSize,
                             width: progressSize,
-                            child: CircularProgressIndicator(
+                            child: CupertinoActivityIndicator(
                               color: progressColor,
-                              backgroundColor: progressBackgroundColor,
-                              strokeWidth: progressStrokeWidth,
+                              radius: progressSize,
                             ),
+                            // child: CircularProgressIndicator(
+                            //   color: progressColor,
+                            //   backgroundColor: progressBackgroundColor,
+                            //   strokeWidth: progressStrokeWidth,
+                            // ),
                           ),
                           if (message.isNotEmpty)
                             Padding(

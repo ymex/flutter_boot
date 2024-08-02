@@ -5,6 +5,7 @@ import 'package:example/invoke_controller_page.dart';
 import 'package:example/live_counter_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_boot/boot.dart';
 import 'package:flutter_boot/kits.dart';
 
 import 'base_http_page.dart';
@@ -42,7 +43,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MainPage(),
+      home: Builder(builder: (context) {
+        BootOverlay.init(context);
+        return const MainPage();
+      }),
     );
   }
 }
