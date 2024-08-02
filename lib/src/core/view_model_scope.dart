@@ -6,7 +6,7 @@ import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
-mixin ViewModelStateScope<T extends StatefulWidget> on State<T>{
+mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
   OverlayTier? _toastTier;
   OverlayTier? _loadingTier;
@@ -187,11 +187,10 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T>{
 }
 
 abstract class ViewModelState<T extends StatefulWidget> extends State<T>
-    with ViewModelStateScope , LiveDataScope{
-    @override
+    with ViewModelStateScope, LiveDataScope {
+  @override
   void dispose() {
     destroyLiveData();
     super.dispose();
-
   }
 }

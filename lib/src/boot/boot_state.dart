@@ -7,7 +7,6 @@ class BootState<T extends StatefulWidget> extends State<T>
         LiveDataScope,
         WidgetsBindingObserver,
         AutomaticKeepAliveClientMixin {
-
   @override
   void dispose() {
     destroyLiveData();
