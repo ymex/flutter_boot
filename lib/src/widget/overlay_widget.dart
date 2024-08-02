@@ -132,11 +132,13 @@ class _SimpleLoadingDialog extends StatelessWidget {
   }
 }
 
-Widget buildDefToastOverlay(BuildContext context,
-    {String? message,
-    int duration = 2,
-    bool passTouch = true,
-    ToastAlignment alignment = ToastAlignment.bottom}) {
+Widget buildDefToastOverlay(
+  BuildContext context, {
+  String? message,
+  int duration = 2,
+  bool passTouch = true,
+  ToastAlignment alignment = ToastAlignment.bottom,
+}) {
   var marginBottom = 0.0;
   var marginTop = 0.0;
   Alignment posAlignment;
