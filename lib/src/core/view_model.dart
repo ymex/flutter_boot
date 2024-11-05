@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_boot/core.dart';
+import 'package:flutter_boot/http.dart';
+import 'package:flutter_boot/widget.dart';
 
 /// ViewModel
 
@@ -48,4 +50,12 @@ class ViewModel with LiveDataScope {
   void finish([Object? data]) {
     sendNotify("_finish_current_page", data: data);
   }
+}
+
+class ActionViewModel extends ViewModel with OverlayActionMixin {
+  ActionViewModel({super.key});
+}
+
+class HttpViewModel extends ViewModel with OverlayActionMixin, AnHttpMixin {
+  HttpViewModel({super.key});
 }

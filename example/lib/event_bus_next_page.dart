@@ -1,6 +1,7 @@
 import 'package:example/event_bus_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boot/core.dart';
+import 'package:flutter_boot/widget.dart';
 
 class EventBusNextPage extends StatefulWidget {
   String title;
@@ -12,7 +13,7 @@ class EventBusNextPage extends StatefulWidget {
 }
 
 class _EventBusNextPageState extends State<EventBusNextPage>
-    with ViewModelStateScope {
+    with ViewModelStateScope, OverlayActionMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

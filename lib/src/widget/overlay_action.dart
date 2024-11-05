@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
-class BootOverlay {
-  static BootOverlay? _instance;
+class OverlayAction {
+  static OverlayAction? _instance;
   BuildContext? _context;
   late OverlayTier _toastTier;
   late OverlayTier _loadingTier;
   late OverlayTier _overlayTier;
 
-  BootOverlay._internal() {
+  ///页面生命周期结束时、取消自动隐藏toast 与 dialog
+  @Deprecated("向前兼容")
+  static bool autoDismissWithLife = false;
+
+  OverlayAction._internal() {
     _toastTier = OverlayTier();
     _loadingTier = OverlayTier();
     _overlayTier = OverlayTier();
@@ -19,8 +23,8 @@ class BootOverlay {
     getInstance()._context = context;
   }
 
-  static BootOverlay getInstance() {
-    _instance ??= BootOverlay._internal();
+  static OverlayAction getInstance() {
+    _instance ??= OverlayAction._internal();
     return _instance!;
   }
 
@@ -83,7 +87,7 @@ class BootOverlay {
   }) {
     var context = getInstance()._context;
     if (context == null) {
-      logI("Error:need init BootOverlay!");
+      logI("Error:need init OverlayAction! use OverlayAction.init(context) or BootScopeMixin");
       return;
     }
     var widgetView = widget;
@@ -114,5 +118,33 @@ class BootOverlay {
 
   static void dismissToast() {
     getInstance()._toastTier.dismiss();
+  }
+}
+
+mixin OverlayActionMixin{
+
+  void toast(
+      String message, {
+        int duration = 2,
+        ToastAlignment alignment = ToastAlignment.bottom,
+        Widget? widget,
+      }) {
+    OverlayAction.toast(
+        message: message,
+        duration: Duration(seconds: duration),
+        alignment: alignment,
+        widget: widget);
+  }
+
+  void dismissToast(){
+    OverlayAction.dismissToast();
+  }
+
+  void showLoading({Widget? widget}) {
+    OverlayAction.loading(widget: widget);
+  }
+
+  void dismissLoading() {
+    OverlayAction.dismissLoading();
   }
 }

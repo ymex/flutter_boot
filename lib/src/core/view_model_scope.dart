@@ -4,12 +4,10 @@ import "package:flutter/widgets.dart";
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/kits.dart';
-import 'package:flutter_boot/widget.dart';
+import 'package:flutter_boot/src/widget/overlay_action.dart';
 
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
-  OverlayTier? _toastTier;
-  OverlayTier? _loadingTier;
   bool _isInitArg = false;
 
   /// 获取指定的ViewModel
@@ -43,17 +41,13 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     var vms = _viewModels;
     for (var vm in vms) {
       vm.setInvokingFun(stateCall: setState, notifyCall: onNotify);
-      if (vm is ActionVmMixin) {
-        _initActionVm(vm as ActionVmMixin);
-      }
+
       if (vm is EventBusMixin) {
         _initEventBusVm(vm as EventBusMixin);
       }
     }
 
     super.initState();
-    _toastTier = OverlayTier();
-    _loadingTier = OverlayTier();
   }
 
   /// 首先要在build 方法中调用 parseArguments。
@@ -69,12 +63,6 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
       _isInitArg = true;
       onParseArguments(context.arguments);
     }
-  }
-
-  void _initActionVm(ActionVmMixin vm) {
-    vm.toastCall = this.toast;
-    vm.showLoadingCall = this.showLoading;
-    vm.dismissLoadingCall = this.dismissLoading;
   }
 
   void _initEventBusVm(EventBusMixin vm) {
@@ -113,10 +101,10 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
       }
     }
     _viewModels.clear();
-    _toastTier?.dismiss();
-    _loadingTier?.dismiss();
-    _toastTier = null;
-    _loadingTier = null;
+    if (OverlayAction.autoDismissWithLife) {
+      OverlayAction.dismissToast();
+      OverlayAction.dismissLoading();
+    }
   }
 
   FutureOr<void> onRendered(BuildContext context) {}
@@ -129,60 +117,6 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     if (message == "_finish_current_page") {
       context.navigator.pop(data);
     }
-  }
-
-  void toast(
-    String message, {
-    int duration = 2,
-    ToastAlignment alignment = ToastAlignment.bottom,
-    Widget? widget,
-  }) {
-    _toast(
-        message: message,
-        duration: duration,
-        alignment: alignment,
-        widget: widget);
-  }
-
-  void showLoading({Widget? widget}) {
-    _showLoading(widget);
-  }
-
-  void dismissLoading() {
-    _dismissLoading();
-  }
-
-  void _showLoading(Widget? widget) {
-    _loadingTier?.show(context, widget ?? buildDefLoadingOverlay(context),
-        replace: false);
-  }
-
-  /// toast
-  /// [message] 提醒的文字
-  /// [duration] 显示的时长，单位秒
-  /// [alignment] 显示的位置
-  /// [margin] 边距
-  void _toast(
-      {Widget? widget,
-      String? message,
-      int duration = 2,
-      ToastAlignment alignment = ToastAlignment.bottom}) {
-    if (widget == null) {
-      var tw = buildDefToastOverlay(context,
-          message: message, duration: duration, alignment: alignment);
-      _toastWidget(tw, duration: duration);
-      return;
-    }
-    _toastWidget(widget, duration: duration);
-  }
-
-  void _toastWidget(Widget widget, {int duration = 2}) {
-    _toastTier?.show(context, widget,
-        duration: Duration(seconds: duration), opaque: false);
-  }
-
-  void _dismissLoading() {
-    _loadingTier?.dismiss();
   }
 }
 

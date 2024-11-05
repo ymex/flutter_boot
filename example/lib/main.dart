@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: Builder(builder: (context) {
-        BootOverlay.init(context);
+        // OverlayAction.init(context);
         return const MainPage();
       }),
     );
@@ -66,7 +66,7 @@ class ItemAction {
   ItemAction(this.title, this.des, this.page);
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with BootScopeMixin {
   var items = [
     ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
     ItemAction(
