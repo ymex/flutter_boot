@@ -693,3 +693,14 @@ extension WidgetsEm on String {
         spellOut: spellOut);
   }
 }
+
+extension WidgetsDoubleExt on double {
+  SizedBox get verticalSpace => SizedBox(width: this);
+  SizedBox get horizontalSpace => SizedBox(width: this);
+}
+
+extension WidgetsIntExt on int {
+  Spacer get spacer => Spacer(
+        flex: this,
+      );
+}
