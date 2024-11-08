@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 extension BuildContextExt on BuildContext {
+
   /// 屏幕宽度
-  double get screenWidth => MediaQuery.of(this).size.width;
+  double get sw => MediaQuery.of(this).size.width;
 
   /// 屏幕高度
-  double get screenHeight => MediaQuery.of(this).size.height;
+  double get sh => MediaQuery.of(this).size.height;
 
   /// 状态栏高度
   double get stateBarHeight => MediaQuery.of(this).padding.top;

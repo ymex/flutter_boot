@@ -97,6 +97,7 @@ class _MainPageState extends State<MainPage> with BootScopeMixin {
 
   @override
   Widget build(BuildContext context) {
+    setScreenSize();
     return Scaffold(
       // backgroundColor: Colors.blue,
       appBar: AppBar(

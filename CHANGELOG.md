@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.2
+- add: widget chain textSpan
+- add: widget chain widgetSpan
+
 ## 0.4.1
 - optimize: code
 

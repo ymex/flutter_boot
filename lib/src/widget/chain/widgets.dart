@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_boot/widget.dart';
 
 extension WidgetChainExt on Widget {
@@ -524,6 +527,15 @@ extension WidgetChainExt on Widget {
       child: this,
     );
   }
+
+  WidgetSpan widgetSpan({
+    PlaceholderAlignment alignment = PlaceholderAlignment.bottom,
+    TextBaseline? baseline,
+    TextStyle? style,
+  }) {
+    return WidgetSpan(
+        child: this, alignment: alignment, baseline: baseline, style: style);
+  }
 }
 
 extension WidgetsChainExt<T extends Widget> on List<T> {
@@ -656,5 +668,28 @@ extension WidgetsEm on String {
       textHeightBehavior: textHeightBehavior,
       selectionColor: selectionColor,
     );
+  }
+
+  TextSpan textSpan(
+      {List<InlineSpan>? children,
+      TextStyle? style,
+      GestureRecognizer? recognizer,
+      MouseCursor? mouseCursor,
+      PointerEnterEventListener? onEnter,
+      PointerExitEventListener? onExit,
+      String? semanticsLabel,
+      Locale? locale,
+      bool? spellOut}) {
+    return TextSpan(
+        text: this,
+        children: children,
+        style: style,
+        recognizer: recognizer,
+        mouseCursor: mouseCursor,
+        onEnter: onEnter,
+        onExit: onExit,
+        semanticsLabel: semanticsLabel,
+        locale: locale,
+        spellOut: spellOut);
   }
 }
