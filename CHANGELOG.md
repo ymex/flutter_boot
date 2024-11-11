@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.4.4
+- fix: fix verticalSpace err
+
 ## 0.4.3
 - add: widget chain verticalSpace
 - add: widget chain horizontalSpace
