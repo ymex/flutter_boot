@@ -694,9 +694,9 @@ extension WidgetsEm on String {
   }
 }
 
-extension WidgetsDoubleExt on double {
-  SizedBox get verticalSpace => SizedBox(width: this);
-  SizedBox get horizontalSpace => SizedBox(width: this);
+extension WidgetsNumExt on num {
+  SizedBox get verticalSpace => SizedBox(height: this.toDouble());
+  SizedBox get horizontalSpace => SizedBox(width: this.toDouble());
 }
 
 extension WidgetsIntExt on int {
