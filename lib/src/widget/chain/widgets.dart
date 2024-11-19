@@ -540,6 +540,25 @@ extension WidgetChainExt on Widget {
     return WidgetSpan(
         child: this, alignment: alignment, baseline: baseline, style: style);
   }
+
+  SafeArea safeArea({
+    bool left = true,
+    bool top = true,
+    bool right = true,
+    bool bottom = true,
+    EdgeInsets minimum = EdgeInsets.zero,
+    bool maintainBottomViewPadding = false,
+  }) {
+    return SafeArea(
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom,
+      minimum: minimum,
+      maintainBottomViewPadding: maintainBottomViewPadding,
+      child: this,
+    );
+  }
 }
 
 extension WidgetsChainExt<T extends Widget> on List<T> {
