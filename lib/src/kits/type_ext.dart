@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:flutter_boot/boot.dart';
 
 /// 用于 json_serializable 反序列化时的类型转换。
 /// @JosnKey(fromJson:anyToString)
@@ -95,10 +94,6 @@ extension TypeNumExt on num {
   String paddingZero({int width = 2}) {
     return toString().padLeft(width, "0");
   }
-
-  double get vw => (Boot.screenWidth ?? 0) * this;
-
-  double get vh => (Boot.screenHeight ?? 0) * this;
 }
 
 extension TypeIntExt on int {

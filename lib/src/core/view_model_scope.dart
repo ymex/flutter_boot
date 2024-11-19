@@ -4,11 +4,12 @@ import "package:flutter/widgets.dart";
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/kits.dart';
-import 'package:flutter_boot/src/widget/overlay_action.dart';
+import 'package:flutter_boot/widget.dart';
 
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
   bool _isInitArg = false;
+  OverlayAction? _overlayAction;
 
   /// 获取指定的ViewModel
   V getViewModel<V extends ViewModel>({int index = 0}) {
@@ -29,6 +30,8 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
 
   @override
   void initState() {
+    super.initState();
+    _overlayAction = OverlayAction(context);
     _viewModels.clear();
     _viewModels.addAll(useViewModels());
 
@@ -41,13 +44,13 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
     var vms = _viewModels;
     for (var vm in vms) {
       vm.setInvokingFun(stateCall: setState, notifyCall: onNotify);
-
+      if (vm is OverlayActionMixin) {
+        _initOverlayAction(vm as OverlayActionMixin);
+      }
       if (vm is EventBusMixin) {
         _initEventBusVm(vm as EventBusMixin);
       }
     }
-
-    super.initState();
   }
 
   /// 首先要在build 方法中调用 parseArguments。
@@ -67,6 +70,10 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
 
   void _initEventBusVm(EventBusMixin vm) {
     vm.registerEvents();
+  }
+
+  void _initOverlayAction(OverlayActionMixin vm) {
+    vm.setOverlayAction(_overlayAction);
   }
 
   @override
@@ -99,12 +106,13 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
       if (vm is EventBusMixin) {
         (vm as EventBusMixin).unregisterEvents();
       }
+      if (vm is OverlayActionMixin) {
+        var oa = vm as OverlayActionMixin;
+        oa.disposeOverlayAction();
+        oa.setOverlayAction(null);
+      }
     }
     _viewModels.clear();
-    if (OverlayAction.autoDismissWithLife) {
-      OverlayAction.dismissToast();
-      OverlayAction.dismissLoading();
-    }
   }
 
   FutureOr<void> onRendered(BuildContext context) {}

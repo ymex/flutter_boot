@@ -290,7 +290,11 @@ extension WidgetChainExt on Widget {
     EdgeInsetsGeometry margin, {
     Key? key,
   }) {
-    return padding(margin, key: key);
+    return Padding(
+      key: key,
+      padding: margin,
+      child: this,
+    );
   }
 
   ///用Align包裹当前组件
@@ -695,8 +699,9 @@ extension WidgetsEm on String {
 }
 
 extension WidgetsNumExt on num {
-  SizedBox get verticalSpace => SizedBox(height: this.toDouble());
-  SizedBox get horizontalSpace => SizedBox(width: this.toDouble());
+  SizedBox get verticalSpace => SizedBox(height: toDouble());
+
+  SizedBox get horizontalSpace => SizedBox(width: toDouble());
 }
 
 extension WidgetsIntExt on int {

@@ -3,6 +3,7 @@ import 'package:example/hint_toast_loading_page.dart';
 import 'package:example/http_view_model_page.dart';
 import 'package:example/invoke_controller_page.dart';
 import 'package:example/live_counter_page.dart';
+import 'package:example/widget_chain_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_boot/boot.dart';
@@ -35,18 +36,24 @@ class MyApp extends StatelessWidget {
       );
       systemUIOverlayStyle(style);
     });
-
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: Builder(builder: (context) {
-        // OverlayAction.init(context);
-        return const MainPage();
-      }),
+    return BootScope(
+      builder: (context, child) {
+        //字体不跟随系统大小
+        return MediaQuery(
+            data: MediaQuery.of(context)
+                .copyWith(textScaler: TextScaler.noScaling),
+            child: MaterialApp(
+              title: 'Flutter Demo',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                useMaterial3: true,
+              ),
+              home: Builder(builder: (context) {
+                return const MainPage();
+              }),
+            ));
+      },
     );
   }
 }
@@ -66,7 +73,7 @@ class ItemAction {
   ItemAction(this.title, this.des, this.page);
 }
 
-class _MainPageState extends State<MainPage> with BootScopeMixin {
+class _MainPageState extends State<MainPage> {
   var items = [
     ItemAction("基础网络请求", "基于Dio封装的基础网络请求。", const BaseHttpPage(title: "网络请求")),
     ItemAction(
@@ -93,11 +100,16 @@ class _MainPageState extends State<MainPage> with BootScopeMixin {
         const StateControllerPage(
           title: "Invoke Controller",
         )),
+    ItemAction(
+        "组件链式调用",
+        "减少嵌套",
+        const WidgetChainPage(
+          title: "Widget Chain",
+        )),
   ];
 
   @override
   Widget build(BuildContext context) {
-    setScreenSize();
     return Scaffold(
       // backgroundColor: Colors.blue,
       appBar: AppBar(

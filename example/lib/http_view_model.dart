@@ -1,11 +1,12 @@
 import 'package:example/model/bili_bili_record.dart';
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/http.dart';
+import 'package:flutter_boot/widget.dart';
 
 import 'model/base_model.dart';
 import 'model/bili_bili.dart';
 
-class HttpPageViewModel extends HttpViewModel {
+class HttpPageViewModel extends HttpViewModel with OverlayActionMixin{
   HttpPageViewModel({super.key});
 
   /// 需要监听的状态

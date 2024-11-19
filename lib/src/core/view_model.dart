@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/http.dart';
-import 'package:flutter_boot/widget.dart';
 
 /// ViewModel
 
@@ -52,10 +51,10 @@ class ViewModel with LiveDataScope {
   }
 }
 
-class ActionViewModel extends ViewModel with OverlayActionMixin {
-  ActionViewModel({super.key});
-}
+// class ActionViewModel extends ViewModel with OverlayActionMixin {
+//   ActionViewModel({super.key});
+// }
 
-class HttpViewModel extends ViewModel with OverlayActionMixin, AnHttpMixin {
+class HttpViewModel extends ViewModel with AnHttpMixin {
   HttpViewModel({super.key});
 }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.5
+- add: screen util
+- optimize: code
+
 ## 0.4.4
 - fix: fix verticalSpace err
 

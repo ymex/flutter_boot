@@ -1,34 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
 class OverlayAction {
-  static OverlayAction? _instance;
-  BuildContext? _context;
+  final BuildContext context;
   late OverlayTier _toastTier;
   late OverlayTier _loadingTier;
   late OverlayTier _overlayTier;
 
-  ///页面生命周期结束时、取消自动隐藏toast 与 dialog
-  @Deprecated("向前兼容")
-  static bool autoDismissWithLife = false;
-
-  OverlayAction._internal() {
+  OverlayAction(this.context) {
     _toastTier = OverlayTier();
     _loadingTier = OverlayTier();
     _overlayTier = OverlayTier();
   }
 
-  static void init(BuildContext context) {
-    getInstance()._context = context;
-  }
-
-  static OverlayAction getInstance() {
-    _instance ??= OverlayAction._internal();
-    return _instance!;
-  }
-
-  static void overlay(
+  void overlay(
     BuildContext context,
     Widget widget, {
     Duration? duration,
@@ -36,14 +21,14 @@ class OverlayAction {
     bool maintainState = false,
     bool replace = true,
   }) {
-    getInstance()._overlayTier.show(context, widget,
+    _overlayTier.show(context, widget,
         duration: duration,
         opaque: opaque,
         maintainState: maintainState,
         replace: replace);
   }
 
-  static void toast({
+  void toast({
     String? message,
     Widget? widget,
     ToastAlignment alignment = ToastAlignment.bottom,
@@ -52,24 +37,19 @@ class OverlayAction {
     bool maintainState = false,
     bool replace = true,
   }) {
-    var context = getInstance()._context;
-    if (context == null) {
-      logI("Error:need init BootOverlay!");
-      return;
-    }
     var widgetView = widget;
     if (widget == null) {
       widgetView = buildDefToastOverlay(context,
           message: message, duration: 2, alignment: alignment);
     }
-    getInstance()._toastTier.show(context, widgetView!,
+    _toastTier.show(context, widgetView!,
         duration: duration ?? const Duration(seconds: 2),
         opaque: opaque,
         maintainState: maintainState,
         replace: replace);
   }
 
-  static void loading({
+  void loading({
     Widget? widget,
     Duration? duration,
     bool opaque = false,
@@ -85,11 +65,6 @@ class OverlayAction {
     double progressStrokeWidth = 2,
     Color progressBackgroundColor = Colors.transparent,
   }) {
-    var context = getInstance()._context;
-    if (context == null) {
-      logI("Error:need init OverlayAction! use OverlayAction.init(context) or BootScopeMixin");
-      return;
-    }
     var widgetView = widget;
     if (widget == null) {
       widgetView = buildDefLoadingOverlay(
@@ -105,46 +80,62 @@ class OverlayAction {
         progressBackgroundColor: progressBackgroundColor,
       );
     }
-    getInstance()._loadingTier.show(context, widgetView!,
+    _loadingTier.show(context, widgetView!,
         duration: duration,
         opaque: opaque,
         maintainState: maintainState,
         replace: replace);
   }
 
-  static void dismissLoading() {
-    getInstance()._loadingTier.dismiss();
+  void dismissLoading() {
+    _loadingTier.dismiss();
   }
 
-  static void dismissToast() {
-    getInstance()._toastTier.dismiss();
+  void dismissToast() {
+    _toastTier.dismiss();
   }
 }
 
-mixin OverlayActionMixin{
+mixin OverlayActionMixin {
+  late OverlayAction? overlayAction;
+
+  ///页面生命周期结束时、取消自动隐藏toast
+  bool get autoDismissToast => true;
+
+  ///页面生命周期结束时、取消自动隐藏 dialog
+  bool get autoDismissLoading => true;
+
+  void setOverlayAction(OverlayAction? action) {
+    overlayAction = action;
+  }
 
   void toast(
-      String message, {
-        int duration = 2,
-        ToastAlignment alignment = ToastAlignment.bottom,
-        Widget? widget,
-      }) {
-    OverlayAction.toast(
+    String message, {
+    int duration = 2,
+    ToastAlignment alignment = ToastAlignment.bottom,
+    Widget? widget,
+  }) {
+    overlayAction?.toast(
         message: message,
         duration: Duration(seconds: duration),
         alignment: alignment,
         widget: widget);
   }
 
-  void dismissToast(){
-    OverlayAction.dismissToast();
+  void dismissToast() {
+    overlayAction?.dismissToast();
   }
 
   void showLoading({Widget? widget}) {
-    OverlayAction.loading(widget: widget);
+    overlayAction?.loading(widget: widget);
   }
 
   void dismissLoading() {
-    OverlayAction.dismissLoading();
+    overlayAction?.dismissLoading();
+  }
+
+  void disposeOverlayAction() {
+    if (autoDismissToast) dismissToast();
+    if (autoDismissLoading) dismissLoading();
   }
 }

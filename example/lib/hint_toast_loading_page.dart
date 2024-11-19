@@ -36,11 +36,21 @@ class _OverLayViewState extends State<OverLayView> with ViewModelStateScope,Over
   OverlayTier? timeTier2;
 
   @override
+  void initState() {
+    super.initState();
+    //设置OverlayAction
+    setOverlayAction(OverlayAction(context));
+  }
+
+
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     timeTier?.dismiss();
     timeTier2?.dismiss();
+    dismissToast();
+    dismissLoading();
   }
 
   @override

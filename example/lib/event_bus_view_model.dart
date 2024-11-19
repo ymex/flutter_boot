@@ -1,7 +1,7 @@
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/kits.dart';
 
-class EventBusViewModel extends ActionViewModel with EventBusMixin {
+class EventBusViewModel extends ViewModel with EventBusMixin {
   static String messageId = "message_id";
 
   late LiveData<String> liveMessage = useState("");
