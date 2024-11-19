@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.6
+- optimize: code
+
+
 ## 0.4.5
 - add: screen util
 - optimize: code

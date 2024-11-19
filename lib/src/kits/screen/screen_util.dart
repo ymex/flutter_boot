@@ -292,31 +292,6 @@ class ScreenUtil {
     return deviceType;
   }
 
-  SizedBox setVerticalSpacing(num height) =>
-      SizedBox(height: setHeight(height));
-
-  SizedBox setVerticalSpacingFromWidth(num height) =>
-      SizedBox(height: setWidth(height));
-
-  SizedBox setHorizontalSpacing(num width) => SizedBox(width: setWidth(width));
-
-  SizedBox setHorizontalSpacingRadius(num width) =>
-      SizedBox(width: radius(width));
-
-  SizedBox setVerticalSpacingRadius(num height) =>
-      SizedBox(height: radius(height));
-
-  SizedBox setHorizontalSpacingDiameter(num width) =>
-      SizedBox(width: diameter(width));
-
-  SizedBox setVerticalSpacingDiameter(num height) =>
-      SizedBox(height: diameter(height));
-
-  SizedBox setHorizontalSpacingDiagonal(num width) =>
-      SizedBox(width: diagonal(width));
-
-  SizedBox setVerticalSpacingDiagonal(num height) =>
-      SizedBox(height: diagonal(height));
 }
 
 extension on MediaQueryData? {

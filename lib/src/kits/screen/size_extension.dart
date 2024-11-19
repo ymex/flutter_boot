@@ -37,43 +37,13 @@ extension SizeExtension on num {
   ///Multiple of screen width
   double get sw => ScreenUtil().screenWidth * this;
 
+  double get vw => ScreenUtil().screenWidth * this;
+
   ///屏幕高度的倍数
   ///Multiple of screen height
   double get sh => ScreenUtil().screenHeight * this;
 
-  ///[ScreenUtil.setHeight]
-  SizedBox get verticalSpace => ScreenUtil().setVerticalSpacing(this);
-
-  ///[ScreenUtil.setVerticalSpacingFromWidth]
-  SizedBox get verticalSpaceFromWidth =>
-      ScreenUtil().setVerticalSpacingFromWidth(this);
-
-  ///[ScreenUtil.setWidth]
-  SizedBox get horizontalSpace => ScreenUtil().setHorizontalSpacing(this);
-
-  ///[ScreenUtil.radius]
-  SizedBox get horizontalSpaceRadius =>
-      ScreenUtil().setHorizontalSpacingRadius(this);
-
-  ///[ScreenUtil.radius]
-  SizedBox get verticalSpacingRadius =>
-      ScreenUtil().setVerticalSpacingRadius(this);
-
-  ///[ScreenUtil.diameter]
-  SizedBox get horizontalSpaceDiameter =>
-      ScreenUtil().setHorizontalSpacingDiameter(this);
-
-  ///[ScreenUtil.diameter]
-  SizedBox get verticalSpacingDiameter =>
-      ScreenUtil().setVerticalSpacingDiameter(this);
-
-  ///[ScreenUtil.diagonal]
-  SizedBox get horizontalSpaceDiagonal =>
-      ScreenUtil().setHorizontalSpacingDiagonal(this);
-
-  ///[ScreenUtil.diagonal]
-  SizedBox get verticalSpacingDiagonal =>
-      ScreenUtil().setVerticalSpacingDiagonal(this);
+  double get vh => ScreenUtil().screenHeight * this;
 }
 
 extension EdgeInsetsExtension on EdgeInsets {
@@ -153,7 +123,7 @@ extension RadiusExtension on Radius {
 
 extension BoxConstraintsExtension on BoxConstraints {
   /// Creates adapt BoxConstraints using r [SizeExtension].
-  BoxConstraints get r => this.copyWith(
+  BoxConstraints get r => copyWith(
         maxHeight: maxHeight.r,
         maxWidth: maxWidth.r,
         minHeight: minHeight.r,
@@ -161,21 +131,21 @@ extension BoxConstraintsExtension on BoxConstraints {
       );
 
   /// Creates adapt BoxConstraints using h-w [SizeExtension].
-  BoxConstraints get hw => this.copyWith(
+  BoxConstraints get hw => copyWith(
         maxHeight: maxHeight.h,
         maxWidth: maxWidth.w,
         minHeight: minHeight.h,
         minWidth: minWidth.w,
       );
 
-  BoxConstraints get w => this.copyWith(
+  BoxConstraints get w => copyWith(
         maxHeight: maxHeight.w,
         maxWidth: maxWidth.w,
         minHeight: minHeight.w,
         minWidth: minWidth.w,
       );
 
-  BoxConstraints get h => this.copyWith(
+  BoxConstraints get h => copyWith(
         maxHeight: maxHeight.h,
         maxWidth: maxWidth.h,
         minHeight: minHeight.h,
