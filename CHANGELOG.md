@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.4.7
+- add: widget chain safeArea
+- add: widget chain repaintBoundary
+- add: LiveDataValueExt useState
+
 ## 0.4.6
 - optimize: code
 

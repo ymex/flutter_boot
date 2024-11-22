@@ -11,10 +11,11 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
   T _value;
 
   /// 需要手动调用 liveData.dispose() 销毁
-  LiveData.useState(this._value, {bool notify = false, LiveDataScope? scope})
-      : _notify = notify {
+  LiveData.useState(T value, [LiveDataScope? scope, bool notify = false])
+      : _notify = notify,
+        _value = value {
     if (scope != null) {
-      scope.addLiveData(this);
+      scope.join(this);
     }
     if (notify) {
       notifyListeners();
@@ -59,4 +60,10 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
 
   @override
   String toString() => '$this->value:($value)';
+}
+
+extension LiveDataValueExt<T extends Object?> on T {
+  LiveData<T> useState([LiveDataScope? scope, bool notify = false]) {
+    return LiveData<T>.useState(this, scope, notify);
+  }
 }

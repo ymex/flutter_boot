@@ -11,8 +11,11 @@ class CounterEntity {
 class CounterViewModel extends ViewModel {
   CounterViewModel();
 
-  late LiveData<CounterEntity> stateCounter =
-      useState(CounterEntity(num: 0, color: Colors.red), notify: true);
+  late var stateCounter =
+      useState(CounterEntity(num: 0, color: Colors.red), true);
+
+  // late var stateCounter =
+  //     CounterEntity(num: 0, color: Colors.red).liveData(scope: this);
 
   void incrementCounter() {
     setState<CounterEntity>(stateCounter, (v) {

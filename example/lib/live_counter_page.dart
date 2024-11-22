@@ -13,8 +13,8 @@ class CounterPage extends StatefulWidget {
 class _CounterPageState extends State<CounterPage> /* with LiveDataScope*/ {
   // State 混入   LiveDataScope ， 可用 useState(), 可省去注销。
   // late LiveData<int> liveCounter = useState(0);
-
-  var liveCounter = LiveData.useState(0);
+  //  LiveData<int?> liveMM = LiveData.useState();
+  var liveCounter = LiveData<int>.useState(0);
 
   @override
   Widget build(BuildContext context) {

@@ -542,6 +542,7 @@ extension WidgetChainExt on Widget {
   }
 
   SafeArea safeArea({
+    Key? key,
     bool left = true,
     bool top = true,
     bool right = true,
@@ -550,12 +551,20 @@ extension WidgetChainExt on Widget {
     bool maintainBottomViewPadding = false,
   }) {
     return SafeArea(
+      key: key,
       left: left,
       top: top,
       right: right,
       bottom: bottom,
       minimum: minimum,
       maintainBottomViewPadding: maintainBottomViewPadding,
+      child: this,
+    );
+  }
+
+  RepaintBoundary repaintBoundary({Key? key}) {
+    return RepaintBoundary(
+      key: key,
       child: this,
     );
   }

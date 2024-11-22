@@ -11,7 +11,7 @@ class HttpPageViewModel extends HttpViewModel with OverlayActionMixin{
 
   /// 需要监听的状态
   late LiveData<List<BiliBiliRecord>> recordState =
-      useState(<BiliBiliRecord>[], notify: false);
+      useState(<BiliBiliRecord>[],  false);
 
   var currentPage = 1;
 
