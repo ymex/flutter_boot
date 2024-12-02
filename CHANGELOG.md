@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.4.8
+- fix: EventBusStateMixin
+
 ## 0.4.7
 - add: widget chain safeArea
 - add: widget chain repaintBoundary
