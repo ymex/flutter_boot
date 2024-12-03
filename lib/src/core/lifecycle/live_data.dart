@@ -4,8 +4,15 @@ import 'live_data_scope.dart';
 
 typedef LiveDataCallBack<T> = void Function(T v);
 
+mixin Live{
+  ///创建
+  void create(){}
+  ///销毁
+  void destroy(){}
+}
+
 /// 状态值
-class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
+class LiveData<T> extends ChangeNotifier with Live implements ValueListenable<T> {
   //赋值即更新（注意：改变对象字段无效）
   final bool _notify;
   T _value;
@@ -56,6 +63,13 @@ class LiveData<T> extends ChangeNotifier implements ValueListenable<T> {
       return;
     }
     super.notifyListeners();
+  }
+
+  @override
+  void destroy() {
+    super.destroy();
+    hostDispose = true;
+    dispose();
   }
 
   @override

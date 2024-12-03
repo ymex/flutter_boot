@@ -11,16 +11,16 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   bool _isInitArg = false;
   OverlayAction? _overlayAction;
 
-  /// 获取指定的ViewModel
-  V getViewModel<V extends ViewModel>({int index = 0}) {
-    return _viewModels[index] as V;
-  }
-
-  void vm<V extends ViewModel>({int index = 0, Function(V v)? block}) {
-    if (block != null && index >= 0 && index < _viewModels.length) {
-      block(getViewModel(index: index));
-    }
-  }
+  // /// 获取指定的ViewModel
+  // V getViewModel<V extends ViewModel>({int index = 0}) {
+  //   return _viewModels[index] as V;
+  // }
+  //
+  // void vm<V extends ViewModel>({int index = 0, Function(V v)? block}) {
+  //   if (block != null && index >= 0 && index < _viewModels.length) {
+  //     block(getViewModel(index: index));
+  //   }
+  // }
 
   /// 初始化 ViewModel
   /// ViewModel 仅初始化一次。
