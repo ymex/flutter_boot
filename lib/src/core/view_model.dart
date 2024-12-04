@@ -4,7 +4,7 @@ import 'package:flutter_boot/http.dart';
 
 /// ViewModel
 
-class ViewModel with LiveDataScope {
+class ViewModel with LiveDataScope, Live {
   Function(VoidCallback)? _stateCall;
   Function(String message, {int? what, Object? data})? _notifyCall;
 
@@ -48,6 +48,12 @@ class ViewModel with LiveDataScope {
   //结束持有ViewModel的页面
   void finish([Object? data]) {
     sendNotify("_finish_current_page", data: data);
+  }
+
+  @override
+  void destroy() {
+    super.destroy();
+    destroyLiveData();
   }
 }
 

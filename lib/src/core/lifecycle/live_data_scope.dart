@@ -11,7 +11,15 @@ mixin LiveDataScope {
 
   /// 创建 ViewModelState
   /// notify 创建时是否更新状态
+  @Deprecated("replace with useLiveData")
   LiveData<T> useState<T>(T value, [bool notify = false]) {
+    var liveData = LiveData.useState(value, this, notify);
+    return liveData;
+  }
+
+  /// 创建 ViewModelState
+  /// notify 创建时是否更新状态
+  LiveData<T> useLiveData<T>(T value, [bool notify = false]) {
     var liveData = LiveData.useState(value, this, notify);
     return liveData;
   }
