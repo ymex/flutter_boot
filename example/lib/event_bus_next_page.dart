@@ -14,6 +14,13 @@ class EventBusNextPage extends StatefulWidget {
 
 class _EventBusNextPageState extends State<EventBusNextPage>
     with ViewModelStateScope, OverlayActionMixin {
+
+  @override
+  void initState() {
+    super.initState();
+    setOverlayAction(OverlayAction(context));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

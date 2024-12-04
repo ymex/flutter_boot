@@ -11,7 +11,7 @@ BaseModel<T> _$BaseModelFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     BaseModel<T>()
-      ..code = json['code'] as int
+      ..code = (json['code'] as num).toInt()
       ..msg = json['msg'] as String
       ..data = _$nullableGenericFromJson(json['data'], fromJsonT);
 

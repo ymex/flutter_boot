@@ -123,17 +123,12 @@ flutter pub add flutter_boot
 //class _HttpViewModelPageState extends ViewModelState<HttpViewModelPage> { 
 //或
 class _HttpViewModelPageState extends State<HttpViewModelPage>
-    with ViewModelScope {
+    with BootStateScope {
 
-  late var viewModel = HttpPageViewModel();
+  late var viewModel = useViewModel(HttpPageViewModel());
   var scrollerController = ScrollController();
 
-  //ViewModel 初始化
-  @override
-  List<ViewModel> useViewModels() {
-    return [viewModel];
-  }
-  
+ 
   Future _onRefresh() async {
     viewModel.currentPage = 1;
     return viewModel.loadBiliBili();

@@ -63,14 +63,10 @@ class _EventBusPageState extends State<EventBusPage> with ViewModelStateScope {
               const SizedBox(
                 height: 24,
               ),
-              LiveDataBuilder(
-                  observe: viewModel.liveMessage,
-                  builder: (context, value, widget) {
-                    return Text(
-                      "收到的消息：$value",
-                      style: TextStyle(color: Colors.red),
-                    );
-                  }),
+              viewModel.liveMessage.watch((message) => Text(
+                    "收到的消息：$message",
+                    style: TextStyle(color: Colors.red),
+                  )),
               const SizedBox(
                 height: 64,
               ),

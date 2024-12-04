@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:example/model/base_model.dart';
-import 'package:example/model/bili_bili.dart';
-import 'package:example/model/words.dart';
+import 'package:example/model/bing_wallpaper_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boot/http.dart';
+
+import 'model/card_result.dart';
 
 class BaseHttpPage extends StatefulWidget {
   const BaseHttpPage({super.key, required this.title});
@@ -16,7 +16,7 @@ class BaseHttpPage extends StatefulWidget {
 }
 
 class _BaseHttpPageState extends State<BaseHttpPage> {
-  var textController = TextEditingController(text: "厚德载物");
+  var textController = TextEditingController(text: "440521196412193741");
   var wordsTip = "";
   var recordCount = 0;
   var isLoading = false;
@@ -55,18 +55,19 @@ class _BaseHttpPageState extends State<BaseHttpPage> {
 
     var words = textController.text;
     //词语查询
-    var wardsParam = Param.url("https://v.api.aa1.cn/api/api-chengyu/index.php")
-        .tie("msg", words, type: ParamType.query);
+    var wardsParam =
+        Param.url("https://tools.mgtv100.com/external/v1/pear/queryIdCard")
+            .tie("idCard", words, type: ParamType.query);
 
-    AnHttp.anHttpJson<Words>(wardsParam,
-        convertor: (value) => Words.fromJson(value)).then((value) {
-      if (value.code == "1") {
+    AnHttp.anHttpJson<CardResult>(wardsParam,
+        convertor: (value) => CardResult.fromJson(value)).then((value) {
+      if (value.code == 200) {
         setState(() {
-          wordsTip = value.cyjs ?? "";
+          wordsTip = value.data?.address ?? "";
         });
       } else {
         setState(() {
-          wordsTip = value.error ?? "";
+          wordsTip = value.status;
         });
       }
       dismissLoadingDialog(context);
@@ -75,22 +76,20 @@ class _BaseHttpPageState extends State<BaseHttpPage> {
 
   void _clickRequest() async {
     showLoadingDialog(context);
-    //哔哩哔哩每周必看
-    var param = Param.url("https://tenapi.cn/v2/{id}")
+    //Bing 壁纸 [zh-CN] 近8天 JSON API
+    var param = Param.url(
+            "https://raw.onmicrosoft.cn/Bing-Wallpaper-Action/main/data/zh-CN_update.json")
         .tie("num", 120, type: ParamType.query) // query 参数
         .tie("id", "weekly", type: ParamType.path); //path 参数
 
     //网络请求
     AnHttp.anHttp<String>(param, method: HttpMethodType.get).then((value) {
       var jsonMap = jsonDecode(value.data!);
-      var bili = BaseModel<BiliBili>.fromJson(
-          jsonMap, (json) => BiliBili.fromJson(json));
+      var wallpaperResult = BingWallpaperResult.fromJson(jsonMap);
 
-      if (bili.data != null) {
-        setState(() {
-          recordCount = bili.data?.list.length ?? 0;
-        });
-      }
+      setState(() {
+        recordCount = wallpaperResult.images.length;
+      });
       dismissLoadingDialog(context);
     }).catchError((err) {
       print("------err:${err}");
@@ -116,7 +115,7 @@ class _BaseHttpPageState extends State<BaseHttpPage> {
                     Expanded(
                         child: TextField(
                       controller: textController,
-                      decoration: InputDecoration(labelText: "词语查询"),
+                      decoration: InputDecoration(labelText: "身份证查询"),
                     )),
                     OutlinedButton(onPressed: _searchWords, child: Text("查询"))
                   ],
@@ -134,7 +133,7 @@ class _BaseHttpPageState extends State<BaseHttpPage> {
               ),
               Center(
                   child: OutlinedButton(
-                      onPressed: _clickRequest, child: Text("哔哩哔哩每周必看"))),
+                      onPressed: _clickRequest, child: Text("Bing 壁纸 [zh-CN] 近8天"))),
               Text("记录数量：${recordCount}")
             ],
           ),
