@@ -6,12 +6,11 @@ import 'package:flutter_boot/widget.dart';
 import 'model/base_model.dart';
 import 'model/bili_bili.dart';
 
-class HttpPageViewModel extends HttpViewModel with OverlayActionMixin{
+class HttpPageViewModel extends HttpViewModel with OverlayActionMixin {
   HttpPageViewModel({super.key});
 
   /// 需要监听的状态
-  late LiveData<List<BiliBiliRecord>> recordState =
-      useState(<BiliBiliRecord>[],  false);
+  late var recordState = useLiveState(<BiliBiliRecord>[], false);
 
   var currentPage = 1;
 

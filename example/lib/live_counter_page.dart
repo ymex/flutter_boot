@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boot/boot.dart';
 import 'package:flutter_boot/core.dart';
 
 class CounterPage extends StatefulWidget {
@@ -10,11 +11,12 @@ class CounterPage extends StatefulWidget {
   State<CounterPage> createState() => _CounterPageState();
 }
 
-class _CounterPageState extends State<CounterPage> /* with LiveDataScope*/ {
+class _CounterPageState extends State<CounterPage> with BootStateScope {
   // State 混入   LiveDataScope ， 可用 useState(), 可省去注销。
-  // late LiveData<int> liveCounter = useState(0);
+  late LiveData<int> liveCounter = useLiveState(0);
+
   //  LiveData<int?> liveMM = LiveData.useState();
-  var liveCounter = LiveData<int>.useState(0);
+  // var liveCounter = 0.state();
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.4.9
+- add: BootState 
+- optimize: code
+- delete: LiveDataScope
+
 ## 0.4.8
 - fix: EventBusStateMixin
 

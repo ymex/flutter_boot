@@ -7,48 +7,40 @@ import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
 mixin BootStateScope<T extends StatefulWidget> on State<T> {
+  final List<Live> _lives = [];
   final List<LiveData> _liveDataList = [];
   final List<ViewModel> _viewModels = [];
   final Map<MethodPair<VoidValueCallback>, EventBus> eventMap = {};
 
   OverlayAction? _overlayAction;
 
-  LiveData<H> useLiveData<H>(H value, [bool notify = false]) {
-    var lv = LiveData.useState(value, null, notify);
-    if (!_liveDataList.contains(lv)) {
-      _liveDataList.add(lv);
+  H useLive<H extends Live>(H live) {
+    if (!_lives.contains(live)) {
+      live.create();
+      _lives.add(live);
     }
-    return lv;
+    return live;
+  }
+
+  LiveData<H> useLiveState<H>(H value,[bool notify = false]) {
+    var liveData = LiveData.useState(value,notify);
+    if (!_liveDataList.contains(liveData)) {
+      liveData.create();
+      _liveDataList.add(liveData);
+    }
+    return liveData;
+  }
+
+  LiveData<H> useLiveData<H>(LiveData<H> liveData) {
+    if (!_liveDataList.contains(liveData)) {
+      liveData.create();
+      _liveDataList.add(liveData);
+    }
+    return liveData;
   }
 
   H useViewModel<H extends ViewModel>(H vm) {
     if (!_viewModels.contains(vm)) {
-      _viewModels.add(vm);
-    }
-    return vm;
-  }
-
-  MethodPair<VoidValueCallback> useEventBus(MethodPair<VoidValueCallback> event,
-      {EventBus? bus}) {
-    eventMap[event] = bus ?? globalBus;
-    return event;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _overlayAction = OverlayAction(context);
-
-
-    for (var event in eventMap.entries) {
-      event.value.register(event.key.key, event.key.value);
-    }
-
-    for (var ld in _liveDataList) {
-      ld.create();
-    }
-
-    for (var vm in _viewModels) {
       vm.create();
       vm.setInvokingFun(stateCall: setState, notifyCall: onNotify);
 
@@ -57,9 +49,26 @@ mixin BootStateScope<T extends StatefulWidget> on State<T> {
       }
       if (vm is EventBusMixin) {
         (vm as EventBusMixin).registerEvents();
-        ;
       }
+      _viewModels.add(vm);
     }
+    return vm;
+  }
+
+  MethodPair<VoidValueCallback> useEventBus(MethodPair<VoidValueCallback> event,
+      {EventBus? bus}) {
+    if (!eventMap.containsKey(event)) {
+      eventMap[event] = bus ?? globalBus;
+      eventMap[event]?.register(event.key, event.value);
+    }
+    return event;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _overlayAction = OverlayAction(context);
+
     WidgetsBinding.instance.endOfFrame.then(
       (_) {
         if (mounted) onRendered(context);
@@ -79,7 +88,9 @@ mixin BootStateScope<T extends StatefulWidget> on State<T> {
       super.dispose();
       return;
     }
-
+    for (var live in _lives) {
+      live.destroy();
+    }
     for (var event in eventMap.entries) {
       event.value.unregister(event.key.key, event.key.value);
     }

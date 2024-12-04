@@ -29,7 +29,7 @@ class _BaseHttpPageState extends State<BaseHttpPage> {
     showDialog(
         context: context,
         builder: (ctx) {
-          return Dialog(
+          return const Dialog(
             child: SizedBox(
               height: 100,
               child: Column(

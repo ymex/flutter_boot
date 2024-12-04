@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boot/chain.dart';
+import 'package:flutter_boot/boot.dart';
 import 'package:flutter_boot/core.dart';
-import 'package:flutter_boot/kits.dart';
 
 import 'live_view_model.dart';
 
@@ -16,13 +15,8 @@ class LiveViewModelPage extends StatefulWidget {
 
 // 混入 ViewModelScope
 class _LiveViewModelPageState extends State<LiveViewModelPage>
-    with ViewModelStateScope {
-  var viewModel = CounterViewModel();
-
-  @override
-  List<ViewModel> useViewModels() {
-    return [viewModel];
-  }
+    with BootStateScope {
+  late CounterViewModel viewModel = useViewModel(CounterViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +36,7 @@ class _LiveViewModelPageState extends State<LiveViewModelPage>
               height: 8,
             ),
             // 可观察多个状态变化 ， 如果仅观察一个，可使用 LiveDataBuilder
-            [viewModel.stateCounter].watch((){
+            [viewModel.stateCounter].watch(() {
               var counterValue = viewModel.stateCounter.value;
               return Column(
                 children: [

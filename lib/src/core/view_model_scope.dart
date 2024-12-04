@@ -6,6 +6,7 @@ import 'package:flutter_boot/http.dart';
 import 'package:flutter_boot/kits.dart';
 import 'package:flutter_boot/widget.dart';
 
+@Deprecated("replace BootStateScope")
 mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   final List<ViewModel> _viewModels = [];
   bool _isInitArg = false;
@@ -99,7 +100,7 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
   void destroyViewModel() {
     var vms = _viewModels;
     for (var vm in vms) {
-      vm.destroyLiveData();
+      vm.destroy();
       if (vm is AnHttpMixin) {
         (vm as AnHttpMixin).disposeRequestToken();
       }
@@ -129,10 +130,6 @@ mixin ViewModelStateScope<T extends StatefulWidget> on State<T> {
 }
 
 abstract class ViewModelState<T extends StatefulWidget> extends State<T>
-    with ViewModelStateScope, LiveDataScope {
-  @override
-  void dispose() {
-    destroyLiveData();
-    super.dispose();
-  }
+    with ViewModelStateScope {
+
 }

@@ -4,7 +4,9 @@ import 'package:flutter_boot/http.dart';
 
 /// ViewModel
 
-class ViewModel with LiveDataScope, Live {
+class ViewModel with Live {
+  final List<LiveData> _liveDataList = [];
+
   Function(VoidCallback)? _stateCall;
   Function(String message, {int? what, Object? data})? _notifyCall;
 
@@ -53,13 +55,31 @@ class ViewModel with LiveDataScope, Live {
   @override
   void destroy() {
     super.destroy();
-    destroyLiveData();
+    for (var liveDataItem in _liveDataList) {
+      liveDataItem.hostDispose = true;
+      liveDataItem.dispose();
+    }
+    _liveDataList.clear();
+  }
+
+  /// 创建 ViewModelState
+  /// notify 创建时是否更新状态
+  @Deprecated("replace with useLiveState")
+  LiveData<T> useState<T>(T value, [bool notify = false]) {
+    return useLiveState(value, notify);
+  }
+
+  /// 创建 ViewModelState
+  /// notify 创建时是否更新状态
+  LiveData<T> useLiveState<T>(T value, [bool notify = false]) {
+    var liveData = LiveData.useState(value, notify);
+    if (!_liveDataList.contains(liveData)) {
+      liveData.create();
+      _liveDataList.add(liveData);
+    }
+    return liveData;
   }
 }
-
-// class ActionViewModel extends ViewModel with OverlayActionMixin {
-//   ActionViewModel({super.key});
-// }
 
 class HttpViewModel extends ViewModel with AnHttpMixin {
   HttpViewModel({super.key});
