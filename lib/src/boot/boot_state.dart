@@ -55,13 +55,12 @@ mixin BootStateScope<T extends StatefulWidget> on State<T> {
     return vm;
   }
 
-  MethodPair<VoidValueCallback> useEventBus(MethodPair<VoidValueCallback> event,
+  void useEventBus(MethodPair<VoidValueCallback> event,
       {EventBus? bus}) {
     if (!eventMap.containsKey(event)) {
       eventMap[event] = bus ?? globalBus;
       eventMap[event]?.register(event.key, event.value);
     }
-    return event;
   }
 
   @override

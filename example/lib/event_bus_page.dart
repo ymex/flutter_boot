@@ -1,6 +1,7 @@
 import 'package:example/event_bus_next_page.dart';
 import 'package:example/event_bus_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_boot/boot.dart';
 import 'package:flutter_boot/core.dart';
 import 'package:flutter_boot/kits.dart';
 
@@ -13,30 +14,19 @@ class EventBusPage extends StatefulWidget {
   State<EventBusPage> createState() => _EventBusPageState();
 }
 
-class _EventBusPageState extends State<EventBusPage> with ViewModelStateScope {
-  EventBusViewModel viewModel = EventBusViewModel();
+class _EventBusPageState extends State<EventBusPage> with BootStateScope {
 
-  @override
-  List<ViewModel> useViewModels() {
-    return [viewModel];
-  }
+  late EventBusViewModel viewModel = useViewModel(EventBusViewModel());
 
   @override
   void initState() {
     super.initState();
     // 方式二
-    // 注册事件
-    globalBus.register("log_message", (data) {
+    useEventBus(MethodPair("log_message", (data) {
       logI("------log_message:${data}");
-    });
+    }));
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    // 销毁事件
-    globalBus.unregister("log_message");
-  }
 
   @override
   Widget build(BuildContext context) {
