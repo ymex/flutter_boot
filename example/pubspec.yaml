@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ^3.5.4
 
 
 dependencies:
@@ -16,8 +16,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_boot:
     path: ../../flutter_boot
-  json_annotation: ^4.8.1
-  cached_network_image: ^3.2.3
+  json_annotation: ^4.9.0
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -25,7 +25,7 @@ dev_dependencies:
 
   flutter_lints: ^3.0.1
   build_runner: ^2.4.8
-  json_serializable: ^6.7.1
+  json_serializable: ^6.8.0
 
 flutter:
   uses-material-design: true
